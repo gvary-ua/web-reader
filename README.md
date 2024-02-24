@@ -25,7 +25,7 @@ sudo apt install php8.3
 
 4. Install PHP extensions (modules)
 ```shell
-sudo apt-get install php8.3-dom php8.3-mysqli php8.3-mbstring
+sudo apt install php8.3-dom php8.3-mysqli php8.3-mbstring php8.3-curl
 ```
 
 ### How to install Composer
