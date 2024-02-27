@@ -1,5 +1,16 @@
 # Gvary web-reader
 
+- [Gvary web-reader](#gvary-web-reader)
+  - [About](#about)
+  - [How to install tools](#how-to-install-tools)
+    - [Installing PHP 8.3 (Linux)](#installing-php-83-linux)
+    - [How to install Composer](#how-to-install-composer)
+    - [How to install docker](#how-to-install-docker)
+    - [How to install NodeJS](#how-to-install-nodejs)
+  - [How to run locally](#how-to-run-locally)
+  - [How to authenticate SPA](#how-to-authenticate-spa)
+    - [How to make POST request?](#how-to-make-post-request)
+
 ## About
 
 Gvary web-reader is a Laravel 10 MPA (Multi Page Application).
@@ -190,3 +201,75 @@ npm run dev
 ```shell
 php artisan serve
 ```
+
+## How to authenticate SPA
+
+There is a good [official documentation](https://laravel.com/docs/10.x/sanctum#spa-authentication) that describes the theory. In this section we will take a look a the practice.
+
+1. Login to the MPA (path `127.0.0.1/login`)
+2. Get `laravel_session` cookies using dev tools
+3. Execute the next curl
+
+> Fill in value for `laravel_session` cookie. 
+> `Accept`, `Content-Type` and `Origin` headers are mandatory!
+
+```shell
+curl -v \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "Origin: http://localhost:3000" \
+-b "laravel_session=" \
+-b ./cookie.txt -c ./cookie.txt \
+127.0.0.1:8000/api/user
+```
+
+<details>
+  <summary>curl example</summary>
+
+```shell
+curl -v \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "Origin: http://localhost:3000" \
+-b "laravel_session=eyJpdiI6IlhSd3luWmsyaUpZUU1vSVR0QzdtRmc9PSIsInZhbHVlIjoiWDFOVVpHcmtVN1FvckcwNzRRb3BNL1QvaHZEL0dRaWErNnJjUWRHbmM2R0hiQUtvZ0EyblI3bjkyTDhHTngwMUZpaElsMjJCQmJCeGNFV3JLUUdpZDc2MWtROVlxcFA4MHl3QlpPdHBSbDVGWXc0cm1WNHVrd09oS0hvdXpjbmMiLCJtYWMiOiJiZjRhYjc5MzkzODBhMDJkYzU1YzdlMzIwN2I1MWM5YTUzNWY2ZmMzOWYwMWI4NTU3MDgyYmY1NmE2ZWY4YWRhIiwidGFnIjoiIn0%3D" \
+127.0.0.1:8000/api/user
+```
+</details>
+
+4. You should receive 200 - OK with response such as
+
+```json
+{"user_id":2,"login":"olen","email":"olen@olen.com","email_verified_at":null,"created_at":"2024-02-27T07:26:39.000000Z","updated_at":"2024-02-27T07:26:39.000000Z","pen_name":"olen","first_name":"olen","last_name":"olen"}
+```
+
+5. Now your session cookie is saved to `cookie.txt` file so you can make requests without `-b` flag. E.g:
+
+```shell
+curl -v \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "Origin: http://localhost:3000" \
+-b ./cookie.txt -c ./cookie.txt \
+127.0.0.1:8000/api/user
+```
+
+### How to make POST request?
+
+You should add `X-XSRF-TOKEN` header to your request. Copy value of `XSRF-TOKEN` cookie from your `cookie.txt`.
+
+> Note: Do NOT copy last three symbols `%3D`!
+
+Example:
+
+```shell
+curl \
+-H "Accept: application/json" \
+-H "Content-Type: application/json" \
+-H "Origin: http://localhost:3000" \
+-b ./cookie.txt -c ./cookie.txt \
+-H "X-XSRF-TOKEN: eyJpdiI6IkV0Z1FTMnpKNFVKbWgzVHdJRGlRS1E9PSIsInZhbHVlIjoiRWZnSk5rZk9VN0xBZGxTNVduSVFWMFdxdmpGK3N0d1VWcks4bmVDSVR2YlhLQ1E2a0JNVlhsYTd6RjRaUm5uMTRGMHFUejRiL0QwWHJZZytCSXRESFRJS1JFVzE4UFJsVVRmV2dBNTQ1a3BTZjAzSWkxN0U5S2dNMGc1TWtka2MiLCJtYWMiOiIwOTA2ZDQyMjZjNmJkODMwODQ5MzE1NDhlZDE4YmU4N2VlY2I3MDkyNTkyNzcwZjczYWQwYzU2ZWY3Mzc0Yjc3IiwidGFnIjoiIn0" \
+-X POST \
+-d '{"title": "chapter one", "cover_id": 4}' \
+127.0.0.1:8000/api/chapters
+```
+
