@@ -14,10 +14,7 @@ class Chapter extends Model
 
     protected $fillable = [
         'cover_id',
-        'title',
-        'public',
-        'word_count',
-        'published_at'
+        'title'
     ];
 
     protected $casts = [
@@ -28,6 +25,7 @@ class Chapter extends Model
 
     protected $dates = [
         'created_at',
-        'updated_at'
+        'updated_at',
+        'published_at'
     ];
 }
