@@ -14,7 +14,8 @@ class Chapter extends Model
 
     protected $fillable = [
         'cover_id',
-        'title'
+        'title',
+        'block_ids'
     ];
 
     protected $casts = [
