@@ -7,14 +7,22 @@ use App\Http\Requests\Api\V1\IndexChapterRequest;
 use App\Http\Requests\Api\V1\StoreChapterRequest;
 use App\Http\Requests\Api\V1\UpdateChapterRequest;
 use App\Http\Resources\V1\ChapterCollection;
-use Illuminate\Http\Request;
 use App\Http\Resources\V1\ChapterResource;
 use App\Models\Chapter;
 
+/**
+ * @group Chapters APIs
+ * 
+ * APIs for managing chapters.
+ * 
+ * @authenticated
+ */
 class ChapterController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Retrieve all chapters associated with a specific cover.
+     *
+     * @queryParam coverId integer required The ID of the cover this chapter is associated with.
      */
     public function index(IndexChapterRequest $request)
     {
@@ -22,7 +30,10 @@ class ChapterController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Create a new chapter.
+     * 
+     * @bodyParam title string required The title of the chapter.
+     * @bodyParam coverId integer required The ID of the cover this chapter is associated with.
      */
     public function store(StoreChapterRequest $request)
     {
@@ -30,7 +41,9 @@ class ChapterController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Get a chapter by its ID.
+     * 
+     * @urlparam id integer required The ID of the chapter.
      */
     public function show(Chapter $chapter)
     {
@@ -39,6 +52,9 @@ class ChapterController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 
+     * @urlparam id integer required The ID of the chapter.
+     * @bodyParam title string required The title of the chapter.
      */
     public function update(UpdateChapterRequest $request, Chapter $chapter)
     {
@@ -46,7 +62,10 @@ class ChapterController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Deletes a chapter.
+     * 
+     * @urlparam id integer required The ID of the chapter.
+     * @response 204
      */
     public function destroy(int $id)
     {
