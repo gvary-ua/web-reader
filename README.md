@@ -10,6 +10,7 @@
   - [How to run locally](#how-to-run-locally)
   - [How to authenticate SPA](#how-to-authenticate-spa)
     - [How to make POST request?](#how-to-make-post-request)
+  - [How to generate API documentation](#how-to-generate-api-documentation)
 
 ## About
 
@@ -273,3 +274,15 @@ curl \
 127.0.0.1:8000/api/chapters
 ```
 
+## How to generate API documentation
+
+1. [Setup application](#how-to-run-locally)
+2. Run
+   
+```
+php artisan scribe:generate
+```
+
+3. Navigate to `public/docs/index.html`
+
+> Note: There is also a Postman collection and OpenAPI spec generated!
