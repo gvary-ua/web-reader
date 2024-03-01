@@ -8,12 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Block extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'block_id';
+    protected $primaryKey = 'block_nanoid_10';
     public $incrementing = false;
     protected $keyType = 'string';
     protected $fillable = [
         'block_nanoid_10',
-        'chapter_id',
         'block_type_id',
         'data',
         'word_count'
