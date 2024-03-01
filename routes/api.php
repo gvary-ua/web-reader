@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\BlocksApi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\ChapterController;
@@ -22,5 +23,6 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::group(['prefix' => 'v1'],  function () {
         Route::apiResource('chapters', ChapterController::class);
+        Route::post('chapters/{chapterId}/blocks', [BlocksApi::class, 'bulkStore']);
     });
 });
