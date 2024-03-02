@@ -24,5 +24,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::group(['prefix' => 'v1'],  function () {
         Route::apiResource('chapters', ChapterController::class);
         Route::post('chapters/{chapterId}/blocks', [BlocksApi::class, 'bulkStore']);
+        Route::get('chapters/{chapterId}/blocks', [BlocksApi::class, 'index']);
     });
 });

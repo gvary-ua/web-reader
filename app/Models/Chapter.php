@@ -19,6 +19,7 @@ class Chapter extends Model
     ];
 
     protected $casts = [
+        'block_ids'=> 'array', // 'block_ids' is a JSON array
         'public' => 'boolean',
         'word_count' => 'integer',
         'published_at' => 'datetime',
