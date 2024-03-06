@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        DB::statement("ALTER TABLE chapters ADD COLUMN 'block_ids' JSON NOT NULL DEFAULT (JSON_ARRAY()) AFTER word_count");
+        DB::statement("ALTER TABLE chapters ADD COLUMN block_ids JSON NOT NULL DEFAULT (JSON_ARRAY()) AFTER word_count");
     }
 
     /**
