@@ -11,6 +11,9 @@
   - [How to authenticate SPA](#how-to-authenticate-spa)
     - [How to make POST request?](#how-to-make-post-request)
   - [How to generate API documentation](#how-to-generate-api-documentation)
+  - [How to deploy using Laravel Forge](#how-to-deploy-using-laravel-forge)
+    - [Initial deploy](#initial-deploy)
+    - [Day-to-day deploy](#day-to-day-deploy)
 
 ## About
 
@@ -286,3 +289,42 @@ php artisan scribe:generate
 3. Navigate to `public/docs/index.html`
 
 > Note: There is also a Postman collection and OpenAPI spec generated!
+
+## How to deploy using Laravel Forge
+
+### Initial deploy
+
+1. Created `forge` user in AWS IAM
+2. Created access keys for `forge` user
+3. Logged into [Forge](https://forge.laravel.com/)
+4. Created new server
+5. Deleted `default` site
+6. Created `dev.gvary.com` site
+7. Install `gvary-ua/web-reader` GitHub repo
+8. Clicked `Deploy now`
+9. Created A DNS record pointing to public IP
+10. Created `Let's Encrypt` certificate for SSL/TLS
+11. Configured `.env` file with following
+
+```env
+APP_URL="https://dev.gvary.com"
+
+SANCTUM_STATEFUL_DOMAINS=editor.dev.gvary.com,dev.gvary.com
+SESSION_DOMAIN=.dev.gvary.com
+SESSION_SECURE_COOKIE=true
+```
+
+12. Added steps to build public assets
+
+```shell
+# For public/ folder
+npm ci
+npm run build
+rm -rf node_modules
+```
+
+### Day-to-day deploy
+
+1. Go to `Deployments` tab
+2. Choose your branch and press `Update`
+3. Press `Deploy now`
