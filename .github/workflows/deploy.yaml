@@ -1,0 +1,63 @@
+name: Deploy
+run-name: ${{ github.actor }} is deploying ${{ github.ref_name }} to ${{ inputs.environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      
+      - name: Build /public
+        run: |
+          npm ci
+          npm run build
+      
+      - name: Install Forge CLI
+        run: |
+          npm install -g @forge/cli@^7.0.0
+      
+      - name: List settings for Forge
+        run: |
+          forge settings list
+        env:
+          FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
+      
+      # TODO set branch for forge-cli
+      
+      # TODO deploy
+      # - name: Deploy Site
+      #   run: |
+      #     forge server:switch your-server-name
+      #     forge deploy your-site-name.com
+      #   env:
+      #     FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
