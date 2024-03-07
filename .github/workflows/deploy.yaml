@@ -1,0 +1,49 @@
+name: Deploy
+run-name: ${{ github.actor }} is deploying ${{ github.ref_name }} to ${{ inputs.environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to deploy to
+        required: true
+        type: environment
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          tools: composer:v2
+          coverage: none
+
+      - name: Install Forge CLI
+        run: |
+          composer global require laravel/forge-cli
+      
+      - name: Set Deployment Branch
+        run: |
+          forge server:switch ${{ vars.SERVER }}
+          forge env:pull ${{ vars.SITE }} .env
+          sed -ri "s/DEPLOYMENT_BRANCH=(.*)/DEPLOYMENT_BRANCH=${{ github.ref_name }}/" .env
+          forge env:push  ${{ vars.SITE }} .env
+        env:
+          FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
+            
+      - name: Deploy Site
+        run: |
+          forge deploy  ${{ vars.SITE }}
+        env:
+          FORGE_API_TOKEN: ${{ secrets.FORGE_API_TOKEN }}
