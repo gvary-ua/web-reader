@@ -11,9 +11,10 @@
   - [How to authenticate SPA](#how-to-authenticate-spa)
     - [How to make POST request?](#how-to-make-post-request)
   - [How to generate API documentation](#how-to-generate-api-documentation)
-  - [How to deploy using Laravel Forge](#how-to-deploy-using-laravel-forge)
+  - [How to initial deploy using Laravel Forge](#how-to-initial-deploy-using-laravel-forge)
     - [Initial deploy](#initial-deploy)
     - [Day-to-day deploy](#day-to-day-deploy)
+  - [How to deploy using GitHub Actions (Preferred way)](#how-to-deploy-using-github-actions-preferred-way)
 
 ## About
 
@@ -290,7 +291,7 @@ php artisan scribe:generate
 
 > Note: There is also a Postman collection and OpenAPI spec generated!
 
-## How to deploy using Laravel Forge
+## How to initial deploy using Laravel Forge
 
 ### Initial deploy
 
@@ -325,6 +326,16 @@ rm -rf node_modules
 
 ### Day-to-day deploy
 
+> Note: Deploy script is adapted to GH Actions and won't work with Forge Branch you update on web site.
+
 1. Go to `Deployments` tab
 2. Choose your branch and press `Update`
 3. Press `Deploy now`
+
+## How to deploy using GitHub Actions (Preferred way)
+
+1. Go to [web-reader - Deploy](https://github.com/gvary-ua/web-reader/actions/workflows/deploy.yaml)
+2. Press `Run workflow`
+3. Select your branch and env to deploy
+4. Press green `Run workflow`
+5. Done!
