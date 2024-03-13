@@ -7,24 +7,11 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-
-    <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
   </head>
-  <body class="text-gray-900 font-sans antialiased">
-    <div class="bg-gray-100 dark:bg-gray-900 flex min-h-screen flex-col items-center pt-6 sm:justify-center sm:pt-0">
-      <div>
-        <a href="/">
-          <x-application-logo class="fill-current text-gray-500 h-20 w-20" />
-        </a>
-      </div>
-
-      <div class="bg-white dark:bg-gray-800 mt-6 w-full overflow-hidden px-6 py-4 shadow-md sm:max-w-md sm:rounded-lg">
-        {{ $slot }}
-      </div>
-    </div>
+  <body>
+    <main>
+      {{ $slot }}
+    </main>
   </body>
 </html>
