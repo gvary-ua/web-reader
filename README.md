@@ -2,6 +2,7 @@
 
 - [Gvary web-reader](#gvary-web-reader)
   - [About](#about)
+  - [Contributing](#contributing)
   - [How to install tools](#how-to-install-tools)
     - [Installing PHP 8.3 (Linux)](#installing-php-83-linux)
     - [How to install Composer](#how-to-install-composer)
@@ -19,6 +20,19 @@
 ## About
 
 Gvary web-reader is a Laravel 10 MPA (Multi Page Application).
+
+## Contributing
+
+We use VS Code as our IDE, so all setup is done for it.
+
+You **must** install the next plugins:
+
+- [Laravel Pint](https://marketplace.visualstudio.com/items?itemName=open-southeners.laravel-pint) - for formatting PHP files
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) - for formatting JS, TS, Blade files
+- [Tailwind CSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) - for autocompletion with values from our .tailwind config
+- [Markdown All in One](https://marketplace.visualstudio.com/items?itemName=yzhang.markdown-all-in-one) - for formatting .md files (mostly readme)
+
+You are ready to contribute! Formatting should work out of the box because we have workspace overrides in defined `.vscode/settings.json`
 
 ## How to install tools
 
