@@ -20,8 +20,11 @@
   }
 
   switch ($size) {
-    case 'sm':
+    case 'xs':
       $sizeClasses = 'pb-2 pl-5 pr-5 pt-2 text-xs';
+      break;
+    case 'sm':
+      $sizeClasses = 'pb-2 pl-6 pr-6 pt-2 text-xs';
       break;
     case 'base':
     default:
