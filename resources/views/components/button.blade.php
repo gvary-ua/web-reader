@@ -36,6 +36,7 @@
   if ($iconPosition === 'right') {
     $iconPositionClasses = 'flex-row-reverse';
   }
+  $icon = '';
 @endphp
 
 <button
@@ -46,6 +47,9 @@
     ])
   }}
 >
-  <img src="{{ $icon }}" alt="icon" />
+  @if ($icon)
+    <img src="{{ $icon }}" alt="icon" />
+  @endif
+
   {{ $slot }}
 </button>
