@@ -1,3 +1,5 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face { font-family: "Roslindale Cyrillic"; src: url('/public/fonts/RoslindaleCyrillicText-Regular.otf'); } 
