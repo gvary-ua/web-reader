@@ -14,6 +14,7 @@ export default {
     extend: {
       fontFamily: {
         robotoFlex: 'Roboto Flex, sans-serif',
+        roslindaleCyrillic: 'Roslindale Cyrillic, sans serif',
       },
       borderRadius: {
         10: '2.5rem',
