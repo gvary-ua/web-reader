@@ -40,12 +40,17 @@
     $iconPositionClasses = 'flex-row-reverse';
   }
   $icon = '';
+
+  if ($attributes['type']) {
+    $tag = 'button';
+  } else {
+    $tag = 'a';
+  }
 @endphp
 
-<button
+<{{ $tag }}
   {{
     $attributes->merge([
-      'type' => 'button',
       'class' => implode(' ', [$alignmentClasses, $sizeClasses, $iconPositionClasses, 'font-robotoFlex disabled:opacity-40 inline-block rounded-10 w-fit leading-4 flex gap-2.5 font-medium flex items-center justify-center']),
     ])
   }}
@@ -55,4 +60,4 @@
   @endif
 
   {{ $slot }}
-</button>
+</{{ $tag }}>
