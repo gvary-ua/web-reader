@@ -22,6 +22,8 @@
     <br class="sm:hidden" />
     твоєї уваги
   </x-p>
-  <x-button variant="primary" size="2xl" class="mt-12 w-full sm:w-fit">Доєднатися</x-button>
+  <x-button href="{{route('register')}}" variant="primary" size="2xl" class="mt-12 w-full sm:w-fit">
+    Доєднатися
+  </x-button>
   <x-gvary-comment class="mb-[-5rem] mt-8" />
 </section>

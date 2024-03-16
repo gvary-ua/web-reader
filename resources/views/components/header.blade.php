@@ -11,7 +11,7 @@
       @endauth
 
       @guest
-        <x-button variant="primary" size="base">Увійти</x-button>
+        <x-button href="{{ route('login') }}" variant="primary" size="base">Увійти</x-button>
       @endguest
     </div>
   </div>
