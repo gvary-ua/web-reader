@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var string
      */
     protected $primaryKey = 'user_id';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,7 +32,6 @@ class User extends Authenticatable
         'first_name',
         'last_name',
     ];
-
 
     /**
      * The attributes that should be hidden for serialization.
