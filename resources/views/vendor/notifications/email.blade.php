@@ -44,15 +44,14 @@ default => 'primary',
 @lang('Regards')
 ,
 <br />
-{{ config('app.name') }}
+{{ __(config('app.name')) }}
 @endif
 
 {{-- Subcopy --}}
 @isset($actionText)
 <x-slot:subcopy>
 @lang(
-"If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n" .
-'into your web browser:',
+"If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n into your web browser:",
 [
 'actionText' => $actionText,
 ]
