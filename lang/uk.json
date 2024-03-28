@@ -6,5 +6,7 @@
     "Verify Registration": "Підтвердити реєстрацію",
     "If you did not create an account, no further action is required.": "Якщо ви не створювали обліковий запис, додаткові дії не потрібні.",
     "Regards": "З повагою",
-    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n into your web browser:": "Якщо ви маєте проблеми з натисканням кнопки \":actionText\", скопіюйте та вставте це посилання\n у ваш веб-браузер:"
+    "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\n into your web browser:": "Якщо ви маєте проблеми з натисканням кнопки \":actionText\", скопіюйте та вставте це посилання\n у ваш веб-браузер:",
+    "My profile": "Мій профіль",
+    "Logout": "Вийти"
 }
