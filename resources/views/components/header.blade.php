@@ -1,16 +1,30 @@
 <header
-  class="min flex h-14 w-full items-center justify-between bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
+  class="flex h-14 w-full items-center justify-between bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
 >
   <x-logo withText class="h-full cursor-pointer" />
-  <div>
-    <!-- TODO: Fetch name and logo if authenticated-->
+  <div x-data="{ open: false }">
     @auth
       <!-- For mobile -->
-      <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer md:hidden" />
-
+      <div class="md:hidden">
+        <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
+        <!-- Dropdown menu -->
+        <div class="fixed left-0 top-0 z-50 min-h-full min-w-full bg-background" x-show="open">
+          <div
+            class="flex h-14 w-full items-center justify-end bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
+          >
+            <img src="/icons/close.svg" alt="Close menu" class="h-full cursor-pointer" x-on:click="open = !open" />
+          </div>
+          <div class="px-4 py-8">
+            <x-links.about-us class="border-b border-b-surface-1 py-4" />
+            <x-links.my-profile class="border-b border-b-surface-1 py-4" />
+            <x-links.logout class="border-b border-b-surface-1 py-4" />
+          </div>
+        </div>
+      </div>
       <!-- For desktop -->
-      <div class="relative" x-data="{ open: false }">
-        <div class="hidden cursor-pointer flex-row items-center md:flex" x-on:click="open = !open">
+      <div class="relative hidden gap-x-8 md:flex">
+        <x-links.about-us class="px-4 py-2" />
+        <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
           <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->login }}</span>
         </div>
@@ -20,15 +34,8 @@
           x-show="open"
           @click.outside="open = false"
         >
-          <a class="block px-2 py-1" href="{{ route('profile.index') }}">
-            <x-p>{{ __('My profile') }}</x-p>
-          </a>
-          <form class="block px-2 py-1" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <button class="block align-top leading-[1.15]" type="submit">
-              <x-p>{{ __('Logout') }}</x-p>
-            </button>
-          </form>
+          <x-links.my-profile class="px-2 py-1" />
+          <x-links.logout class="px-2 py-1" />
         </div>
       </div>
     @endauth
