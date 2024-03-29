@@ -19,6 +19,10 @@ Route::get('/', function () {
     return view('index');
 });
 
+Route::get('/about', function () {
+    return view('about');
+});
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('profile', ProfileController::class);
 });
