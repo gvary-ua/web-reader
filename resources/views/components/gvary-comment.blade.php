@@ -7,5 +7,5 @@
       підібрали для тебе найкраще!
     </x-p>
   </div>
-  <x-logo class="ml-auto mr-[5%]" />
+  <img class="ml-auto mr-[5%]" src="/icons/logo.svg" alt="Logo svg" />
 </div>
