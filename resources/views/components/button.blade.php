@@ -1,7 +1,7 @@
 @props([
   'variant' => 'primary',
   'size' => 'base',
-  'icon',
+  'icon' => '',
   'iconPosition' => 'right',
 ])
 
@@ -39,7 +39,6 @@
   if ($iconPosition === 'right') {
     $iconPositionClasses = 'flex-row-reverse';
   }
-  $icon = '';
 
   if ($attributes['type']) {
     $tag = 'button';
