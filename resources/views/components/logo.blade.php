@@ -1,4 +1,4 @@
-<a class="inline-block" href="/">
+<a href="/">
   @if ($attributes->has('withText'))
     <img {{ $attributes }} src="/icons/logo-text.svg" alt="Logo svg" />
   @else
