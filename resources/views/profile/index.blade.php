@@ -23,7 +23,7 @@
           size="xs"
           icon="/icons/edit-white.svg"
           iconPosition="right"
-          href="{{ route('profile.edit', ['profile' => $user]) }}"
+          href="{{ route('settings.profile', ['user' => $user]) }}"
         >
           <x-p size="base">{{ __('Edit') }}</x-p>
         </x-button>
@@ -32,7 +32,7 @@
           class="sm:hidden"
           size="xs"
           icon="/icons/edit-white.svg"
-          href="{{ route('profile.edit', ['profile' => $user]) }}"
+          href="{{ route('settings.profile', ['user' => $user]) }}"
         ></x-button>
       </span>
     </div>
