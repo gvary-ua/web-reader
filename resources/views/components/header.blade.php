@@ -8,7 +8,7 @@
       <div class="md:hidden">
         <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
         <!-- Dropdown menu -->
-        <div class="fixed left-0 top-0 z-50 min-h-full min-w-full bg-background" x-show="open">
+        <div class="fixed left-0 top-0 z-50 min-h-full min-w-full bg-background" x-cloak x-show="open">
           <div
             class="flex h-14 w-full items-center justify-end bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
           >
@@ -31,6 +31,7 @@
         <!-- Dropdown menu -->
         <div
           class="absolute left-1/2 top-[calc(100%+6px)] z-50 -translate-x-1/2 whitespace-nowrap rounded-[4px] bg-background p-1 shadow-[0px_0px_8px_0px_#00000014,0px_8px_32px_0px_#00114D29]"
+          x-cloak
           x-show="open"
           @click.outside="open = false"
         >

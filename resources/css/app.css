@@ -3,3 +3,5 @@
 @tailwind utilities;
 
 @font-face { font-family: "Roslindale Cyrillic"; src: url('/public/fonts/RoslindaleCyrillicText-Regular.otf'); } 
+
+[x-cloak] { display: none !important; }
