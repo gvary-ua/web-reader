@@ -1,6 +1,6 @@
 <x-guest-layout>
   <div class="mx-auto flex max-w-96 items-end justify-center p-8 text-on-background-1">
-    <x-p class="mt-2 text-center" size="2xl">Реєстрація до</x-p>
+    <x-p class="mt-2 text-center" size="2xl">{{ __('Sign up to') }}</x-p>
     <a href="{{ url('/') }}"><x-logo withText class="ml-2 cursor-pointer" /></a>
   </div>
 
@@ -34,7 +34,7 @@
         class="mt-4"
         id="password"
         type="password"
-        label="Пароль:"
+        label="Password:"
         autocomplete="new-password"
         name="password"
         required
@@ -45,7 +45,7 @@
         class="mt-4"
         id="password_confirmation"
         type="password"
-        label="Підтвердіть пароль:"
+        label="Confirm password:"
         autocomplete="new-password"
         name="password_confirmation"
         required
@@ -53,21 +53,23 @@
       />
 
       <x-p size="xs" class="mt-4">
-        Натискаючи кнопку
-        <i>Зареєструватися</i>
-        , Ви погоджуєтеся з умовами
-        <a href="/" class="text-warning">Угоди користування</a>
-        та
-        <a href="/" class="text-warning">Політики конфіденційності</a>
+        {{ __('By pressing the button') }}
+        <i>{{ __('Sign up') }}</i>
+        {{ __(', you are agreeing with ') }}
+        <a href="/" class="text-warning">{{ __('Terms of use') }}</a>
+        {{ __('and') }}
+        <a href="/" class="text-warning">{{ __('Privacy policy') }}</a>
       </x-p>
 
-      <x-button class="mt-4 w-full" type="submit" variant="primary" size="base">Зареєструватися</x-button>
+      <x-button class="mt-4 w-full" type="submit" variant="primary" size="base">
+        {{ __('Sign up') }}
+      </x-button>
     </form>
 
     <div class="mt-4 text-center">
-      <x-p size="base" class="text-on-background-1">Вже маєте аккаунт?</x-p>
+      <x-p size="base" class="text-on-background-1">{{ __('Already have an account?') }}</x-p>
       <a href="{{ route('login') }}">
-        <x-p size="base" class="mt-1 text-warning">Увійти</x-p>
+        <x-p size="base" class="mt-1 text-warning">{{ __('Sign in') }}</x-p>
       </a>
     </div>
   </div>
