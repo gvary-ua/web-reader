@@ -42,8 +42,12 @@
     @endauth
 
     @guest
-      <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">Увійти</x-button>
-      <x-button class="hidden sm:block" href="{{ route('login') }}" variant="primary" size="base">Увійти</x-button>
+      <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">
+        {{ __('Sign in') }}
+      </x-button>
+      <x-button class="hidden sm:block" href="{{ route('login') }}" variant="primary" size="base">
+        {{ __('Sign in') }}
+      </x-button>
     @endguest
   </div>
 </header>

@@ -26,7 +26,7 @@
 <div class="{{ $class }}">
   @if ($label)
     <label for="{{ $id }}">
-      <x-p class="mb-2" size="lg">{{ $label }}</x-p>
+      <x-p class="mb-2" size="lg">{{ __($label) }}</x-p>
     </label>
   @endif
 
