@@ -1,7 +1,8 @@
 <header
   class="flex h-14 w-full items-center justify-between bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
 >
-  <x-logo withText class="h-full cursor-pointer" />
+  <a class="h-full" href="{{ url('/') }}"><x-logo class="h-full" withText /></a>
+
   <div x-data="{ open: false }">
     @auth
       <!-- For mobile -->

@@ -6,7 +6,7 @@
   @endsession
 
   <div class="m-auto mt-3 max-w-96 p-8 text-on-background-1">
-    <a href="{{ url('/') }}"><x-logo class="m-auto cursor-pointer" /></a>
+    <a href="{{ url('/') }}"><x-logo class="m-auto" /></a>
     <x-p class="mt-2 text-center" size="2xl">{{ __('Sign into Gvary') }}</x-p>
   </div>
 
