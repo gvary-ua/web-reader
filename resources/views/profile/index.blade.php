@@ -16,25 +16,27 @@
           <x-p size="base" class="on-background-2">&commat;{{ $user->login }}</x-p>
         @endif
       </span>
-      <span>
-        <!-- Desktop button -->
-        <x-button
-          class="hidden sm:flex"
-          size="xs"
-          icon="/icons/edit-white.svg"
-          iconPosition="right"
-          href="{{ route('settings.profile', ['user' => $user]) }}"
-        >
-          <x-p size="base">{{ __('Edit') }}</x-p>
-        </x-button>
-        <!-- Mobile button -->
-        <x-button
-          class="sm:hidden"
-          size="xs"
-          icon="/icons/edit-white.svg"
-          href="{{ route('settings.profile', ['user' => $user]) }}"
-        ></x-button>
-      </span>
+      @can('update', $user)
+        <span>
+          <!-- Desktop button -->
+          <x-button
+            class="hidden sm:flex"
+            size="xs"
+            icon="/icons/edit-white.svg"
+            iconPosition="right"
+            href="{{ route('settings.profile', ['user' => $user]) }}"
+          >
+            <x-p size="base">{{ __('Edit') }}</x-p>
+          </x-button>
+          <!-- Mobile button -->
+          <x-button
+            class="sm:hidden"
+            size="xs"
+            icon="/icons/edit-white.svg"
+            href="{{ route('settings.profile', ['user' => $user]) }}"
+          ></x-button>
+        </span>
+      @endcan
     </div>
   </section>
   <section>

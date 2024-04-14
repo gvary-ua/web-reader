@@ -25,10 +25,12 @@ Route::get('/about', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+
     Route::get('profile/{user}/settings/profile', [ProfileController::class, 'editProfile'])->name('settings.profile');
-    Route::put('profile/{user}/settings/profile', [ProfileController::class, 'updateProfile'])->name('settings.profile.update');
     Route::get('profile/{user}/settings/account', [ProfileController::class, 'editAccount'])->name('settings.account');
     Route::get('profile/{user}/settings/security', [ProfileController::class, 'editSecurity'])->name('settings.security');
+    Route::put('profile/{user}/settings/profile', [ProfileController::class, 'updateProfile'])->name('settings.profile.update');
 });
 
 // Email Verification Routes...
