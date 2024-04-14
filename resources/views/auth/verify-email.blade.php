@@ -1,8 +1,10 @@
 <x-guest-layout>
   <div class="mx-auto max-w-96 p-8 text-center text-on-background-1">
-    <x-p class="mt-2" size="2xl">Дякуюмо за реєстрацію до</x-p>
-    <a class="mx-auto inline-block cursor-pointer" href="{{ url('/') }}"><x-logo withText /></a>
-    <x-p class="mt-2" size="base">Ми надіслали вам листа для підтвердження на електронну пошту.</x-p>
+    <x-p class="mt-2" size="2xl">{{ __('Thank you for joining') }}</x-p>
+    <a class="mx-auto inline-block" href="{{ url('/') }}"><x-logo withText /></a>
+    <x-p class="mt-2" size="base">
+      {{ __('We have sent you a confirmation email.') }}
+    </x-p>
   </div>
 
   <div class="m-auto max-w-96 rounded-lg p-8">
@@ -11,7 +13,7 @@
 
       <div>
         <x-button type="submit" variant="primary" size="base" class="mx-auto">
-          {{ __('Повторно відправити листа') }}
+          {{ __('Resend the email') }}
         </x-button>
       </div>
     </form>
@@ -20,7 +22,7 @@
       @csrf
 
       <x-button type="submit" variant="secondary-2" size="base" class="mx-auto mt-2">
-        {{ __('Вийти') }}
+        {{ __('Sign out') }}
       </x-button>
     </form>
   </div>

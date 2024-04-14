@@ -48,5 +48,8 @@
     "First name:": "Ім'я:",
     "Last name:": "Прізвище:",
     "Save": "Зберегти",
-    "Profile updated!": "Профіль оновлено!"
+    "Profile updated!": "Профіль оновлено!",
+    "Resend the email": "Відправити лист ще раз",
+    "We have sent you a confirmation email.": "Ми відправили вам лист з підтвердженням.",
+    "Thank you for joining": "Дякуюмо за реєстрацію до"
 }

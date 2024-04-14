@@ -1,7 +1,7 @@
 <x-guest-layout>
   <div class="mx-auto flex max-w-96 items-end justify-center p-8 text-on-background-1">
     <x-p class="mt-2 text-center" size="2xl">{{ __('Sign up to') }}</x-p>
-    <a href="{{ url('/') }}"><x-logo withText class="ml-2 cursor-pointer" /></a>
+    <a href="{{ url('/') }}"><x-logo withText class="ml-2" /></a>
   </div>
 
   <div class="m-auto max-w-96 rounded-lg p-8 sm:shadow-[2px_2px_10px_0px_#00000040]">
