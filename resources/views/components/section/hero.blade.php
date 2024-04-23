@@ -1,7 +1,7 @@
 <section
   {{
     $attributes->merge([
-      'class' => 'relative bg-secondary-1 text-on-secondary-1 ',
+      'class' => 'relative bg-secondary-1 text-on-secondary-1 px-4 py-10 sm:px-10 md:px-14 lg:px-16',
     ])
   }}
 >
