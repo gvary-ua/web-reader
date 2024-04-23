@@ -21,5 +21,6 @@
     <main>
       {{ $slot }}
     </main>
+    <x-section.footer />
   </body>
 </html>
