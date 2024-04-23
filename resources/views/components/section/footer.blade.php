@@ -1,4 +1,4 @@
-<footer class="bg-surface-1 px-4 pb-14 pt-14 sm:px-20 sm:pb-9 sm:pt-16">
+<footer class="bg-surface-1 px-4 py-14 sm:px-20 sm:pb-9 sm:pt-16">
   <a class="h-full" href="{{ url('/') }}"><x-logo class="h-full" withText /></a>
   <div class="mt-12 flex flex-wrap justify-between gap-12 sm:mt-8">
     <ul class="space-y-[10px]">
