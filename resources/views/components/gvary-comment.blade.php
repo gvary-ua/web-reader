@@ -11,6 +11,6 @@
       {{ __('we\'ve got the best for you!') }}
     </x-p>
     <!-- Magic number. Questions? -->
-    <img class="relative left-[87%]" src="/icons/logo.svg" alt="Logo svg" />
+    <img class="relative left-[80%]" src="/icons/logo.svg" alt="Logo svg" />
   </div>
 </div>
