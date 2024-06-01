@@ -69,5 +69,15 @@
     "Monetise": "Монетизуйся",
     "The platform's algorithms provide promotion, and it is possible to support the author with donations": "Алгоритми платформи забезпечують просування, є можливість підтримати автора донатами",
     "Network": "Спілкуйся",
-    "A platform for like-minded people, support and reasonable criticism": "Платформа однодумців, підтримки та доцільної критики"
+    "A platform for like-minded people, support and reasonable criticism": "Платформа однодумців, підтримки та доцільної критики",
+    "No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.": "Нічого страшного. Просто повідомте нам свою електронну адресу, і ми надішлемо вам посилання для скидання пароля, за яким ви зможете обрати новий.",
+    "We have emailed your password reset link.": "Ми надіслали вам на електронну пошту посилання для відновлення паролю.",
+    "sent": "Ми надіслали вам на електронну пошту посилання для відновлення паролю.",
+    "Email Password Reset Link": "Надіслати посилання",
+    "Hello!": "Привіт!",
+    "You are receiving this email because we received a password reset request for your account.": "Ви отримуєте цей лист, тому що ми отримали запит на зміну пароля для вашого облікового запису.",
+    "This password reset link will expire in :count minutes.": "Термін дії цього посилання для скидання пароля закінчується через :count хвилин.",
+    "If you did not request a password reset, no further action is required.": "Якщо ви не надсилали запит на зміну пароля, жодних подальших дій не потрібно.",
+    "Reset Password": "Скинути пароль",
+    "Reset Password Notification": "Cкидання пароля"
 }
