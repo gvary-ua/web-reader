@@ -1,10 +1,4 @@
 <x-guest-layout>
-  @session('status')
-    <div class="bg-green-100 p-4">
-      {{ $value }}
-    </div>
-  @endsession
-
   <div class="m-auto mt-3 max-w-96 p-8 text-on-background-1">
     <a href="{{ url('/') }}"><x-logo class="m-auto" /></a>
     <x-p class="mt-2 text-center" size="2xl">{{ __('Sign into Gvary') }}</x-p>
@@ -41,6 +35,8 @@
       </a>
 
       <x-button class="mt-14 w-full" type="submit" variant="primary" size="base">{{ __('Sign in') }}</x-button>
+
+      <x-p class="mt-4 text-center text-success">{{ session('status') }}</x-p>
     </form>
 
     <div class="mt-5 text-center">
