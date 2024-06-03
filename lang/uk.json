@@ -80,5 +80,7 @@
     "If you did not request a password reset, no further action is required.": "Якщо ви не надсилали запит на зміну пароля, жодних подальших дій не потрібно.",
     "Reset Password": "Скинути пароль",
     "Reset Password Notification": "Cкидання пароля",
-    "My books": "Мої твори"
+    "My books": "Мої твори",
+    "Write book": "Написати книгу",
+    "Write verse": "Написати вірш"
 }

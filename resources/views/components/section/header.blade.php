@@ -19,6 +19,8 @@
             <x-links.about-us class="border-b border-b-surface-1 py-4" />
             <x-links.my-profile class="border-b border-b-surface-1 py-4" />
             <x-links.my-books class="border-b border-b-surface-1 py-4" />
+            <x-links.write-book class="border-b border-b-surface-1 py-4" />
+            <x-links.write-verse class="border-b border-b-surface-1 py-4" />
             <x-links.logout class="border-b border-b-surface-1 py-4" />
           </div>
         </div>
@@ -27,6 +29,8 @@
       <div class="relative hidden gap-x-8 md:flex">
         <x-links.about-us class="px-4 py-2" />
         <x-links.my-books class="px-4 py-2" />
+        <x-links.write-book class="px-4 py-2" />
+        <x-links.write-verse class="px-4 py-2" />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
           <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->login }}</span>

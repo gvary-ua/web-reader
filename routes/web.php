@@ -33,6 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('profile/{user}/settings/profile', [ProfileController::class, 'updateProfile'])->name('settings.profile.update');
 
     Route::get('profile/{user}/books', [ProfileBooksController::class, 'index'])->name('profile.books.index');
+    Route::post('profile/{user}/books', [ProfileBooksController::class, 'store'])->name('profile.books.create');
 });
 
 require __DIR__.'/auth.php';
