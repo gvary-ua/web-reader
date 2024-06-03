@@ -12,6 +12,8 @@ class Author extends Model
 
     protected $fillable = ['user_id', 'cover_id'];
 
+    public $timestamps = false;
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -21,5 +23,4 @@ class Author extends Model
     {
         return $this->belongsTo(Cover::class, 'cover_id');
     }
-    
 }
