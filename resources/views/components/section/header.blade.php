@@ -18,6 +18,7 @@
           <div class="px-4 py-8">
             <x-links.about-us class="border-b border-b-surface-1 py-4" />
             <x-links.my-profile class="border-b border-b-surface-1 py-4" />
+            <x-links.my-books class="border-b border-b-surface-1 py-4" />
             <x-links.logout class="border-b border-b-surface-1 py-4" />
           </div>
         </div>
@@ -25,13 +26,14 @@
       <!-- For desktop -->
       <div class="relative hidden gap-x-8 md:flex">
         <x-links.about-us class="px-4 py-2" />
+        <x-links.my-books class="px-4 py-2" />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
           <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->login }}</span>
         </div>
         <!-- Dropdown menu -->
         <div
-          class="absolute left-1/2 top-[calc(100%+6px)] z-50 -translate-x-1/2 whitespace-nowrap rounded-[4px] bg-background p-1 shadow-[0px_0px_8px_0px_#00000014,0px_8px_32px_0px_#00114D29]"
+          class="absolute right-0 top-[calc(100%+6px)] z-50 whitespace-nowrap rounded-[4px] bg-background p-1 shadow-[0px_0px_8px_0px_#00000014,0px_8px_32px_0px_#00114D29]"
           x-cloak
           x-show="open"
           @click.outside="open = false"
