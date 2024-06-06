@@ -82,5 +82,16 @@
     "Reset Password Notification": "Cкидання пароля",
     "My books": "Мої твори",
     "Write book": "Написати книгу",
-    "Write verse": "Написати вірш"
+    "Write verse": "Написати вірш",
+    "cover.types.book": "Книга",
+    "cover.types.verse": "Вірш",
+    "genres.fantasy": "Фентезі",
+    "genres.science_fiction": "Наукова Фантастика",
+    "genres.post_apocalyptic": "Постапокаліпсис",
+    "genres.dystopia": "Антиутопія",
+    "genres.cyberpunk": "Кіберпанк",
+    "genres.steampunk": "Стімпанк",
+    "genres.solarpunk": "Соларпанк",
+    "genres.alternative_history": "Альтернативна Історія",
+    "genres.dark_fantasy": "Темна Фентезі"
 }

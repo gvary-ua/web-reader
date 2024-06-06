@@ -1,0 +1,13 @@
+{
+    "cover.types.book": "Book",
+    "cover.types.verse": "Verse",
+    "genres.fantasy": "Fantasy",
+    "genres.science_fiction": "Science Fiction",
+    "genres.post_apocalyptic": "Post Apocalyptic",
+    "genres.dystopia": "Dystopia",
+    "genres.cyberpunk": "Cyberpunk",
+    "genres.steampunk": "Steampunk",
+    "genres.solarpunk": "Solarpunk",
+    "genres.alternative_history": "Alternative History",
+    "genres.dark_fantasy": "Dark Fantasy"
+}
