@@ -1,4 +1,6 @@
 @props([
+  'id',
+  'typeId',
   'title',
   'type',
   'author',
@@ -41,7 +43,24 @@
   <x-p class="pt-4 font-medium [grid-area:chapters] lg:leading-[38px]">
     {{ __('Chapters published') }}: {{ $chaptersPublished }}/{{ $chaptersTotal }}
   </x-p>
-  <x-button class="mt-4 w-full [grid-area:button] md:ml-auto md:h-fit md:w-fit" size="base" variant="primary" href="">
-    <x-p size="base">{{ __('Edit') }}</x-p>
-  </x-button>
+  <div class="flex flex-wrap [grid-area:button] md:justify-end md:space-x-2">
+    {{-- TODO: Open a modal and ask if you really want to Delete --}}
+    <x-button class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
+      <x-p size="base">{{ __('Delete') }}</x-p>
+    </x-button>
+    {{-- TODO: Edit and publish page --}}
+    <x-button class="mt-4 w-full md:h-fit md:w-fit" size="base" variant="secondary-1" href="">
+      <x-p size="base">{{ __('Edit') }}</x-p>
+    </x-button>
+    <x-button
+      class="mt-4 w-full md:h-fit md:w-fit"
+      size="base"
+      variant="primary"
+      href="{{config('app.spa_url')}}?coverId={{$id}}&coverTypeId={{$typeId}}"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <x-p size="base">{{ __('Write') }}</x-p>
+    </x-button>
+  </div>
 </div>

@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 
 return [
 
+    'spa_url' => env('SPA_URL'),
     /*
     |--------------------------------------------------------------------------
     | Application Name

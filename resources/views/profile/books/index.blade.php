@@ -6,6 +6,8 @@
     @foreach ($books as $book)
       <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
       <x-books.card
+        :id="$book['id']"
+        :typeId="$book['typeId']"
         :title="$book['title']"
         :type="$book['type']"
         :author="$book['author']"
