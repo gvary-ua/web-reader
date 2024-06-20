@@ -31,6 +31,8 @@ class ProfileBooksController extends Controller
             $chaptersPublished = $cover->chapters()->where('public', true)->count();
 
             $dto = [
+                'id' => $cover['cover_id'],
+                'typeId' => $cover['cover_type_id'],
                 'title' => $cover['title'],
                 'description' => $cover['description'],
                 'author' => $name,
@@ -51,7 +53,7 @@ class ProfileBooksController extends Controller
 
     public function store(CoverCreateRequest $request)
     {
-        DB::transaction(function () use ($request) {
+        $cover = DB::transaction(function () use ($request) {
             $cover = Cover::create([
                 'cover_type_id' => $request->coverTypeId,
                 'cover_status_id' => 1, // In progress
@@ -66,9 +68,13 @@ class ProfileBooksController extends Controller
                 'user_id' => $request->user()->user_id,
                 'cover_id' => $cover->cover_id,
             ]);
+
+            return $cover;
         });
 
-        // TODO: Redirect to SPA
-        return redirect('/');
+        // TODO: Error handling ?
+        // TODO: Redirect to error page ?
+
+        return redirect(config('app.spa_url')."?coverId={$cover->cover_id}&coverTypeId={$cover->cover_type_id}");
     }
 }

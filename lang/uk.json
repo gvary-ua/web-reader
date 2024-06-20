@@ -93,5 +93,7 @@
     "genres.steampunk": "Стімпанк",
     "genres.solarpunk": "Соларпанк",
     "genres.alternative_history": "Альтернативна Історія",
-    "genres.dark_fantasy": "Темна Фентезі"
+    "genres.dark_fantasy": "Темна Фентезі",
+    "Delete": "Видалити",
+    "Write": "Писати"
 }
