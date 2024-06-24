@@ -24,13 +24,17 @@ class UpdateChapterRequest extends FormRequest
         $method = $this->method();
         if ($method === 'PUT') {
             return [
-                'title' => ['required'],
-                'coverId' => ['required', 'integer', 'exists:covers,cover_id']
+                'title' => ['required', 'string'],
+                'public' => ['required', 'boolean'],
+                'blockIds' => ['required', 'array'],
+                'blockIds.*' => ['required', 'string', 'exists:blocks,block_nanoid_10'],
             ];
         } else {
             return [
-                'title' => ['sometimes', 'required'],
-                'coverId' => ['sometimes', 'required', 'integer', 'exists:covers,cover_id']
+                'title' => ['sometimes', 'required', 'string'],
+                'public' => ['sometimes', 'required', 'boolean'],
+                'blockIds' => ['sometimes', 'required', 'array'],
+                'blockIds.*' => ['sometimes', 'required', 'string', 'exists:blocks,block_nanoid_10'],
             ];
         }
 
@@ -38,9 +42,9 @@ class UpdateChapterRequest extends FormRequest
 
     protected function passedValidation()
     {
-        if ($this->coverId) {
+        if ($this->blockIds) {
             $this->merge([
-                'cover_id' => $this->coverId
+                'block_ids' => $this->blockIds,
             ]);
         }
     }

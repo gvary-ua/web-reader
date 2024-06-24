@@ -17,7 +17,8 @@ class ChapterResource extends JsonResource
         return [
             'id' => $this->chapter_id,
             'title' => $this->title,
-            'coverId' => $this->cover_id,
+            'public' => $this->public,
+            'blockIds' => $this->block_ids,
         ];
     }
 }
