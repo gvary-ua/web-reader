@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Cover extends Model
 {
@@ -20,6 +19,7 @@ class Cover extends Model
         'cover_type_id',
         'cover_status_id',
         'lang_id',
+        'chapter_ids',
         'title',
         'description',
         'img_key',
@@ -31,6 +31,7 @@ class Cover extends Model
     ];
 
     protected $casts = [
+        'chapter_ids' => 'array', // 'chapter_ids' is a JSON array
         'published_at' => 'datetime',
         'finished_at' => 'datetime',
     ];
@@ -45,9 +46,31 @@ class Cover extends Model
         return $this->belongsToMany(Genre::class, 'cover_genres', 'cover_id', 'genre_id');
     }
 
-    public function chapters(): HasMany
+    /** @var Chapter */
+    public function appendChapter($chapter)
     {
-        return $this->hasMany(Chapter::class, 'cover_id', 'cover_id');
+        $this->chapter_ids = array_merge($this->chapter_ids, [$chapter->chapter_id]);
+
+        return $this;
+    }
+
+    /** @var Chapter */
+    public function removeChapter($chapter)
+    {
+        $temp = $this->chapter_ids;
+        $index = array_search($chapter->chapter_id, $temp);
+        unset($temp[$index]);
+
+        $this->chapter_ids = array_values($temp);
+
+        return $this;
+    }
+
+    public function chapters()
+    {
+        return Chapter::all()->filter(function ($chapter) {
+            return in_array($chapter->chapter_id, $this->chapter_ids) ? $chapter : null;
+        });
     }
 
     public function authors(): BelongsToMany
