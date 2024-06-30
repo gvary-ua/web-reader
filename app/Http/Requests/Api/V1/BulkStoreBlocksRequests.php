@@ -26,23 +26,27 @@ class BulkStoreBlocksRequests extends FormRequest
             'blocks' => ['required', 'array'],
             'blocks.*.id' => ['required', 'string', 'max:10', 'min:10'],
             'blocks.*.typeId' => ['required', 'int', 'exists:block_types,block_type_id'],
-            'blocks.*.data' => ['required'],
-            'blocks.*.data.version' => ['required', 'string', 'max:10', 'min:5'],
+            // typeId 5 - is a delimiter which doesn't have any data
+            'blocks.*.data' => ['required_unless:blocks.*.typeId,5'],
+            'blocks.*.dataVersion' => ['required', 'string', 'max:10', 'min:5'],
             'blocks.*.wordCount' => ['required', 'int', 'min:0'],
         ];
     }
 
-    protected function prepareForValidation() {
+    protected function prepareForValidation()
+    {
         $this->merge(['chapterId' => $this->route('chapterId')]);
     }
 
-    protected function passedValidation(): void {
+    protected function passedValidation(): void
+    {
         $new_blocks = [];
 
         foreach ($this->blocks as $block) {
             $block['block_nanoid_10'] = $block['id'];
             $block['block_type_id'] = $block['typeId'];
             $block['word_count'] = $block['wordCount'];
+            $block['data_version'] = $block['dataVersion'];
             $block['data'] = json_encode($block['data']);
 
             $new_blocks[] = $block;
