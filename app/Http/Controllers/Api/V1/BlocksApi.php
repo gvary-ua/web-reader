@@ -7,23 +7,24 @@ use App\Http\Requests\Api\V1\BulkStoreBlocksRequests;
 use App\Http\Requests\Api\V1\IndexBlocksRequest;
 use App\Http\Resources\V1\BlockResource;
 use App\Models\Block;
-use Illuminate\Support\Facades\DB;
 use App\Models\Chapter;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @group Blocks APIs
- * 
+ *
  * APIs for creating and getting chapters.
- * 
+ *
  * @authenticated
  */
 class BlocksApi extends Controller
 {
     /**
      * Retrieve all blocks associated with a specific chapter.
-     * 
+     *
      * @pathParam chapterId integer required The ID of the chapter this block is associated with.
+     *
      * @response 200 {
      *     "data": [
      *         {
@@ -70,12 +71,13 @@ class BlocksApi extends Controller
             ->block_ids;
 
         $blocks = Block::whereIn('block_nanoid_10', $block_ids)
-            ->orderByRaw('FIELD(block_nanoid_10, "' . implode('","', $block_ids) . '")')
+            ->orderByRaw('FIELD(block_nanoid_10, "'.implode('","', $block_ids).'")')
             ->get();
 
         // Decode the JSON string into JSON object
         $blocks = array_map(function ($block) {
             $block->data = json_decode($block->data);
+
             return $block;
         }, $blocks->all());
 
@@ -84,8 +86,9 @@ class BlocksApi extends Controller
 
     /**
      * Store multiple blocks for a specific chapter.
-     * 
+     *
      * @pathParam chapterId integer required The ID of the chapter this block is associated with.
+     *
      * @response 200
      * @response 422 {"message":"The blocks.0.data.version field is required. (and 3 more errors)","errors":{"blocks.0.data.version":["The blocks.0.data.version field is required."],"blocks.1.data.version":["The blocks.1.data.version field is required."],"blocks.2.data.version":["The blocks.2.data.version field is required."],"blocks.3.data.version":["The blocks.3.data.version field is required."]}}
      */
@@ -98,13 +101,13 @@ class BlocksApi extends Controller
         })->toArray();
 
         $blocks = collect($request->blocks)->map(function ($block) {
-            return Arr::except($block, ['id', 'typeId', 'wordCount']);
+            return Arr::except($block, ['id', 'typeId', 'wordCount', 'dataVersion']);
         })->toArray();
 
         DB::transaction(function () use ($chapterId, $block_ids, $blocks) {
             Chapter::where('chapter_id', $chapterId)
                 ->update(['block_ids' => $block_ids]);
-            Block::upsert($blocks, ['block_nanoid_10'], ['block_type_id', 'data', 'word_count']);
+            Block::upsert($blocks, ['block_nanoid_10'], ['block_type_id', 'data', 'data_version', 'word_count']);
         });
     }
 }
