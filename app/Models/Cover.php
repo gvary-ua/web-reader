@@ -36,6 +36,11 @@ class Cover extends Model
         'finished_at' => 'datetime',
     ];
 
+    protected $attributes = [
+        'public' => false,
+        'chapter_ids' => '[]',
+    ];
+
     public function coverType(): BelongsTo
     {
         return $this->belongsTo(CoverType::class, 'cover_type_id', 'cover_type_id');
