@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Web\V1\CoverCreateRequest;
 use App\Models\Author;
+use App\Models\Chapter;
 use App\Models\Cover;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +69,15 @@ class ProfileBooksController extends Controller
                 'user_id' => $request->user()->user_id,
                 'cover_id' => $cover->cover_id,
             ]);
+
+            $chapter = Chapter::create([
+                // TODO: Change name based on user locale (need to save upon registration and then can be changed in settings)
+                'title' => 'Нова глава',
+                'cover_id' => $cover->cover_id,
+            ]);
+
+            $cover->appendChapter($chapter);
+            $cover->save();
 
             return $cover;
         });
