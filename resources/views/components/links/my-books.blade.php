@@ -4,7 +4,7 @@
       'class' => 'block',
     ])
   }}
-  href="{{ route('profile.books.index', ['user' => Auth::user()]) }}"
+  href="{{ route('books.index') }}"
 >
   <x-p>{{ __('My books') }}</x-p>
 </a>
