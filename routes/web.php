@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Web\V1\ProfileBooksController;
+use App\Http\Controllers\Web\V1\BooksController;
 use App\Http\Controllers\Web\V1\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +32,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile/{user}/settings/security', [ProfileController::class, 'editSecurity'])->name('settings.security');
     Route::put('profile/{user}/settings/profile', [ProfileController::class, 'updateProfile'])->name('settings.profile.update');
 
-    Route::get('profile/{user}/books', [ProfileBooksController::class, 'index'])->name('profile.books.index');
-    Route::post('profile/{user}/books', [ProfileBooksController::class, 'store'])->name('profile.books.create');
+    Route::resource('books', BooksController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,7 @@
     ])
   }}
   method="POST"
-  action="{{ route('profile.books.create', ['user' => Auth::user()]) }}"
+  action="{{ route('books.store') }}"
 >
   @csrf
 
