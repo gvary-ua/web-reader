@@ -11,6 +11,7 @@
         :title="$book['title']"
         :type="$book['type']"
         :author="$book['author']"
+        :login="$book['login']"
         :genres="$book['genres']"
         :description="$book['description']"
         :imgSrc="$book['imgSrc']"

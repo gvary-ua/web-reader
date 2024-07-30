@@ -4,6 +4,7 @@
   'title',
   'type',
   'author',
+  'login',
   'genres',
   'description',
   'imgSrc' => asset('blank-224X320.webp'),
@@ -31,6 +32,7 @@
   <div class="pb-4 [grid-area:header]">
     <x-h level="h5">{{ $title }}</x-h>
     <x-p class="mt-1 text-on-background-2" size="base">{{ $author }}</x-p>
+    <x-p class="mt-1 text-on-background-2" size="base">{{ '@' . $login }}</x-p>
   </div>
   <div class="-ml-4 -mt-4 pl-4 [grid-area:genres] md:pl-0">
     @foreach ($genres as $genre)
