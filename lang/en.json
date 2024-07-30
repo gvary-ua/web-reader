@@ -9,5 +9,9 @@
     "genres.steampunk": "Steampunk",
     "genres.solarpunk": "Solarpunk",
     "genres.alternative_history": "Alternative History",
-    "genres.dark_fantasy": "Dark Fantasy"
+    "genres.dark_fantasy": "Dark Fantasy",
+    "cover.statuses.in_progress": "In progress",
+    "cover.statuses.completed": "Completed",
+    "languages.ukrainian": "Ukrainian",
+    "languages.english": "English"
 }

@@ -46,6 +46,16 @@ class Cover extends Model
         return $this->belongsTo(CoverType::class, 'cover_type_id', 'cover_type_id');
     }
 
+    public function coverStatus(): BelongsTo
+    {
+        return $this->belongsTo(CoverStatus::class, 'cover_status_id', 'cover_status_id');
+    }
+
+    public function language(): BelongsTo
+    {
+        return $this->belongsTo(LanguageCode::class, 'lang_id', 'lang_id');
+    }
+
     public function genres(): BelongsToMany
     {
         return $this->belongsToMany(Genre::class, 'cover_genres', 'cover_id', 'genre_id');

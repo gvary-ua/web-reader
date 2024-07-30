@@ -95,5 +95,19 @@
     "genres.alternative_history": "Альтернативна Історія",
     "genres.dark_fantasy": "Темна Фентезі",
     "Delete": "Видалити",
-    "Write": "Писати"
+    "Write": "Писати",
+    "Read": "Читати",
+    "Like": "Вподобати",
+    "Author": "Автор",
+    "Is complete": "Завершеність",
+    "Chapters": "Розділи",
+    "Language": "Мова",
+    "Updated at": "Дата оновлення",
+    "Published at": "Дата публікації",
+    "Reading time": "Час читання",
+    "cover.statuses.in_progress": "В процесі",
+    "cover.statuses.completed": "Завершено",
+    "languages.ukrainian": "Українська",
+    "languages.english": "Англійська",
+    "min": "хв."
 }

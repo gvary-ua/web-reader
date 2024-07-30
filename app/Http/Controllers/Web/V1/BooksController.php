@@ -22,31 +22,7 @@ class BooksController extends Controller
         $covers = $request->user()->covers(['cover_id', 'cover_type_id', 'title', 'description', 'img_key'])->get();
         $dtos = [];
         foreach ($covers as &$cover) {
-            $author = $cover->authors()->first(['first_name', 'last_name']);
-
-            $name = $author['first_name'].' '.$author['last_name'];
-
-            $genres = array_map(function ($entry) {
-                return $entry['label'];
-            }, $cover->genres()->get(['label'])->toArray());
-
-            $type = $cover->coverType()->first(['label'])['label'];
-
-            $chaptersTotal = $cover->chapters()->count();
-            $chaptersPublished = $cover->chapters()->where('public', true)->count();
-
-            $dto = [
-                'id' => $cover['cover_id'],
-                'typeId' => $cover['cover_type_id'],
-                'title' => $cover['title'],
-                'description' => $cover['description'],
-                'author' => $name,
-                'type' => $type,
-                'genres' => $genres,
-                'imgSrc' => $cover['img_key'],
-                'chaptersTotal' => $chaptersTotal,
-                'chaptersPublished' => $chaptersPublished,
-            ];
+            $dto = $this->createDto($cover);
             array_push($dtos, $dto);
         }
 
@@ -56,12 +32,56 @@ class BooksController extends Controller
         ]);
     }
 
+    private function createDto(Cover $cover)
+    {
+        $author = $cover->authors()->first(['first_name', 'last_name', 'login']);
+
+        $login = $author['login'];
+        $name = $author['first_name'].' '.$author['last_name'];
+
+        $genres = array_map(function ($entry) {
+            return $entry['label'];
+        }, $cover->genres()->get(['label'])->toArray());
+
+        $type = $cover->coverType()->first(['label'])['label'];
+
+        $chaptersTotal = $cover->chapters()->count();
+        $chaptersPublished = $cover->chapters()->where('public', true)->count();
+        $dto = [
+            'id' => $cover['cover_id'],
+            'typeId' => $cover['cover_type_id'],
+            'login' => $login,
+            'title' => $cover['title'],
+            'description' => $cover['description'],
+            'author' => $name,
+            'type' => $type,
+            'coverStatus' => $cover->coverStatus['label'],
+            'language' => $cover->language['label'],
+            'updatedAt' => date('d-m-Y', strtotime($cover['updated_at'])),
+            'publishedAt' => date('d-m-Y', strtotime($cover['published_at'])),
+            // TODO: create function that calculates reading time
+            'readingTime' => '30',
+            'genres' => $genres,
+            'imgSrc' => $cover['img_key'],
+            'chaptersTotal' => $chaptersTotal,
+            'chaptersPublished' => $chaptersPublished,
+        ];
+
+        return $dto;
+    }
+
     /**
      * Display the specified resource.
      */
-    public function show(Cover $cover)
+    public function show(int $id)
     {
-        return view('books.show', ['cover' => $cover]);
+        $cover = Cover::find($id);
+        if ($cover == null || $cover['public'] == false) {
+            abort(404);
+        }
+        $dto = $this->createDto($cover);
+
+        return view('books.show', $dto);
     }
 
     /**
