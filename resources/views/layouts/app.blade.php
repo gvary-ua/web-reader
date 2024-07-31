@@ -15,10 +15,11 @@
     />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @yield('scripts')
   </head>
   <body>
     <x-section.header />
-    <main>
+    <main class="overflow-x-hidden">
       {{ $slot }}
     </main>
     <x-section.footer />
