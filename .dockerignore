@@ -1,0 +1,8 @@
+.*
+!.env.example
+!.docker
+vendor/
+test/
+storage/
+public/docs
+node_modules/

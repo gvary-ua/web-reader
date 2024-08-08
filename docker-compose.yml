@@ -1,0 +1,57 @@
+services:
+  # nginx service
+  nginx:
+    build:
+      context: .
+      dockerfile: .docker/nginx/Dockerfile
+    image: gvary.com/web-reader-nginx
+    container_name: web-reader-nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '80:80'
+    networks:
+      - gvary-network
+
+  # PHP Service
+  php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    image: gvary.com/web-reader-php
+    container_name: web-reader-php
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ${PWD}/.env
+        target: /var/www/.env
+    ports:
+      - '9000:9000'
+    networks:
+      - gvary-network
+
+  # MySQL Service
+  db:
+    image: mysql:8.3.0
+    container_name: web-reader-mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_DATABASE: ${GVARY_DATABASE_NAME}
+      MYSQL_ROOT_PASSWORD: ${GVARY_DATABASE_ROOT_PASSWORD}
+      MYSQL_USER: ${GVARY_DATABASE_USER}
+      MYSQL_PASSWORD: ${GVARY_DATABASE_PASSWORD}
+    volumes:
+      - db-volume:/var/lib/mysql/
+    networks:
+      - gvary-network
+
+networks:
+  gvary-network:
+    driver: bridge
+
+volumes:
+  db-volume:
+    driver: local
