@@ -30,21 +30,20 @@ services:
     networks:
       - gvary-network
 
-  # MySQL Service
+  # PostgreSQL Service
   db:
-    image: mysql:8.3.0
-    container_name: web-reader-mysql
+    image: postgres:16.4
+    container_name: web-reader-db
     restart: unless-stopped
     tty: true
     ports:
-      - '3306:3306'
+      - '5432:5432'
     environment:
-      MYSQL_DATABASE: ${GVARY_DATABASE_NAME}
-      MYSQL_ROOT_PASSWORD: ${GVARY_DATABASE_ROOT_PASSWORD}
-      MYSQL_USER: ${GVARY_DATABASE_USER}
-      MYSQL_PASSWORD: ${GVARY_DATABASE_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - db-volume:/var/lib/mysql/
+      - db-volume:/var/lib/postgresql/data
     networks:
       - gvary-network
 
