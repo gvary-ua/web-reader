@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -52,6 +50,29 @@ return new class extends Migration
             ['genre_id' => 38, 'label' => 'genres.popular_science'],
             ['genre_id' => 39, 'label' => 'genres.legal_literature'],
         ]);
+
+        DB::table('cover_statuses')->insert([
+            ['cover_status_id' => 1, 'label' => 'cover.statuses.in_progress'],
+            ['cover_status_id' => 2, 'label' => 'cover.statuses.completed'],
+        ]);
+
+        DB::table('language_codes')->insert([
+            ['lang_id' => 'uk', 'label' => 'languages.ukrainian'],
+            ['lang_id' => 'en', 'label' => 'languages.english'],
+        ]);
+
+        DB::table('cover_types')->insert([
+            ['cover_type_id' => 1, 'label' => 'cover.types.book'],
+            ['cover_type_id' => 2, 'label' => 'cover.types.verse'],
+        ]);
+
+        DB::table('block_types')->insert([
+            ['block_type_id' => 1, 'label' => 'block.types.header'],
+            ['cover_type_id' => 2, 'label' => 'block.types.paragraph'],
+            ['block_type_id' => 3, 'label' => 'block.types.list'],
+            ['block_type_id' => 4, 'label' => 'block.types.checkList'],
+            ['block_type_id' => 5, 'label' => 'block.types.delimiter'],
+        ]);
     }
 
     /**
@@ -62,5 +83,10 @@ return new class extends Migration
         for ($i = 1; $i <= 39; $i++) {
             DB::table('genres')->where('genre_id', $i)->delete();
         }
+
+        DB::statement('DELETE FROM cover_statuses WHERE cover_status_id IN (1, 2)');
+        DB::statement('DELETE FROM language_codes WHERE lang_id IN ("uk", "en")');
+        DB::statement('DELETE FROM cover_types WHERE cover_type_id IN (1, 2)');
+        DB::statement('DELETE FROM block_types WHERE block_type_id IN (1, 2, 3, 4, 5)');
     }
 };

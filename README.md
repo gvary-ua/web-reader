@@ -172,10 +172,11 @@ Zend OPcache
   
 </details>
 
-1. Start up temporary MySQL database
+1. Start up temporary PostgreSQL database
+
 
 ```shell
-docker run -d -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=gvary -e MYSQL_USER=gvary-user -e MYSQL_PASSWORD=gvary-pwd mysql:8.3
+docker run -d -p 5432:5432 -e POSTGRES_DB=gvary -e POSTGRES_PASSWORD=gvary-pwd -e POSTGRES_USER=gvary-user postgres:16.4
 ```
 
 2. Start up temporary Mailpit for emails (you can access UI at localhost::8025)
