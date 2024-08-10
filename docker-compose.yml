@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: .docker/nginx/Dockerfile
-    image: gvary.com/web-reader-nginx
+    image: s1ckret/gvary-web-reader-nginx
     container_name: web-reader-nginx
     restart: unless-stopped
     tty: true
@@ -18,7 +18,7 @@ services:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
-    image: gvary.com/web-reader-php
+    image: s1ckret/gvary-web-reader-php
     container_name: web-reader-php
     restart: unless-stopped
     volumes:
