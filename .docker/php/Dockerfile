@@ -19,11 +19,6 @@ RUN apt-get update && apt-get install -y \
     git \
     curl
 
-# Copy composer.lock and composer.json
-COPY composer.lock composer.json /var/www/
-
-# Set working directory
-WORKDIR /var/www
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -33,15 +28,22 @@ RUN docker-php-ext-install mbstring opcache pdo pdo_pgsql
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 RUN docker-php-ext-install -j$(nproc) gd
 
+
+# Set working directory
+WORKDIR /var/www
+
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Copy existing application directory contents
-COPY . /var/www
 
 RUN mkdir -p /var/www/storage/framework/sessions
 RUN mkdir -p /var/www/storage/framework/views
 RUN mkdir -p /var/www/storage/framework/cache
+
+# Copy existing application directory contents
+COPY . /var/www
+
+# Copy composer.lock and composer.json
+COPY composer.lock composer.json /var/www/
 
 # Assign all files to www-data user (the user is coming from parent image)
 RUN chown -R www-data:www-data /var/www
