@@ -9,6 +9,7 @@
     - [How to install docker](#how-to-install-docker)
     - [How to install NodeJS](#how-to-install-nodejs)
   - [How to run locally](#how-to-run-locally)
+  - [How to deploy](#how-to-deploy)
   - [How to authenticate SPA](#how-to-authenticate-spa)
     - [How to make POST request?](#how-to-make-post-request)
   - [How to generate API documentation](#how-to-generate-api-documentation)
@@ -220,6 +221,52 @@ npm run dev
 
 ```shell
 php artisan serve
+```
+
+## How to deploy
+
+docker-compose file is here just to describe how to connect all docker images together. It is not suitable for local development. It also don't have build stage, so you have to build application by yourself and then pack it.
+
+On the host PC:
+
+```shell
+nvm use lts/iron
+npm run build
+php artisan view:cache
+php artisan route:cache
+php artisan key:generate
+export APP_VERSION=YOUR_VERSION_HERE
+docker build docker build -f .docker/php/Dockerfile -t s1ckret/gvary-web-reader-php:$APP_VERSION .
+docker build docker build -f .docker/nginx/Dockerfile -t s1ckret/gvary-web-reader-nginx:$APP_VERSION .
+docker push s1ckret/gvary-web-reader-php:$APP_VERSION
+docker push s1ckret/gvary-web-reader-nginx:$APP_VERSION
+```
+
+
+On the target PC ONCE
+```shell
+scp ${PWD}/docker-compose.yml root@139.59.209.61:/root
+scp ${PWD}/.env root@139.59.209.61:/root
+```
+
+Then change the images to reflect your version and either do docker compose up. Or use portainer. Don't forget to set env vars:
+
+```shell
+export POSTGRES_DB=
+export POSTGRES_USER=
+export POSTGRES_PASSWORD=
+```
+
+Then edit `.env` file and it will automatically reflect in docker. (DO NOT USE VIM, only nano)
+
+Also once you need to run a DB migration do this:
+```shell
+docker exec -it web-reader-php /bin/bash
+php artisan migrate
+```
+
+```shell
+docker compose up -d
 ```
 
 ## How to authenticate SPA
