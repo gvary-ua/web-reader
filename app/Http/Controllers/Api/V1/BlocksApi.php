@@ -70,16 +70,21 @@ class BlocksApi extends Controller
             ->first()
             ->block_ids;
 
-        $blocks = Block::whereIn('block_nanoid_10', $block_ids)
-            ->orderByRaw('FIELD(block_nanoid_10, "'.implode('","', $block_ids).'")')
-            ->get();
+        $selectBlocksInOrder = "
+            select b.* from blocks as b
+            join json_array_elements(?::json) WITH ORDINALITY as o (id, ordinality)
+            on b.block_nanoid_10 = (o.id #>> '{}')
+            order by o.ordinality;
+        ";
+
+        $blocks = DB::select($selectBlocksInOrder, [json_encode($block_ids, JSON_UNESCAPED_SLASHES)]);
 
         // Decode the JSON string into JSON object
         $blocks = array_map(function ($block) {
             $block->data = json_decode($block->data);
 
             return $block;
-        }, $blocks->all());
+        }, $blocks);
 
         return BlockResource::collection($blocks);
     }
