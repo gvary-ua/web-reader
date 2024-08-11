@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 return [
 
     'spa_url' => env('SPA_URL'),
+    'force_https' => env('FORCE_HTTPS', false),
     /*
     |--------------------------------------------------------------------------
     | Application Name

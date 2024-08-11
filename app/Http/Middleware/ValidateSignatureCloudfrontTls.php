@@ -75,7 +75,9 @@ class ValidateSignatureCloudfrontTls
          *
          * See: https://stackoverflow.com/questions/52525958/signed-route-for-email-verification-does-not-pass-signature-validation
          */
-        $url = str_replace('http://', 'https://', $url);
+        if (config('app.force_https') == true) {
+            $url = str_replace('http://', 'https://', $url);
+        }
         /**
          * Difference ends!
          */
