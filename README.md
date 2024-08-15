@@ -236,8 +236,8 @@ php artisan view:cache
 php artisan route:cache
 php artisan key:generate
 export APP_VERSION=YOUR_VERSION_HERE
-docker build docker build -f .docker/php/Dockerfile -t s1ckret/gvary-web-reader-php:$APP_VERSION .
-docker build docker build -f .docker/nginx/Dockerfile -t s1ckret/gvary-web-reader-nginx:$APP_VERSION .
+docker build -f .docker/php/Dockerfile -t s1ckret/gvary-web-reader-php:$APP_VERSION .
+docker build -f .docker/nginx/Dockerfile -t s1ckret/gvary-web-reader-nginx:$APP_VERSION .
 docker push s1ckret/gvary-web-reader-php:$APP_VERSION
 docker push s1ckret/gvary-web-reader-nginx:$APP_VERSION
 ```
