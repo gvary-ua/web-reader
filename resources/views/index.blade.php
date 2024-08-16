@@ -1,3 +1,8 @@
+@props([
+  'top_covers' => [],
+  'latest_covers' => [],
+])
+
 @section('scripts')
   @vite(['resources/js/slider.js'])
 @endsection
@@ -14,16 +19,18 @@
     </div>
     <div class="swiper1 relative mt-8 pb-12 md:mt-14 md:pb-0">
       <div class="swiper-wrapper">
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
+        @foreach ($top_covers as $cover)
+          <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+          <x-books.cover-card
+            class="swiper-slide"
+            :id="$cover['id']"
+            :userId="$cover['user_id']"
+            :title="$cover['title']"
+            :type="$cover['type']"
+            :author="$cover['author']"
+            :imgSrc="$cover['imgSrc']"
+          />
+        @endforeach
       </div>
       <div class="swiper-pagination md:hidden"></div>
     </div>
@@ -38,16 +45,18 @@
     </div>
     <div class="swiper2 relative mt-8 pb-12 md:mt-14 md:pb-0">
       <div class="swiper-wrapper">
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
-        <x-books.cover-card class="swiper-slide" />
+        @foreach ($latest_covers as $cover)
+          <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+          <x-books.cover-card
+            class="swiper-slide"
+            :id="$cover['id']"
+            :userId="$cover['user_id']"
+            :title="$cover['title']"
+            :type="$cover['type']"
+            :author="$cover['author']"
+            :imgSrc="$cover['imgSrc']"
+          />
+        @endforeach
       </div>
       <div class="swiper-pagination md:hidden"></div>
     </div>
