@@ -1,6 +1,8 @@
 @props([
   'id',
   'typeId',
+  'bookId',
+  'userId',
   'title',
   'type',
   'author',
@@ -21,18 +23,24 @@
 
 <div class="{{ $desktopGrid }} {{ $mobileGrid }} mt-4 grid items-start">
   <div class="relative [grid-area:image] md:max-h-80 md:pr-10">
-    <img
-      width="100%"
-      height="100%"
-      class="max-h-32 min-h-32 min-w-24 max-w-24 rounded-lg object-cover md:max-h-80 md:min-h-80 md:min-w-56 md:max-w-56"
-      src="{{ $imgSrc }}"
-    />
-    <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>
+    <a href="{{ route('books.show', ['book' => $id]) }}">
+      <img
+        width="100%"
+        height="100%"
+        class="max-h-32 min-h-32 min-w-24 max-w-24 rounded-lg object-cover md:max-h-80 md:min-h-80 md:min-w-56 md:max-w-56"
+        src="{{ $imgSrc }}"
+      />
+      <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>
+    </a>
   </div>
   <div class="pb-4 [grid-area:header]">
-    <x-h level="h5">{{ $title }}</x-h>
-    <x-p class="mt-1 text-on-background-2" size="base">{{ $author }}</x-p>
-    <x-p class="mt-1 text-on-background-2" size="base">{{ '@' . $login }}</x-p>
+    <a href="{{ route('books.show', ['book' => $id]) }}">
+      <x-h level="h5">{{ $title }}</x-h>
+    </a>
+    <a href="{{ route('profile.show', ['user' => $userId]) }}">
+      <x-p class="mt-1 text-on-background-2" size="base">{{ $author }}</x-p>
+      <x-p class="mt-1 text-on-background-2" size="base">{{ '@' . $login }}</x-p>
+    </a>
   </div>
   <div class="-ml-4 -mt-4 pl-4 [grid-area:genres] md:pl-0">
     @foreach ($genres as $genre)

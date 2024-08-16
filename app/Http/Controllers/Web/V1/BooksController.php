@@ -34,7 +34,7 @@ class BooksController extends Controller
 
     private function createDto(Cover $cover)
     {
-        $author = $cover->authors()->first(['first_name', 'last_name', 'login']);
+        $author = $cover->authors()->first(['users.user_id', 'first_name', 'last_name', 'login']);
 
         $login = $author['login'];
         $name = $author['first_name'].' '.$author['last_name'];
@@ -49,6 +49,7 @@ class BooksController extends Controller
         $chaptersPublished = $cover->chapters()->where('public', true)->count();
         $dto = [
             'id' => $cover['cover_id'],
+            'userId' => $author['user_id'],
             'typeId' => $cover['cover_type_id'],
             'login' => $login,
             'title' => $cover['title'],
