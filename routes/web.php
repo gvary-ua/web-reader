@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\V1\BooksController;
+use App\Http\Controllers\Web\V1\ChaptersController;
 use App\Http\Controllers\Web\V1\IndexController;
 use App\Http\Controllers\Web\V1\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +41,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Route::put('books/{book}', [BooksController::class, 'update'])->name('books.update');
     // Route::patch('books/{book}', [BooksController::class, 'update'])->name('books.update');
     Route::delete('books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');
+
+    Route::get('books/{book}/chapters/{chapter}', [ChaptersController::class, 'show'])->name('chapters.show');
 });
 
 require __DIR__.'/auth.php';

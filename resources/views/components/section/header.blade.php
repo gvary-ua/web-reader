@@ -19,12 +19,14 @@
             <img src="/icons/close.svg" alt="Close menu" class="h-full cursor-pointer" x-on:click="open = !open" />
           </div>
           <div class="mt-14 px-4 py-8">
+            @yield('header.mobile-dropdown-menu.before')
             <x-links.about-us class="border-b border-b-surface-1 py-4" />
             <x-links.my-profile class="border-b border-b-surface-1 py-4" />
             <x-links.my-books class="border-b border-b-surface-1 py-4" />
             <x-links.write-book class="border-b border-b-surface-1 py-4" />
             <x-links.write-verse class="border-b border-b-surface-1 py-4" />
             <x-links.logout class="border-b border-b-surface-1 py-4" />
+            @yield('header.mobile-dropdown-menu.after')
           </div>
         </div>
       </div>

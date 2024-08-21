@@ -12,6 +12,7 @@
   'imgSrc' => asset('blank-224X320.webp'),
   'chaptersTotal',
   'chaptersPublished',
+  'firstChapterId' => 1,
 ])
 
 @php
@@ -70,7 +71,7 @@
           iconPosition="left"
           size="base"
           variant="secondary-2"
-          href=""
+          href="{{route('chapters.show', ['book' => $id, 'chapter' => $firstChapterId])}}"
           target="_blank"
           rel="noopener noreferrer"
         >
