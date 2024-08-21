@@ -9,13 +9,16 @@
       <div class="md:hidden">
         <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
         <!-- Dropdown menu -->
-        <div class="fixed left-0 top-0 z-50 min-h-full min-w-full bg-background" x-cloak x-show="open">
-          <div
-            class="flex h-14 w-full items-center justify-end bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
-          >
+        <div
+          class="fixed bottom-0 left-0 top-0 z-50 min-h-full min-w-full overflow-y-auto overflow-x-hidden bg-background"
+          x-cloak
+          x-show="open"
+        >
+          <!-- Sticky header h-14 -->
+          <div class="fixed left-0 top-0 flex h-14 w-full items-center justify-end bg-secondary-1 px-4 py-4 sm:px-10">
             <img src="/icons/close.svg" alt="Close menu" class="h-full cursor-pointer" x-on:click="open = !open" />
           </div>
-          <div class="px-4 py-8">
+          <div class="mt-14 px-4 py-8">
             <x-links.about-us class="border-b border-b-surface-1 py-4" />
             <x-links.my-profile class="border-b border-b-surface-1 py-4" />
             <x-links.my-books class="border-b border-b-surface-1 py-4" />
