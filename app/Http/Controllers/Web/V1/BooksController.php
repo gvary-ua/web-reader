@@ -47,6 +47,8 @@ class BooksController extends Controller
 
         $chaptersTotal = $cover->chapters()->count();
         $chaptersPublished = $cover->chapters()->where('public', true)->count();
+        $firstChapter = $cover->chapters()->where('public', true)->first();
+
         $dto = [
             'id' => $cover['cover_id'],
             'userId' => $author['user_id'],
@@ -66,6 +68,7 @@ class BooksController extends Controller
             'imgSrc' => $cover['img_key'],
             'chaptersTotal' => $chaptersTotal,
             'chaptersPublished' => $chaptersPublished,
+            'firstChapterId' => $firstChapter['chapter_id'],
         ];
 
         return $dto;
