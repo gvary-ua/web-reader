@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\DB;
 
 class Cover extends Model
 {
@@ -83,9 +84,14 @@ class Cover extends Model
 
     public function chapters()
     {
-        return Chapter::all()->filter(function ($chapter) {
-            return in_array($chapter->chapter_id, $this->chapter_ids) ? $chapter : null;
-        });
+        $selectChaptersInOrder = '
+            select c.* from chapters as c
+            join json_array_elements(?::json) with ordinality as o (id, ord)
+            on c.chapter_id = o.id::text::int
+            order by o.ord asc;
+        ';
+
+        return DB::select($selectChaptersInOrder, [json_encode($this->chapter_ids, JSON_UNESCAPED_SLASHES)]);
     }
 
     public function authors(): BelongsToMany
