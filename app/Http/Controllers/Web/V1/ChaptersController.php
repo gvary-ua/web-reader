@@ -72,6 +72,7 @@ class ChaptersController extends Controller
 
         return view('chapters.show', [
             'bookId' => $bookId,
+            'title' => $cover['title'],
             'blocks' => $blocks,
             'chapters' => $chapters,
             'curr_chapter' => $currentChapter,

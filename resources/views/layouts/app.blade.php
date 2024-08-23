@@ -16,6 +16,7 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @yield('scripts')
+    @yield('styles')
   </head>
   <body>
     <x-section.header />
