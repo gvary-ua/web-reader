@@ -11,8 +11,8 @@
 }}>
   <x-p size="lg" class="pb-5 font-medium">{{ __('Chapters') }}:</x-p>
   @foreach ($chapters as $chapter)
-    <a href="{{ route('chapters.show', ['book' => $bookId, 'chapter' => $chapter['chapter_id']]) }}">
-      @if ($currChapterId === $chapter['chapter_id'])
+    <a href="{{ route('chapters.show', ['book' => $bookId, 'chapter' => $chapter->chapter_id]) }}">
+      @if ($currChapterId === $chapter->chapter_id)
         <x-p size="base" class="mt-4">
           {{ $chapter->title }}
         </x-p>

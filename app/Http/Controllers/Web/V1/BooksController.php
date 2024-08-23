@@ -45,9 +45,13 @@ class BooksController extends Controller
 
         $type = $cover->coverType()->first(['label'])['label'];
 
-        $chaptersTotal = $cover->chapters()->count();
-        $chaptersPublished = $cover->chapters()->where('public', true)->count();
-        $firstChapter = $cover->chapters()->where('public', true)->first();
+        $chapters = $cover->chapters();
+        $chaptersTotal = count($chapters);
+        $chaptersPublic = array_filter($chapters, function ($c) {
+            return $c->public;
+        });
+        $chaptersPublished = count($chaptersPublic);
+        $firstChapterId = empty($chaptersPublic) ? -1 : $chaptersPublic[0]->chapter_id;
 
         $dto = [
             'id' => $cover['cover_id'],
@@ -68,7 +72,7 @@ class BooksController extends Controller
             'imgSrc' => $cover['img_key'],
             'chaptersTotal' => $chaptersTotal,
             'chaptersPublished' => $chaptersPublished,
-            'firstChapterId' => $firstChapter['chapter_id'],
+            'firstChapterId' => $firstChapterId,
         ];
 
         return $dto;

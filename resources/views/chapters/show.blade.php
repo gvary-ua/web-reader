@@ -11,7 +11,7 @@
     class="border-b border-b-surface-1 py-4"
     :bookId="$bookId"
     :chapters="$chapters"
-    :currChapterId="$curr_chapter['chapter_id']"
+    :currChapterId="$curr_chapter->chapter_id"
   />
 @endsection
 
@@ -48,7 +48,7 @@
             class="py-5"
             :bookId="$bookId"
             :chapters="$chapters"
-            :currChapterId="$curr_chapter['chapter_id']"
+            :currChapterId="$curr_chapter->chapter_id"
           />
         </div>
       </div>

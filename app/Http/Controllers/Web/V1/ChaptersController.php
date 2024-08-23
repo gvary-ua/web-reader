@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web\V1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Chapter;
 use App\Models\Cover;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class ChaptersController extends Controller
@@ -23,37 +23,33 @@ class ChaptersController extends Controller
             abort(404);
         }
 
-        $chapterIds = $cover['chapter_ids'];
+        $selectChaptersInOrder = '
+            select c.chapter_id, c.title, c.block_ids from chapters as c
+            join json_array_elements(?::json) with ordinality as o (id, ord)
+            on c.chapter_id = o.id::text::int
+            where c.public = true
+            order by o.ord asc;
+        ';
+
+        $chapters = DB::select($selectChaptersInOrder, [json_encode($cover['chapter_ids'], JSON_UNESCAPED_SLASHES)]);
+        $chapterIds = Arr::map($chapters, function ($chapter) {
+            return $chapter->chapter_id;
+        });
+
         $currChapterIndex = array_search($chapterId, $chapterIds);
         if ($currChapterIndex === false) {
             abort(404);
         }
 
-        $chapters = Chapter::select('chapter_id', 'title')
-            ->whereIn('chapter_id', $chapterIds)
-            ->where('public', '=', true)
-            ->get();
-
-        $currentChapter = Chapter::select('chapter_id', 'title', 'block_ids')
-            ->where('chapter_id', '=', $chapterId)
-            ->where('public', '=', true)
-            ->first();
+        $currentChapter = $chapters[$currChapterIndex];
 
         $prevChapter = null;
         $nextChapter = null;
         if ($currChapterIndex - 1 >= 0) {
-            $prevChapterId = $chapterIds[$currChapterIndex - 1];
-            $prevChapter = Chapter::select('chapter_id', 'title')
-                ->where('chapter_id', '=', $prevChapterId)
-                ->where('public', '=', true)
-                ->first();
+            $prevChapter = $chapters[$currChapterIndex - 1];
         }
         if ($currChapterIndex + 1 < count($chapterIds)) {
-            $nextChapterId = $chapterIds[$currChapterIndex + 1];
-            $nextChapter = Chapter::select('chapter_id', 'title')
-                ->where('chapter_id', '=', $nextChapterId)
-                ->where('public', '=', true)
-                ->first();
+            $nextChapter = $chapters[$currChapterIndex + 1];
         }
 
         $selectBlocksInOrder = "
@@ -63,12 +59,13 @@ class ChaptersController extends Controller
             order by o.ordinality;
         ";
 
-        $block_ids = $currentChapter['block_ids'];
-        $blocks = DB::select($selectBlocksInOrder, [json_encode($block_ids, JSON_UNESCAPED_SLASHES)]);
+        $blocks = DB::select($selectBlocksInOrder, [$currentChapter->block_ids]);
 
         foreach ($blocks as &$block) {
             $block->data = json_decode($block->data);
         }
+
+        // dd($chapters, $currentChapter);
 
         return view('chapters.show', [
             'bookId' => $bookId,
