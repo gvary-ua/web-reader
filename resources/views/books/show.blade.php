@@ -64,7 +64,6 @@
         >
           <x-p size="base">{{ __('Like') }}</x-p>
         </x-button>
-        {{-- TODO: Read functionality --}}
         <x-button
           class="mt-4 w-full"
           icon="{{asset('icons/book.svg')}}"
