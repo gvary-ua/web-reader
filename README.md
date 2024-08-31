@@ -227,6 +227,8 @@ php artisan serve
 
 docker-compose file is here just to describe how to connect all docker images together. It is not suitable for local development. It also don't have build stage, so you have to build application by yourself and then pack it.
 
+DON'T BUILD WITH DEV SERVER RUNNING!!!!
+
 On the host PC:
 
 ```shell
