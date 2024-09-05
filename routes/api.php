@@ -28,6 +28,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('chapters/{chapterId}/blocks', [BlocksApi::class, 'index']);
         Route::get('covers/{coverId}', [CoverController::class, 'show']);
         Route::put('covers/{coverId}', [CoverController::class, 'update']);
-        Route::patch('v1/covers/{coverId}', [CoverController::class, 'update']);
+        Route::patch('covers/{coverId}', [CoverController::class, 'update']);
     });
 });
