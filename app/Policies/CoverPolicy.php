@@ -36,7 +36,7 @@ class CoverPolicy
      */
     public function update(User $user, Cover $cover): bool
     {
-        return $cover->authors()->select(['user_id'])->get()->contains($user->user_id);
+        return $cover->authors()->select(['authors.user_id'])->get()->contains($user->user_id);
     }
 
     /**
@@ -44,7 +44,7 @@ class CoverPolicy
      */
     public function delete(User $user, Cover $cover): bool
     {
-        return $cover->authors()->select(['user_id'])->get()->contains($user->user_id);
+        return $cover->authors()->select(['authors.user_id'])->get()->contains($user->user_id);
     }
 
     /**
@@ -60,6 +60,6 @@ class CoverPolicy
      */
     public function forceDelete(User $user, Cover $cover): bool
     {
-        return $cover->authors()->select(['user_id'])->get()->contains($user->user_id);
+        return $cover->authors()->select(['authors.user_id'])->get()->contains($user->user_id);
     }
 }

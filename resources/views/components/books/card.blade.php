@@ -1,6 +1,5 @@
 @props([
   'id',
-  'bookId',
   'userId',
   'title',
   'type',
@@ -57,8 +56,12 @@
     <x-button class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
       <x-p size="base">{{ __('Delete') }}</x-p>
     </x-button>
-    {{-- TODO: Edit and publish page --}}
-    <x-button class="mt-4 w-full md:h-fit md:w-fit" size="base" variant="secondary-1" href="">
+    <x-button
+      class="mt-4 w-full md:h-fit md:w-fit"
+      size="base"
+      variant="secondary-1"
+      href="{{ route('books.edit', ['book' => $id])}}"
+    >
       <x-p size="base">{{ __('Edit') }}</x-p>
     </x-button>
     <x-button
