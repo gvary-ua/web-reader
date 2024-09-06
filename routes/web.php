@@ -40,7 +40,7 @@ Route::get('books', [BooksController::class, 'index'])->name('books.index');
 Route::post('books', [BooksController::class, 'store'])->name('books.store');
 Route::get('books/{book}', [BooksController::class, 'show'])->name('books.show');
 
-// Route::get('books/{book}/edit', [BooksController::class, 'edit'])->name('books.edit');
+Route::get('books/{book}/edit', [BooksController::class, 'edit'])->name('books.edit');
 // Route::put('books/{book}', [BooksController::class, 'update'])->name('books.update');
 // Route::patch('books/{book}', [BooksController::class, 'update'])->name('books.update');
 Route::delete('books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');

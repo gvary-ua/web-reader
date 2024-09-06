@@ -95,11 +95,11 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cover $cover)
+    public function edit(Cover $book)
     {
-        Gate::authorize('update', $cover);
+        Gate::authorize('update', $book);
 
-        return view('books.edit', ['cover' => $cover]);
+        return view('books.edit', $book);
     }
 
     /**
