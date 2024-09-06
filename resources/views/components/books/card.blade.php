@@ -1,6 +1,5 @@
 @props([
   'id',
-  'typeId',
   'bookId',
   'userId',
   'title',
@@ -66,7 +65,7 @@
       class="mt-4 w-full md:h-fit md:w-fit"
       size="base"
       variant="primary"
-      href="{{config('app.spa_url')}}?coverId={{$id}}&coverTypeId={{$typeId}}"
+      href="{{config('app.spa_url')}}?coverId={{$id}}"
       target="_blank"
       rel="noopener noreferrer"
     >
