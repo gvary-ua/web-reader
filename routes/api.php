@@ -23,11 +23,17 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::group(['prefix' => 'v1'], function () {
-        Route::apiResource('chapters', ChapterController::class);
-        Route::post('chapters/{chapterId}/blocks', [BlocksApi::class, 'bulkStore']);
-        Route::get('chapters/{chapterId}/blocks', [BlocksApi::class, 'index']);
-        Route::get('covers/{coverId}', [CoverController::class, 'show']);
-        Route::put('covers/{coverId}', [CoverController::class, 'update']);
-        Route::patch('covers/{coverId}', [CoverController::class, 'update']);
+        /* Chapters APIs */
+        Route::get('chapters', [ChapterController::class, 'index'])->name('api.chapters.index');
+        Route::post('chapters', [ChapterController::class, 'store'])->name('api.chapters.store');
+        Route::patch('chapters/{chapter}', [ChapterController::class])->name('api.chapters.update');
+
+        /* Blocks APIs */
+        Route::post('chapters/{chapterId}/blocks', [BlocksApi::class, 'bulkStore'])->name('api.blocks.bulkStore');
+        Route::get('chapters/{chapterId}/blocks', [BlocksApi::class, 'index'])->name('api.blocks.index');
+
+        /* Cover APIs */
+        Route::get('covers/{coverId}', [CoverController::class, 'show'])->name('api.covers.show');
+        Route::patch('covers/{coverId}', [CoverController::class, 'update'])->name('api.covers.patch');
     });
 });
