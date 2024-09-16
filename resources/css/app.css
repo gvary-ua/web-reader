@@ -5,3 +5,11 @@
 @font-face { font-family: "Roslindale Cyrillic"; src: url('/public/fonts/RoslindaleCyrillicText-Regular.otf'); } 
 
 [x-cloak] { display: none !important; }
+
+input, select, textarea {
+    --tw-ring-color: #8342ff!important;
+}
+
+input[type='checkbox'] {
+    color:#8342ff!important;
+}

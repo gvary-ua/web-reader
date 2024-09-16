@@ -7,6 +7,8 @@ use App\Http\Requests\Web\V1\CoverCreateRequest;
 use App\Models\Author;
 use App\Models\Chapter;
 use App\Models\Cover;
+use App\Models\Genre;
+use App\Models\LanguageCode;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -99,7 +101,50 @@ class BooksController extends Controller
     {
         Gate::authorize('update', $book);
 
-        return view('books.edit', $book);
+        $type = $book->coverType()->first(['label'])['label'];
+
+        $genres = Genre::all()->toArray();
+        $book_genres = $book->genres()->pluck('cover_genres.genre_id')->toArray();
+        $genres_dto = array_map(function ($genre) use ($book_genres) {
+            return [
+                'value' => $genre['genre_id'],
+                'label' => $genre['label'],
+                'checked' => in_array($genre['genre_id'], $book_genres),
+            ];
+        }, $genres);
+
+        $languages = LanguageCode::all()->toArray();
+        $languages_dto = array_map(function ($lang) use ($book) {
+            return [
+                'value' => $lang['lang_id'],
+                'label' => $lang['label'],
+                'selected' => $lang['lang_id'] == $book->language['lang_id'],
+            ];
+        }, $languages);
+
+        $chapters = $book->chapters();
+        $chapters_dto = array_map(function ($chapter) {
+            return [
+                'value' => $chapter->chapter_id,
+                'label' => $chapter->title,
+                'checked' => $chapter->public,
+            ];
+        }, $chapters);
+
+        $dto = [
+            'cover_id' => $book['cover_id'],
+            'title' => $book['title'],
+            'description' => $book['description'],
+            'type' => $type,
+            'imgSrc' => $book['img_key'],
+            'lang_id' => $book->language['lang_id'],
+            'languages' => $languages_dto,
+            'genres' => $genres_dto,
+            'book_genres' => $book_genres,
+            'chapters' => $chapters_dto,
+        ];
+
+        return view('books.edit', $dto);
     }
 
     /**
