@@ -9,6 +9,7 @@ use App\Models\Chapter;
 use App\Models\Cover;
 use App\Models\Genre;
 use App\Models\LanguageCode;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -150,9 +151,38 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cover $cover)
+    public function update(Request $request, Cover $book)
     {
-        Gate::authorize('update', $cover);
+        Gate::authorize('update', $book);
+
+        if ($request['title'] != null) {
+            $book['title'] = $request['title'];
+        }
+        if ($request['description'] != null) {
+            $book['description'] = $request['description'];
+        }
+
+        $book->genres()->sync($request['genres']);
+        $book->lang_id = $request['lang'];
+
+        $public_chapters = $request['public_chapters'];
+        if ($public_chapters != null && count($public_chapters) != 0 && ! $book['public']) {
+            $book['public'] = true;
+            $book['published_at'] = Carbon::now();
+        } else {
+            $book['public'] = false;
+        }
+
+        DB::transaction(function () use (&$book, &$request) {
+            if ($book['chapter_ids'] != null) {
+                DB::table('chapters')->whereIn('chapter_id', $book['chapter_ids'])->update(['public' => false]);
+            }
+            if ($request['public_chapters'] != null) {
+                DB::table('chapters')->whereIn('chapter_id', $request['public_chapters'])->update(['public' => true]);
+            }
+
+            $book->save();
+        });
 
         return Redirect::route('books.index')->with('status', 'Book updated!');
     }
