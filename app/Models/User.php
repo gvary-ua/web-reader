@@ -57,6 +57,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function covers(): BelongsToMany
     {
-        return $this->belongsToMany(Cover::class, 'authors', 'user_id', 'cover_id');
+        return $this->belongsToMany(Cover::class, 'authors', 'user_id', 'cover_id')
+            ->orderBy('covers.updated_at', 'desc');
     }
 }
