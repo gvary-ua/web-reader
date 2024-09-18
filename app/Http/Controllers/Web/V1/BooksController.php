@@ -192,9 +192,11 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cover $cover)
+    public function destroy(Cover $book)
     {
-        Gate::authorize('delete', $cover);
+        Gate::authorize('delete', $book);
+
+        $book->deleteOrFail();
 
         return Redirect::route('books.index')->with('status', 'Book deleted!');
     }
