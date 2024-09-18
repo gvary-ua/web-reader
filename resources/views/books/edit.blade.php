@@ -57,7 +57,9 @@
         </x-p>
         <x-p size="sm">{{ __('If no chapters are published, it will remain hidden.') }}</x-p>
         <div class="mb-14 mt-14 md:flex md:justify-between">
-          <x-button class="w-full md:w-fit" href="" variant="secondary-2" size="base">{{ __('Back') }}</x-button>
+          <x-button class="w-full md:w-fit" href="{{route('books.index')}}" variant="secondary-2" size="base">
+            {{ __('Back') }}
+          </x-button>
           <x-button class="mt-4 w-full md:mt-0 md:w-fit" type="submit" variant="primary" size="base">
             {{ __('Save') }}
           </x-button>
