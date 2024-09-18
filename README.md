@@ -234,8 +234,8 @@ On the host PC:
 ```shell
 nvm use lts/iron
 npm run build
-php artisan view:cache
-php artisan route:cache
+php artisan view:clear
+php artisan route:clear
 php artisan key:generate
 export APP_VERSION=YOUR_VERSION_HERE
 docker build -f .docker/php/Dockerfile -t s1ckret/gvary-web-reader-php:$APP_VERSION .
