@@ -26,7 +26,9 @@ Route::middleware('auth:sanctum')->group(function () {
         /* Chapters APIs */
         Route::get('chapters', [ChapterController::class, 'index'])->name('api.chapters.index');
         Route::post('chapters', [ChapterController::class, 'store'])->name('api.chapters.store');
-        Route::patch('chapters/{chapter}', [ChapterController::class])->name('api.chapters.update');
+        Route::put('chapters/{chapter}', [ChapterController::class, 'update'])->name('api.chapters.update');
+        Route::patch('chapters/{chapter}', [ChapterController::class, 'update'])->name('api.chapters.update');
+        Route::delete('chapters/{chapter}', [ChapterController::class, 'destroy'])->name('api.chapters.destroy');
 
         /* Blocks APIs */
         Route::post('chapters/{chapterId}/blocks', [BlocksApi::class, 'bulkStore'])->name('api.blocks.bulkStore');
