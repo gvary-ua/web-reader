@@ -173,6 +173,8 @@ class BooksController extends Controller
             $book['public'] = false;
         }
 
+        // TODO: Schedule a job to calculate word count & time read
+
         DB::transaction(function () use (&$book, &$request) {
             if ($book['chapter_ids'] != null) {
                 DB::table('chapters')->whereIn('chapter_id', $book['chapter_ids'])->update(['public' => false]);
