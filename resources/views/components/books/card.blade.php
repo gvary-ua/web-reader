@@ -52,10 +52,18 @@
     {{ __('Chapters published') }}: {{ $chaptersPublished }}/{{ $chaptersTotal }}
   </x-p>
   <div class="flex flex-wrap [grid-area:button] md:justify-end md:space-x-2">
-    {{-- TODO: Open a modal and ask if you really want to Delete --}}
-    <x-button class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
-      <x-p size="base">{{ __('Delete') }}</x-p>
-    </x-button>
+    <form
+      method="POST"
+      onsubmit="return confirm('{{ __('Do you really want to delete the book?') }}')"
+      class="w-full md:w-fit"
+      action="{{ route('books.destroy', ['book' => $id]) }}"
+    >
+      @csrf
+      @method('DELETE')
+      <x-button type="submit" class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
+        <x-p size="base">{{ __('Delete') }}</x-p>
+      </x-button>
+    </form>
     <x-button
       class="mt-4 w-full md:h-fit md:w-fit"
       size="base"
