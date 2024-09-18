@@ -22,8 +22,33 @@
     <br class="sm:hidden" />
     {{ __('worthy of your attention') }}
   </x-p>
-  <x-button href="{{route('register')}}" variant="primary" size="2xl" class="mt-12 w-full sm:w-fit">
-    {{ __('Join') }}
-  </x-button>
+  @guest
+    <x-button href="{{route('register')}}" variant="primary" size="2xl" class="mt-12 w-full sm:w-fit">
+      {{ __('Join') }}
+    </x-button>
+  @endguest
+
+  @auth
+    <div class="mt-12 flex flex-wrap space-y-4 md:space-x-4 md:space-y-0">
+      <form method="POST" class="w-full md:w-fit" action="{{ route('books.store') }}">
+        @csrf
+        <input name="coverTypeId" type="hidden" value="1" />
+
+        <x-button type="submit" variant="primary" size="2xl" class="w-full md:w-fit">
+          {{ __('Write book') }}
+        </x-button>
+      </form>
+
+      <form method="POST" class="w-full md:w-fit" action="{{ route('books.store') }}">
+        @csrf
+        <input name="coverTypeId" type="hidden" value="2" />
+
+        <x-button type="submit" variant="secondary-2" size="2xl" class="w-full md:w-fit">
+          {{ __('Write verse') }}
+        </x-button>
+      </form>
+    </div>
+  @endauth
+
   <x-gvary-comment class="mb-[-5rem] mt-8" />
 </section>

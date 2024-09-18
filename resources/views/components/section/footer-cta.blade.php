@@ -7,22 +7,39 @@
 >
   <img class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2" src="/icons/logo.svg" alt="Logo svg" />
 
-  <!-- Desktop -->
-  <x-h class="hidden sm:block" level="h3">Давай подорожувати сторінками разом</x-h>
-  <x-button
-    href="{{route('register')}}"
-    variant="primary"
-    size="2xl"
-    class="mx-auto mt-16 hidden w-full sm:block sm:w-fit"
-  >
-    {{ __('Join') }}
-  </x-button>
+  <x-h level="h3">Давай подорожувати сторінками разом</x-h>
+  @guest
+    <x-button
+      href="{{route('register')}}"
+      variant="primary"
+      size="2xl"
+      class="mx-auto mt-16 hidden w-full sm:block sm:w-fit"
+    >
+      {{ __('Join') }}
+    </x-button>
+  @endguest
 
-  <!-- Mobile -->
-  <x-h class="sm:hidden" level="h5">Давай подорожувати сторінками разом</x-h>
-  <x-button href="{{route('register')}}" variant="primary" size="xl" class="mx-auto mt-16 w-full sm:hidden sm:w-fit">
-    {{ __('Join') }}
-  </x-button>
+  @auth
+    <div class="mt-12 flex flex-wrap justify-center space-y-4 md:space-x-4 md:space-y-0">
+      <form method="POST" class="w-full md:w-fit" action="{{ route('books.store') }}">
+        @csrf
+        <input name="coverTypeId" type="hidden" value="1" />
+
+        <x-button type="submit" variant="primary" size="2xl" class="w-full md:w-fit">
+          {{ __('Write book') }}
+        </x-button>
+      </form>
+
+      <form method="POST" class="w-full md:w-fit" action="{{ route('books.store') }}">
+        @csrf
+        <input name="coverTypeId" type="hidden" value="2" />
+
+        <x-button type="submit" variant="primary" size="2xl" class="w-full md:w-fit">
+          {{ __('Write verse') }}
+        </x-button>
+      </form>
+    </div>
+  @endauth
 </section>
 <div class="bg-surface-1">
   <hr class="mx-auto h-[1px] w-[calc(100%-2rem)] text-on-surface-1 sm:w-[calc(100%-10rem)]" />
