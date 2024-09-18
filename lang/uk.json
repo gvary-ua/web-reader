@@ -148,5 +148,7 @@
     "Our search engine relies on your book's description, so be sure to make it detailed and engaging!": "Наш пошуковий механізм працює на основі опису вашої книги, тому переконайтеся, що він детальний і цікавий!",
     "Your book becomes visible to others once you've published at least one chapter.": "Ваша книга стане видимою для інших після публікації принаймні одного розділу.",
     "If no chapters are published, it will remain hidden.": "Якщо жоден розділ не опубліковано, вона залишатиметься прихованою.",
-    "Back": "Назад"
+    "Back": "Назад",
+    "Next chapter": "Наступна глава",
+    "Previous chapter": "Попередня глава"
 }

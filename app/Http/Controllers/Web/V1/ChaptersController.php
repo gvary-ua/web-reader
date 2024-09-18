@@ -12,10 +12,10 @@ class ChaptersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $bookId, int $chapterId)
+    public function show(int $book, int $chapter)
     {
         $cover = Cover::select('cover_id', 'title', 'chapter_ids')
-            ->where('cover_id', '=', $bookId)
+            ->where('cover_id', '=', $book)
             ->where('public', '=', true)
             ->first();
 
@@ -36,20 +36,20 @@ class ChaptersController extends Controller
             return $chapter->chapter_id;
         });
 
-        $currChapterIndex = array_search($chapterId, $chapterIds);
+        $currChapterIndex = array_search($chapter, $chapterIds);
         if ($currChapterIndex === false) {
             abort(404);
         }
 
         $currentChapter = $chapters[$currChapterIndex];
 
-        $prevChapter = null;
-        $nextChapter = null;
+        $prevChapterId = null;
+        $nextChapterId = null;
         if ($currChapterIndex - 1 >= 0) {
-            $prevChapter = $chapters[$currChapterIndex - 1];
+            $prevChapterId = $chapters[$currChapterIndex - 1]->chapter_id;
         }
         if ($currChapterIndex + 1 < count($chapterIds)) {
-            $nextChapter = $chapters[$currChapterIndex + 1];
+            $nextChapterId = $chapters[$currChapterIndex + 1]->chapter_id;
         }
 
         $selectBlocksInOrder = "
@@ -68,13 +68,13 @@ class ChaptersController extends Controller
         // dd($chapters, $currentChapter);
 
         return view('chapters.show', [
-            'bookId' => $bookId,
+            'book_id' => $book,
             'title' => $cover['title'],
             'blocks' => $blocks,
             'chapters' => $chapters,
             'curr_chapter' => $currentChapter,
-            'prev_chapter' => $prevChapter,
-            'next_chapter' => $nextChapter,
+            'prev_chapter_id' => $prevChapterId,
+            'next_chapter_id' => $nextChapterId,
         ]);
     }
 }

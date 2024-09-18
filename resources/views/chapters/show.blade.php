@@ -1,15 +1,17 @@
 @props([
-  'bookId',
+  'book_id',
   'title',
   'chapters' => [],
   'blocks' => [],
   'curr_chapter',
+  'prev_chapter_id',
+  'next_chapter_id',
 ])
 
 @section('header.mobile-dropdown-menu.before')
   <x-chapters
     class="border-b border-b-surface-1 py-4"
-    :bookId="$bookId"
+    :bookId="$book_id"
     :chapters="$chapters"
     :currChapterId="$curr_chapter->chapter_id"
   />
@@ -25,6 +27,17 @@
     }
   </style>
 @endsection
+
+@php
+  $chapterButtonsJustify = '';
+  if ($prev_chapter_id && $next_chapter_id) {
+    $chapterButtonsJustify = 'justify-between';
+  } elseif ($prev_chapter_id) {
+    $chapterButtonsJustify = 'justify-start';
+  } elseif ($next_chapter_id) {
+    $chapterButtonsJustify = 'justify-end';
+  }
+@endphp
 
 <x-app-layout>
   <section
@@ -46,18 +59,46 @@
         <div class="px-[6px] pt-2">
           <x-chapters
             class="py-5"
-            :bookId="$bookId"
+            :bookId="$book_id"
             :chapters="$chapters"
             :currChapterId="$curr_chapter->chapter_id"
           />
         </div>
       </div>
     </nav>
-    <main class="w-full overflow-y-auto px-3 py-3 md:px-20 md:pt-10">
+    <main class="w-full overflow-y-auto px-3 py-3 pb-20 md:px-20 md:py-10">
       <x-h class="pb-[3px] pt-[0.6em]" level="h3">{{ $title }}</x-h>
       <x-h class="pb-[3px] pt-[0.6em]" level="h4">{{ $curr_chapter->title }}</x-h>
       <div class="my-4 border-b border-b-surface-1"></div>
       <x-blocks.index :blocks="$blocks" />
+      <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+      <div class="{{ $chapterButtonsJustify }} mt-12 flex flex-wrap space-y-4 md:space-y-0">
+        @if ($prev_chapter_id)
+          <x-button
+            href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $prev_chapter_id])}}"
+            variant="secondary-2"
+            size="xl"
+            class="w-full md:w-fit"
+            icon="{{asset('icons/arrow-left.svg')}}"
+            iconPosition="left"
+          >
+            {{ __('Previous chapter') }}
+          </x-button>
+        @endif
+
+        @if ($next_chapter_id)
+          <x-button
+            href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $next_chapter_id])}}"
+            variant="secondary-2"
+            size="xl"
+            class="w-full md:w-fit"
+            icon="{{asset('icons/arrow-right.svg')}}"
+            iconPosition="right"
+          >
+            {{ __('Next chapter') }}
+          </x-button>
+        @endif
+      </div>
     </main>
   </section>
 </x-app-layout>
