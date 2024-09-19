@@ -7,6 +7,9 @@ return [
 
     'spa_url' => env('SPA_URL'),
     'force_https' => env('FORCE_HTTPS', false),
+    // LanguageMiddleware
+    'SUPPORTED_LOCALES' => explode(',', env('SUPPORTED_LOCALES', 'en,uk')),
+    'DEFAULT_LOCALE' => env('DEFAULT_LOCALE', 'uk'),
     /*
     |--------------------------------------------------------------------------
     | Application Name

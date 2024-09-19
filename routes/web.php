@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\V1\BooksController;
 use App\Http\Controllers\Web\V1\ChaptersController;
 use App\Http\Controllers\Web\V1\IndexController;
 use App\Http\Controllers\Web\V1\ProfileController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,31 @@ Route::get('/', [IndexController::class, 'index']);
 Route::get('/about', function () {
     return view('about');
 });
+
+// Lang APIs
+Route::get('language/{locale}', function (string $locale) {
+    $supportedLocales = config('app.SUPPORTED_LOCALES');
+
+    if (in_array($locale, $supportedLocales)) {
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+    }
+
+    return redirect()->back();
+})->name('language.show');
+
+Route::put('language', function (Request $request) {
+    $locale = $request['locale'];
+    $supportedLocales = config('app.SUPPORTED_LOCALES');
+
+    if (in_array($locale, $supportedLocales)) {
+        session(['locale' => $locale]);
+        app()->setLocale($locale);
+        $request->user()->update(['locale' => $locale]);
+    }
+
+    return redirect()->back();
+})->name('language.update');
 
 // Profile APIs
 

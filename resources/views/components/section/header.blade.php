@@ -7,7 +7,10 @@
     @auth
       <!-- For mobile -->
       <div class="md:hidden">
-        <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
+        <div class="relative flex items-center space-x-4 lg:space-x-12">
+          <x-lang-selector />
+          <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
+        </div>
         <!-- Dropdown menu -->
         <div
           class="fixed bottom-0 left-0 top-0 z-50 min-h-full min-w-full overflow-y-auto overflow-x-hidden bg-background"
@@ -31,11 +34,12 @@
         </div>
       </div>
       <!-- For desktop -->
-      <div class="relative hidden gap-x-8 md:flex">
-        <x-links.about-us class="px-4 py-2" />
-        <x-links.my-books class="px-4 py-2" />
-        <x-links.write-book class="px-4 py-2" />
-        <x-links.write-verse class="px-4 py-2" />
+      <div class="relative hidden items-center space-x-4 md:flex lg:space-x-12">
+        <x-links.about-us />
+        <x-links.my-books />
+        <x-links.write-book />
+        <x-links.write-verse />
+        <x-lang-selector />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
           <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->login }}</span>
@@ -54,12 +58,15 @@
     @endauth
 
     @guest
-      <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">
-        {{ __('Sign in') }}
-      </x-button>
-      <x-button class="hidden sm:block" href="{{ route('login') }}" variant="primary" size="base">
-        {{ __('Sign in') }}
-      </x-button>
+      <div class="relative flex items-center space-x-4 lg:space-x-12">
+        <x-lang-selector />
+        <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">
+          {{ __('Sign in') }}
+        </x-button>
+        <x-button class="hidden sm:block" href="{{ route('login') }}" variant="primary" size="base">
+          {{ __('Sign in') }}
+        </x-button>
+      </div>
     @endguest
   </div>
 </header>

@@ -42,5 +42,7 @@
     "cover.statuses.in_progress": "In progress",
     "cover.statuses.completed": "Completed",
     "languages.ukrainian": "Ukrainian",
-    "languages.english": "English"
+    "languages.english": "English",
+    "en": "English",
+    "uk": "Ukrainian"
 }
