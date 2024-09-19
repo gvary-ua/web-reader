@@ -7,7 +7,7 @@
 >
   <img class="absolute left-1/2 top-0 -translate-x-1/2 -translate-y-1/2" src="/icons/logo.svg" alt="Logo svg" />
 
-  <x-h level="h3">Давай подорожувати сторінками разом</x-h>
+  <x-h level="h3">{{ __("Let's travel through the pages together") }}</x-h>
   @guest
     <x-button
       href="{{route('register')}}"

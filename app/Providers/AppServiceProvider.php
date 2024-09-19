@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -22,5 +23,10 @@ class AppServiceProvider extends ServiceProvider
         if (config('app.force_https') == true) {
             \URL::forceScheme('https');
         }
+
+        View::composer('*', function ($view) {
+            $view->with('current_locale', app()->getLocale());
+            $view->with('supported_locales', config('app.SUPPORTED_LOCALES'));
+        });
     }
 }
