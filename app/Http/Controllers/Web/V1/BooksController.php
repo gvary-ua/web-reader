@@ -13,6 +13,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
 
 class BooksController extends Controller
@@ -204,14 +205,13 @@ class BooksController extends Controller
     public function store(CoverCreateRequest $request)
     {
         $cover = DB::transaction(function () use ($request) {
+            $nCovers = Author::where('user_id', '=', $request->user()->user_id)->count();
+
             $cover = Cover::create([
                 'cover_type_id' => $request->coverTypeId,
                 'cover_status_id' => 1, // In progress
-                // TODO: Get language from `Accept-Language` header on login and store it in user settings.
-                'lang_id' => 'uk',
-                // TODO: Change name based on user locale (need to save upon registration and then can be changed in settings)
-                // TODO: Change timezone based on their timezone
-                'title' => 'Draft '.date('Y-m-d H:i:s'),
+                'lang_id' => app()->currentLocale(),
+                'title' => Lang::get('Draft').' №'.($nCovers + 1),
             ]);
 
             Author::create([
@@ -220,8 +220,7 @@ class BooksController extends Controller
             ]);
 
             $chapter = Chapter::create([
-                // TODO: Change name based on user locale (need to save upon registration and then can be changed in settings)
-                'title' => 'Нова глава',
+                'title' => Lang::get('New chapter'),
                 'cover_id' => $cover->cover_id,
             ]);
 
