@@ -41,9 +41,13 @@
 
 <x-app-layout>
   <section
-    class="flex h-auto max-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-3.5rem)] w-full md:max-h-[calc(100vh-4.25rem)] md:min-h-[calc(100vh-4.25rem)] md:pl-20"
+    class="flex h-auto max-h-[calc(100vh-3.5rem)] min-h-[calc(100vh-3.5rem)] w-full md:max-h-[calc(100vh-4.25rem)] md:min-h-[calc(100vh-4.25rem)] md:pl-8 lg:pl-20"
   >
-    <nav class="hidden min-w-48 overflow-y-auto pt-10 md:block" x-data="{ open: true }">
+    <nav
+      class="hidden flex-shrink-0 overflow-y-auto pt-10 transition-all duration-300 md:block"
+      x-data="{ open: true }"
+      :class="{ 'w-8' : !open , 'w-48' : open}"
+    >
       <img
         src="/icons/gear.svg"
         alt="Open navigation"
@@ -66,38 +70,40 @@
         </div>
       </div>
     </nav>
-    <main class="w-full overflow-y-auto px-3 py-3 pb-20 md:px-20 md:py-10">
-      <x-h class="pb-[3px] pt-[0.6em]" level="h3">{{ $title }}</x-h>
-      <x-h class="pb-[3px] pt-[0.6em]" level="h4">{{ $curr_chapter->title }}</x-h>
-      <div class="my-4 border-b border-b-surface-1"></div>
-      <x-blocks.index :blocks="$blocks" />
-      <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
-      <div class="{{ $chapterButtonsJustify }} mt-12 flex flex-wrap space-y-4 md:space-y-0">
-        @if ($prev_chapter_id)
-          <x-button
-            href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $prev_chapter_id])}}"
-            variant="secondary-2"
-            size="xl"
-            class="w-full md:w-fit"
-            icon="{{asset('icons/arrow-left.svg')}}"
-            iconPosition="left"
-          >
-            {{ __('Previous chapter') }}
-          </x-button>
-        @endif
+    <main class="relative w-full overflow-y-auto py-10">
+      <div class="mx-auto max-w-[90%] sm:max-w-[64vw]">
+        <x-h class="pb-[3px]" level="h3">{{ $title }}</x-h>
+        <x-h class="pb-[3px] pt-[0.6em]" level="h4">{{ $curr_chapter->title }}</x-h>
+        <div class="my-4 border-b border-b-surface-1"></div>
+        <x-blocks.index :blocks="$blocks" />
+        <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+        <div class="{{ $chapterButtonsJustify }} mt-12 flex flex-wrap space-y-4 md:space-y-0">
+          @if ($prev_chapter_id)
+            <x-button
+              href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $prev_chapter_id])}}"
+              variant="secondary-2"
+              size="xl"
+              class="w-full md:w-fit"
+              icon="{{asset('icons/arrow-left.svg')}}"
+              iconPosition="left"
+            >
+              {{ __('Previous chapter') }}
+            </x-button>
+          @endif
 
-        @if ($next_chapter_id)
-          <x-button
-            href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $next_chapter_id])}}"
-            variant="secondary-2"
-            size="xl"
-            class="w-full md:w-fit"
-            icon="{{asset('icons/arrow-right.svg')}}"
-            iconPosition="right"
-          >
-            {{ __('Next chapter') }}
-          </x-button>
-        @endif
+          @if ($next_chapter_id)
+            <x-button
+              href="{{route('chapters.show', ['book' => $book_id, 'chapter' => $next_chapter_id])}}"
+              variant="secondary-2"
+              size="xl"
+              class="w-full md:w-fit"
+              icon="{{asset('icons/arrow-right.svg')}}"
+              iconPosition="right"
+            >
+              {{ __('Next chapter') }}
+            </x-button>
+          @endif
+        </div>
       </div>
     </main>
   </section>

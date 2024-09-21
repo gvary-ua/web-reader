@@ -167,9 +167,11 @@ class BooksController extends Controller
         $book->lang_id = $request['lang'];
 
         $public_chapters = $request['public_chapters'];
-        if ($public_chapters != null && count($public_chapters) != 0 && ! $book['public']) {
+        if ($public_chapters != null && count($public_chapters) != 0) {
+            if (! $book['public']) {
+                $book['published_at'] = Carbon::now();
+            }
             $book['public'] = true;
-            $book['published_at'] = Carbon::now();
         } else {
             $book['public'] = false;
         }
