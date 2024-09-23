@@ -14,7 +14,7 @@ class ChaptersController extends Controller
      */
     public function show(int $book, int $chapter)
     {
-        $cover = Cover::select('cover_id', 'title', 'chapter_ids')
+        $cover = Cover::select('cover_id', 'cover_type_id', 'title', 'chapter_ids')
             ->where('cover_id', '=', $book)
             ->where('public', '=', true)
             ->first();
@@ -69,6 +69,7 @@ class ChaptersController extends Controller
 
         return view('chapters.show', [
             'book_id' => $book,
+            'cover_type_id' => $cover['cover_type_id'],
             'title' => $cover['title'],
             'blocks' => $blocks,
             'chapters' => $chapters,
