@@ -1,5 +1,6 @@
 @props([
   'cover_id',
+  'cover_type_id',
   'title',
   'description',
   'genres',
@@ -48,14 +49,17 @@
         </x-p>
         <x-checkbox-holder
           name="public_chapters[]"
-          label="{{__('Published chapters')}}:"
+          label="{{ ($cover_type_id == 1) ? __('Published chapters') : __('Publish verse')}}:"
           :items="$chapters"
           class="mt-6"
         ></x-checkbox-holder>
-        <x-p size="sm" class="mt-2">
-          {{ __('Your book becomes visible to others once you\'ve published at least one chapter.') }}
-        </x-p>
-        <x-p size="sm">{{ __('If no chapters are published, it will remain hidden.') }}</x-p>
+        @if ($cover_type_id == 1)
+          <x-p size="sm" class="mt-2">
+            {{ __('Your book becomes visible to others once you\'ve published at least one chapter.') }}
+          </x-p>
+          <x-p size="sm">{{ __('If no chapters are published, it will remain hidden.') }}</x-p>
+        @endif
+
         <div class="mb-14 mt-14 md:flex md:justify-between">
           <x-button class="w-full md:w-fit" href="{{route('books.index')}}" variant="secondary-2" size="base">
             {{ __('Back') }}
