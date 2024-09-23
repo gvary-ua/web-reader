@@ -13,6 +13,8 @@
   'chaptersTotal',
   'chaptersPublished',
   'firstChapterId' => 1,
+  'views',
+  'uniqueViews',
 ])
 
 @php
@@ -93,6 +95,7 @@
       <div class="flex min-w-60 justify-between">
         <div class="space-y-4">
           {{-- <x-p size="base">{{ __('Is complete') }}:</x-p> --}}
+          <x-p size="base">{{ __('Views') }}:</x-p>
           @if ($typeId == 1)
             <x-p size="base">{{ __('Chapters') }}:</x-p>
           @endif
@@ -101,6 +104,7 @@
         </div>
         <div class="space-y-4 text-on-background-2">
           {{-- <x-p size="base">{{ __($coverStatus) }}</x-p> --}}
+          <x-p size="base">{{ $views }}</x-p>
           @if ($typeId == 1)
             <x-p size="base">{{ $chaptersPublished . ' / ' . $chaptersTotal }}</x-p>
           @endif
@@ -111,11 +115,13 @@
       <div class="my-8 h-[1px] w-full bg-surface-1 md:h-28 md:w-[1px]"></div>
       <div class="flex min-w-60 justify-between">
         <div class="space-y-4">
+          <x-p size="base">{{ __('Unique views') }}:</x-p>
           <x-p size="base">{{ __('Updated at') }}:</x-p>
           <x-p size="base">{{ __('Published at') }}:</x-p>
           {{-- <x-p size="base">{{ __('Reading time') }}:</x-p> --}}
         </div>
         <div class="space-y-4 text-on-background-2">
+          <x-p size="base">{{ $uniqueViews }}</x-p>
           <x-p size="base">{{ $updatedAt }}</x-p>
           <x-p size="base">{{ $publishedAt }}</x-p>
           {{-- <x-p size="base">{{ $readingTime . ' ' . __('min') }}</x-p> --}}
