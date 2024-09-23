@@ -3,7 +3,7 @@
 >
   <a class="h-full" href="{{ url('/') }}"><x-logo class="h-full" withText /></a>
 
-  <div x-data="{ open: false }">
+  <div x-data="{ open: false, write: false }">
     @auth
       <!-- For mobile -->
       <div class="md:hidden">
@@ -37,8 +37,19 @@
       <div class="relative hidden items-center space-x-4 md:flex lg:space-x-12">
         <x-links.about-us />
         <x-links.my-books />
-        <x-links.write-book />
-        <x-links.write-verse />
+        <div class="relative">
+          <x-p class="cursor-pointer" x-on:click="write = !write">{{ __('Compose') }}</x-p>
+          <!-- Dropdown menu -->
+          <div
+            class="absolute right-0 top-[calc(100%+6px)] z-50 whitespace-nowrap rounded-[4px] bg-background p-1 shadow-[0px_0px_8px_0px_#00000014,0px_8px_32px_0px_#00114D29]"
+            x-cloak
+            x-show="write"
+            @click.outside="write = false"
+          >
+            <x-links.write-book class="px-2 py-1" />
+            <x-links.write-verse class="px-2 py-1" />
+          </div>
+        </div>
         <x-lang-selector />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
