@@ -133,8 +133,13 @@ class BooksController extends Controller
             ];
         }, $chapters);
 
+        if ($book['cover_type_id'] == 2) {
+            $chapters_dto[0]['label'] = $book['title'];
+        }
+
         $dto = [
             'cover_id' => $book['cover_id'],
+            'cover_type_id' => $book['cover_type_id'],
             'title' => $book['title'],
             'description' => $book['description'],
             'type' => $type,

@@ -3,6 +3,7 @@
   'userId',
   'title',
   'type',
+  'typeId',
   'author',
   'login',
   'genres',
@@ -48,9 +49,15 @@
   <x-p class="pt-4 [grid-area:description]">
     {{ $description }}
   </x-p>
-  <x-p class="pt-4 font-medium [grid-area:chapters] lg:leading-[38px]">
-    {{ __('Chapters published') }}: {{ $chaptersPublished }}/{{ $chaptersTotal }}
-  </x-p>
+  @if ($typeId == 1)
+    <x-p class="pt-4 font-medium [grid-area:chapters] lg:leading-[38px]">
+      {{ __('Chapters published') }}: {{ $chaptersPublished }}/{{ $chaptersTotal }}
+    </x-p>
+  @else
+    <x-p class="pt-4 font-medium [grid-area:chapters] lg:leading-[38px]">
+      {{ __('Verse published') }}: {{ $chaptersPublished == 1 ? __('yes') : __('no') }}
+    </x-p>
+  @endif
   <div class="flex flex-wrap [grid-area:button] md:justify-end md:space-x-2">
     <form
       method="POST"

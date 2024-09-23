@@ -93,12 +93,18 @@
       <div class="flex min-w-60 justify-between">
         <div class="space-y-4">
           {{-- <x-p size="base">{{ __('Is complete') }}:</x-p> --}}
-          <x-p size="base">{{ __('Chapters') }}:</x-p>
+          @if ($typeId == 1)
+            <x-p size="base">{{ __('Chapters') }}:</x-p>
+          @endif
+
           <x-p size="base">{{ __('Language') }}:</x-p>
         </div>
         <div class="space-y-4 text-on-background-2">
           {{-- <x-p size="base">{{ __($coverStatus) }}</x-p> --}}
-          <x-p size="base">{{ $chaptersPublished . ' / ' . $chaptersTotal }}</x-p>
+          @if ($typeId == 1)
+            <x-p size="base">{{ $chaptersPublished . ' / ' . $chaptersTotal }}</x-p>
+          @endif
+
           <x-p size="base">{{ __($language) }}</x-p>
         </div>
       </div>
