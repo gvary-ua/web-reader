@@ -36,9 +36,10 @@
               name="genres[]"
               label="{{__('Genre')}}:"
               :items="$genres"
-              class="mt-4 h-40"
+              class="mt-4"
+              innerClass="h-40"
             ></x-checkbox-holder>
-            <x-select name="lang" label="{{__('Language')}}:" :items="$languages" class="mt-12"></x-select>
+            <x-select name="lang" label="{{__('Language')}}:" :items="$languages" class="mt-6"></x-select>
           </div>
         </div>
         <x-textarea name="description" limit="700" label="{{__('Description')}}:" class="mt-6 min-h-72 md:min-h-44">
@@ -52,6 +53,7 @@
           label="{{ ($cover_type_id == 1) ? __('Published chapters') : __('Publish verse')}}:"
           :items="$chapters"
           class="mt-6"
+          innerClass="max-h-40"
         ></x-checkbox-holder>
         @if ($cover_type_id == 1)
           <x-p size="sm" class="mt-2">
