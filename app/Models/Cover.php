@@ -98,4 +98,17 @@ class Cover extends Model
     {
         return $this->belongsToMany(User::class, 'authors', 'cover_id', 'user_id');
     }
+
+    public function uniqueViews(): int
+    {
+        return UserClickOnCover::where('cover_id', $this->cover_id)
+            ->distinct('user_id')
+            ->count('user_id');
+    }
+
+    public function views(): int
+    {
+        return UserClickOnCover::where('cover_id', $this->cover_id)
+            ->sum('times');
+    }
 }

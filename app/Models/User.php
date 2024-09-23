@@ -6,6 +6,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -60,5 +61,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Cover::class, 'authors', 'user_id', 'cover_id')
             ->orderBy('covers.updated_at', 'desc');
+    }
+
+    public function clicks(): HasMany
+    {
+        return $this->hasMany(UserClickOnCover::class, 'user_id', 'user_id');
     }
 }

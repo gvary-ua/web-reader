@@ -9,6 +9,7 @@ use App\Models\Chapter;
 use App\Models\Cover;
 use App\Models\Genre;
 use App\Models\LanguageCode;
+use App\Models\UserClickOnCover;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -85,13 +86,32 @@ class BooksController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(int $id)
+    public function show(Request $request, Cover $book)
     {
-        $cover = Cover::find($id);
-        if ($cover == null || $cover['public'] == false) {
+        if ($book == null || $book['public'] == false) {
             abort(404);
         }
-        $dto = $this->createDto($cover);
+        $dto = $this->createDto($book);
+
+        $userId = $request->user()->user_id;
+        $coverId = $book->cover_id;
+
+        $click = UserClickOnCover::where('user_id', $userId)
+            ->where('cover_id', $coverId)
+            ->first();
+
+        if ($click) {
+            $click->increment('times');
+        } else {
+            $click = UserClickOnCover::create([
+                'user_id' => $userId,
+                'cover_id' => $coverId,
+                'times' => 1,
+            ]);
+        }
+
+        $dto['uniqueViews'] = $book->uniqueViews();
+        $dto['views'] = $book->views();
 
         return view('books.show', $dto);
     }
