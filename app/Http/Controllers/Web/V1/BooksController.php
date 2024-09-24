@@ -10,6 +10,7 @@ use App\Models\Cover;
 use App\Models\Genre;
 use App\Models\LanguageCode;
 use App\Models\UserClickOnCover;
+use App\Models\UserLikeCover;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -110,8 +111,21 @@ class BooksController extends Controller
             ]);
         }
 
+        if ($userId) {
+            $like = UserLikeCover::where('user_id', $userId)
+                ->where('cover_id', $coverId)
+                ->first();
+
+            if ($like) {
+                $dto['i_like'] = true;
+            } else {
+                $dto['i_like'] = false;
+            }
+        }
+
         $dto['uniqueViews'] = $book->uniqueViews();
         $dto['views'] = $book->views();
+        $dto['likes'] = $book->likes();
 
         return view('books.show', $dto);
     }
@@ -261,5 +275,30 @@ class BooksController extends Controller
         // TODO: Redirect to error page ?
 
         return redirect(config('app.spa_url')."?coverId={$cover->cover_id}&coverTypeId={$cover->cover_type_id}");
+    }
+
+    public function like(Request $request, Cover $book)
+    {
+        if ($book == null || $book['public'] == false) {
+            abort(404);
+        }
+
+        $userId = $request->user()->user_id;
+        $coverId = $book->cover_id;
+
+        $like = UserLikeCover::where('user_id', $userId)
+            ->where('cover_id', $coverId)
+            ->first();
+
+        if ($like) {
+            $like->delete();
+        } else {
+            $like = UserLikeCover::create([
+                'user_id' => $userId,
+                'cover_id' => $coverId,
+            ]);
+        }
+
+        return Redirect::route('books.show', ['book' => $book->cover_id]);
     }
 }

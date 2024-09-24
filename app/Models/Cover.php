@@ -111,4 +111,10 @@ class Cover extends Model
         return UserClickOnCover::where('cover_id', $this->cover_id)
             ->sum('times');
     }
+
+    public function likes(): int
+    {
+        return UserLikeCover::where('cover_id', $this->cover_id)
+            ->count();
+    }
 }
