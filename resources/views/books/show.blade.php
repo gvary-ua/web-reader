@@ -15,7 +15,7 @@
   'firstChapterId' => 1,
   'views',
   'uniqueViews',
-  'i_like',
+  'i_like' => null,
   'likes',
 ])
 
