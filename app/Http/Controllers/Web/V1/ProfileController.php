@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Web\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Cover;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,12 +18,32 @@ class ProfileController extends Controller
 {
     public function index(Request $request): View
     {
-        return view('profile.index', ['user' => $request->user()]);
+        $myLiked = $this->getMyLikedCovers($request->user()->user_id);
+        $myCovers = $this->getMyCovers($request->user()->user_id);
+
+        $myLikedDto = $this->toDto($myLiked);
+        $myCoversDto = $this->toDto($myCovers);
+
+        return view('profile.index', [
+            'user' => $request->user(),
+            'my_covers' => $myCoversDto,
+            'liked_covers' => $myLikedDto,
+        ]);
     }
 
     public function show(User $user): View
     {
-        return view('profile.index', ['user' => $user]);
+        $myLiked = $this->getMyLikedCovers($user->user_id);
+        $myCovers = $this->getMyCovers($user->user_id);
+
+        $myLikedDto = $this->toDto($myLiked);
+        $myCoversDto = $this->toDto($myCovers);
+
+        return view('profile.index', [
+            'user' => $user,
+            'my_covers' => $myCoversDto,
+            'liked_covers' => $myLikedDto,
+        ]);
     }
 
     public function editProfile(Request $request, User $user): View
@@ -75,5 +97,59 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    private function getMyLikedCovers(int $userId)
+    {
+        return Cover::select(['covers.cover_id', 'cover_type_id', 'title', 'img_key'])
+            ->selectRaw('COUNT(DISTINCT user_liked_cover.user_id) as likes')
+            ->join('user_liked_cover', 'covers.cover_id', '=', 'user_liked_cover.cover_id')
+            ->where('user_liked_cover.user_id', '=', $userId)
+            ->groupBy('covers.cover_id')
+            ->orderByDesc('likes')
+            ->take(10)
+            ->get();
+    }
+
+    private function getMyCovers(int $userId)
+    {
+        return Cover::select(['covers.cover_id', 'cover_type_id', 'title', 'img_key'])
+            ->join('authors', 'authors.cover_id', '=', 'covers.cover_id')
+            ->where('public', '=', true)
+            ->where('authors.user_id', '=', $userId)
+            ->orderByDesc('published_at')
+            ->limit(10)
+            ->get();
+
+    }
+
+    private function toDto(Collection $covers)
+    {
+        $dtos = [];
+        foreach ($covers as &$cover) {
+
+            $author = $cover->authors()->first(['users.user_id', 'first_name', 'last_name', 'login']);
+
+            // TODO: move this into `Author` table
+            $name = $author['first_name'].' '.$author['last_name'];
+            if (empty($author['first_name']) || empty($author['last_name'])) {
+                $name = '@'.$author['login'];
+            }
+
+            $type = $cover->coverType()->first(['label'])['label'];
+
+            $dto = [
+                'id' => $cover['cover_id'],
+                'user_id' => $author['user_id'],
+                'title' => $cover['title'],
+                'author' => $name,
+                'type' => $type,
+                'imgSrc' => $cover['img_key'],
+            ];
+
+            array_push($dtos, $dto);
+        }
+
+        return $dtos;
     }
 }

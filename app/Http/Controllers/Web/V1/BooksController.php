@@ -9,6 +9,7 @@ use App\Models\Chapter;
 use App\Models\Cover;
 use App\Models\Genre;
 use App\Models\LanguageCode;
+use App\Models\User;
 use App\Models\UserClickOnCover;
 use App\Models\UserLikeCover;
 use Carbon\Carbon;
@@ -34,6 +35,24 @@ class BooksController extends Controller
 
         return view('books.index', [
             'user' => $request->user(),
+            'books' => $dtos,
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource for specific user.
+     */
+    public function indexForUser(User $user)
+    {
+        $covers = $user->covers(['cover_id', 'cover_type_id', 'title', 'description', 'img_key'])->get();
+        $dtos = [];
+        foreach ($covers as &$cover) {
+            $dto = $this->createDto($cover);
+            array_push($dtos, $dto);
+        }
+
+        return view('books.index', [
+            'user' => $user,
             'books' => $dtos,
         ]);
     }
