@@ -15,15 +15,21 @@
   'firstChapterId' => 1,
   'views',
   'uniqueViews',
+  'i_like',
+  'likes',
 ])
 
 @php
+  if ($i_like) {
+    $likeAsset = asset('icons/like-after-click.svg');
+  } else {
+    $likeAsset = asset('icons/like-before-click.svg');
+  }
   // 'image_header'
   // 'image_genres'
   // 'image_description'
   // 'image_button'
-  $desktopGrid =
-    "md:[grid-template-areas:'image_header''image_genres''image_description''image_button'] md:[grid-template-columns:auto_1fr] md:[grid-template-rows:auto_auto_1fr_auto]";
+  $desktopGrid = "md:[grid-template-areas:'image_header''image_genres''image_description''image_button'] md:[grid-template-columns:auto_1fr] md:[grid-template-rows:auto_auto_1fr_auto]";
 @endphp
 
 <x-app-layout>
@@ -56,16 +62,20 @@
       </x-p>
       {{-- TODO: Like functionality --}}
       <div class="flex flex-wrap [grid-area:button] md:flex-nowrap md:space-x-2">
-        <x-button
-          class="mt-4 w-full"
-          icon="{{asset('icons/like-before-click.svg')}}"
-          iconPosition="left"
-          size="base"
-          variant="secondary-2"
-          href=""
-        >
-          <x-p size="base">{{ __('Like') }}</x-p>
-        </x-button>
+        <form class="mt-4 w-full" action="{{ route('books.like', ['book' => $id]) }}" method="post">
+          @csrf
+
+          <x-button
+            class="w-full"
+            icon="{{$likeAsset}}"
+            iconPosition="left"
+            size="base"
+            variant="secondary-2"
+            type="submit"
+          >
+            <x-p class="text-nowrap" size="base">{{ $likes }} {{ __('Like') }}</x-p>
+          </x-button>
+        </form>
         <x-button
           class="mt-4 w-full"
           icon="{{asset('icons/book.svg')}}"

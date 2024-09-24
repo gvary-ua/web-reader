@@ -62,6 +62,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Book APIs
     Route::get('books', [BooksController::class, 'index'])->name('books.index');
     Route::post('books', [BooksController::class, 'store'])->name('books.store');
+    Route::post('books/{book}/like', [BooksController::class, 'like'])->name('books.like');
 
     Route::get('books/{book}/edit', [BooksController::class, 'edit'])->name('books.edit');
     Route::put('books/{book}', [BooksController::class, 'update'])->name('books.update');
