@@ -1,3 +1,13 @@
+@props([
+  'user',
+  'my_covers' => [],
+  'liked_covers' => [],
+])
+
+@section('scripts')
+  @vite(['resources/js/slider.js'])
+@endsection
+
 <x-app-layout>
   <section class="min-h-36 bg-secondary-1 md:min-h-52"></section>
   <section class="max-w-[50rem] px-4 sm:flex md:mx-auto">
@@ -39,7 +49,22 @@
       @endcan
     </div>
   </section>
-  <section>
-    <x-p class="mt-36 text-center">{{ __('More to come soon!') }}</x-p>
-  </section>
+  @if ($my_covers)
+    <x-section.slider-covers
+      label="My titles"
+      sliderId="swiper1"
+      :covers="$my_covers"
+      href="{{route('profile.books.index', ['user' => $user])}}"
+    />
+  @endif
+
+  @if ($liked_covers)
+    <x-section.slider-covers label="I like" sliderId="swiper2" :covers="$liked_covers" />
+  @endif
+
+  @if (! $my_covers && ! $liked_covers)
+    <section class="my-20 max-w-[50rem] px-4 sm:flex md:mx-auto">
+      <x-p class="w-full text-center">This author doesn't have any published titles yet</x-p>
+    </section>
+  @endif
 </x-app-layout>

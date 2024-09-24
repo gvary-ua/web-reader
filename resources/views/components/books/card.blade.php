@@ -1,5 +1,6 @@
 @props([
   'id',
+  'user',
   'userId',
   'title',
   'type',
@@ -11,6 +12,7 @@
   'imgSrc' => asset('blank-224X320.webp'),
   'chaptersTotal',
   'chaptersPublished',
+  'firstChapterId',
 ])
 
 @php
@@ -59,35 +61,50 @@
     </x-p>
   @endif
   <div class="flex flex-wrap [grid-area:button] md:justify-end md:space-x-2">
-    <form
-      method="POST"
-      onsubmit="return confirm('{{ __('Do you really want to delete the book?') }}')"
-      class="w-full md:w-fit"
-      action="{{ route('books.destroy', ['book' => $id]) }}"
-    >
-      @csrf
-      @method('DELETE')
-      <x-button type="submit" class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
-        <x-p size="base">{{ __('Delete') }}</x-p>
+    @if (Auth::user() == $user)
+      <form
+        method="POST"
+        onsubmit="return confirm('{{ __('Do you really want to delete the book?') }}')"
+        class="w-full md:w-fit"
+        action="{{ route('books.destroy', ['book' => $id]) }}"
+      >
+        @csrf
+        @method('DELETE')
+        <x-button type="submit" class="mt-4 w-full cursor-pointer md:h-fit md:w-fit" size="base" variant="secondary-2">
+          <x-p size="base">{{ __('Delete') }}</x-p>
+        </x-button>
+      </form>
+      <x-button
+        class="mt-4 w-full md:h-fit md:w-fit"
+        size="base"
+        variant="secondary-1"
+        href="{{ route('books.edit', ['book' => $id])}}"
+      >
+        <x-p size="base">{{ __('Edit') }}</x-p>
       </x-button>
-    </form>
-    <x-button
-      class="mt-4 w-full md:h-fit md:w-fit"
-      size="base"
-      variant="secondary-1"
-      href="{{ route('books.edit', ['book' => $id])}}"
-    >
-      <x-p size="base">{{ __('Edit') }}</x-p>
-    </x-button>
-    <x-button
-      class="mt-4 w-full md:h-fit md:w-fit"
-      size="base"
-      variant="primary"
-      href="{{config('app.spa_url')}}?coverId={{$id}}"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <x-p size="base">{{ __('Write') }}</x-p>
-    </x-button>
+      <x-button
+        class="mt-4 w-full md:h-fit md:w-fit"
+        size="base"
+        variant="primary"
+        href="{{config('app.spa_url')}}?coverId={{$id}}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <x-p size="base">{{ __('Write') }}</x-p>
+      </x-button>
+    @else
+      <x-button
+        class="mt-4 w-full md:h-fit md:w-fit"
+        icon="{{asset('icons/book.svg')}}"
+        iconPosition="left"
+        size="base"
+        variant="secondary-2"
+        href="{{route('chapters.show', ['book' => $id, 'chapter' => $firstChapterId])}}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <x-p size="base">{{ __('Read') }}</x-p>
+      </x-button>
+    @endif
   </div>
 </div>

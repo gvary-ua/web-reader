@@ -9,58 +9,8 @@
 
 <x-app-layout>
   <x-section.hero />
-  <section class="mb-10 mt-20 px-4 sm:my-32 sm:px-20">
-    <div class="flex justify-between">
-      <x-h level="h3">{{ __('Top titles') }}</x-h>
-      <div class="hidden space-x-8 md:flex">
-        <img class="cursor-pointer" src="/icons/arrow-left-big.svg" alt="scroll left" onclick="swiper1.slidePrev()" />
-        <img class="cursor-pointer" src="/icons/arrow-right-big.svg" alt="scroll right" onclick="swiper1.slideNext()" />
-      </div>
-    </div>
-    <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
-    <div class="swiper1 relative mt-8 pb-12 md:mt-14 md:pb-0">
-      <div class="swiper-wrapper">
-        @foreach ($top_covers as $cover)
-          <x-books.cover-card
-            class="swiper-slide"
-            :id="$cover['id']"
-            :userId="$cover['user_id']"
-            :title="$cover['title']"
-            :type="$cover['type']"
-            :author="$cover['author']"
-            :imgSrc="$cover['imgSrc']"
-          />
-        @endforeach
-      </div>
-      <div class="swiper-pagination md:hidden"></div>
-    </div>
-  </section>
-  <section class="my-10 px-4 sm:my-32 sm:px-20">
-    <div class="justify-between md:flex">
-      <x-h level="h3">{{ __('Latest titles') }}</x-h>
-      <div class="hidden space-x-8 md:flex">
-        <img class="cursor-pointer" src="/icons/arrow-left-big.svg" alt="scroll left" onclick="swiper2.slidePrev()" />
-        <img class="cursor-pointer" src="/icons/arrow-right-big.svg" alt="scroll right" onclick="swiper2.slideNext()" />
-      </div>
-    </div>
-    <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
-    <div class="swiper2 relative mt-8 pb-12 md:mt-14 md:pb-0">
-      <div class="swiper-wrapper">
-        @foreach ($latest_covers as $cover)
-          <x-books.cover-card
-            class="swiper-slide"
-            :id="$cover['id']"
-            :userId="$cover['user_id']"
-            :title="$cover['title']"
-            :type="$cover['type']"
-            :author="$cover['author']"
-            :imgSrc="$cover['imgSrc']"
-          />
-        @endforeach
-      </div>
-      <div class="swiper-pagination md:hidden"></div>
-    </div>
-  </section>
+  <x-section.slider-covers label="Top titles" sliderId="swiper1" :covers="$top_covers" />
+  <x-section.slider-covers label="Latest titles" sliderId="swiper2" :covers="$latest_covers" />
   <x-section.features />
   <x-section.footer-cta />
 </x-app-layout>

@@ -6,18 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Cover;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 
 class IndexController extends Controller
 {
     public function index(Request $request): View
     {
-        // TODO: Order by most likes
-        $topCovers = Cover::select(['cover_id', 'cover_type_id', 'title', 'img_key'])
-            ->where('public', '=', true)
-            ->orderByDesc('published_at')
-            ->limit(10)
-            ->get();
+        // Refreshes once an hour
+        $topCovers = Cache::remember('top_10_covers_by_most_likes', 60, function () {
+            return Cover::select(['covers.cover_id', 'cover_type_id', 'title', 'img_key'])
+                ->leftJoin('user_liked_cover', 'covers.cover_id', '=', 'user_liked_cover.cover_id')
+                ->selectRaw('COUNT(DISTINCT user_liked_cover.user_id) as likes')
+                ->groupBy('covers.cover_id')
+                ->orderByDesc('likes')
+                ->take(10)
+                ->get();
+        });
 
         $latestCovers = Cover::select(['cover_id', 'cover_type_id', 'title', 'img_key'])
             ->where('public', '=', true)
