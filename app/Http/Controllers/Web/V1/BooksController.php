@@ -94,24 +94,24 @@ class BooksController extends Controller
         }
         $dto = $this->createDto($book);
 
-        $userId = $request->user()->user_id;
-        $coverId = $book->cover_id;
+        if ($request->user()) {
+            $userId = $request->user()->user_id;
+            $coverId = $book->cover_id;
 
-        $click = UserClickOnCover::where('user_id', $userId)
-            ->where('cover_id', $coverId)
-            ->first();
+            $click = UserClickOnCover::where('user_id', $userId)
+                ->where('cover_id', $coverId)
+                ->first();
 
-        if ($click) {
-            $click->increment('times');
-        } else {
-            $click = UserClickOnCover::create([
-                'user_id' => $userId,
-                'cover_id' => $coverId,
-                'times' => 1,
-            ]);
-        }
+            if ($click) {
+                $click->increment('times');
+            } else {
+                $click = UserClickOnCover::create([
+                    'user_id' => $userId,
+                    'cover_id' => $coverId,
+                    'times' => 1,
+                ]);
+            }
 
-        if ($userId) {
             $like = UserLikeCover::where('user_id', $userId)
                 ->where('cover_id', $coverId)
                 ->first();
