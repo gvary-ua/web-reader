@@ -168,5 +168,8 @@
     "books": "книги",
     "This author doesn't have any published titles yet": "Цей автор ще не має публічних творів.",
     "My titles": "Мої твори",
-    "I like": "Мої вподобання"
+    "I like": "Мої вподобання",
+    "Current password:": "Поточний пароль:",
+    "New password:": "Новий пароль:",
+    "password-updated": "Пароль оновлено!"
 }
