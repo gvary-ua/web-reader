@@ -16,6 +16,7 @@ class IndexController extends Controller
         // Refreshes once an hour
         $topCovers = Cache::remember('top_10_covers_by_most_likes', 60, function () {
             return Cover::select(['covers.cover_id', 'cover_type_id', 'title', 'img_key'])
+                ->where('public', '=', true)
                 ->leftJoin('user_liked_cover', 'covers.cover_id', '=', 'user_liked_cover.cover_id')
                 ->selectRaw('COUNT(DISTINCT user_liked_cover.user_id) as likes')
                 ->groupBy('covers.cover_id')
