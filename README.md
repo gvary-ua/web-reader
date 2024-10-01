@@ -173,25 +173,20 @@ Zend OPcache
   
 </details>
 
-1. Start up temporary PostgreSQL database
+1. Start up infrastructure
 
 
 ```shell
-docker run -d -p 5432:5432 -e POSTGRES_DB=gvary -e POSTGRES_PASSWORD=gvary-pwd -e POSTGRES_USER=gvary-user postgres:16.4
+docker compose up -d
 ```
 
-2. Start up temporary Mailpit for emails (you can access UI at localhost::8025)
-```shell
-docker run -d -p 8025:8025 -p 1025:1025 axllent/mailpit
-```
-
-3. Run migration for the DB
+2. Run migration for the DB
 
 ```shell
 php artisan migrate
 ```
 
-3.1. If you have errors, try
+3. If you have errors, try
 
 ```shell
 php artisan config:cache
@@ -199,25 +194,19 @@ php artisan config:clear
 php artisan cache:clear
 ```
 
-4. Select LTS Iron by running:
+4. Select LTS Iron by running.
 
 ```shell
 nvm use lts/iron
 ```
 
-4. Build static assets
-
-```shell
-npm run build
-```
-
-4.1. Start vite server for hot reload
+5. Start vite server for hot reload 
 
 ```shell
 npm run dev
 ```
 
-5. Start the MPA
+6. Start the MPA
 
 ```shell
 php artisan serve

@@ -1,35 +1,6 @@
+# This is for dev purposes only!
+
 services:
-  # nginx service
-  nginx:
-    build:
-      context: .
-      dockerfile: .docker/nginx/Dockerfile
-    image: s1ckret/gvary-web-reader-nginx
-    container_name: web-reader-nginx
-    restart: unless-stopped
-    tty: true
-    ports:
-      - '80:80'
-    networks:
-      - gvary-network
-
-  # PHP Service
-  php:
-    build:
-      context: .
-      dockerfile: .docker/php/Dockerfile
-    image: s1ckret/gvary-web-reader-php
-    container_name: web-reader-php
-    restart: unless-stopped
-    volumes:
-      - type: bind
-        source: ${PWD}/.env
-        target: /var/www/.env
-    ports:
-      - '9000:9000'
-    networks:
-      - gvary-network
-
   # PostgreSQL Service
   db:
     image: postgres:16.4
@@ -39,14 +10,20 @@ services:
     ports:
       - '5432:5432'
     environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: gvary
+      POSTGRES_USER: gvary-user
+      POSTGRES_PASSWORD: gvary-pwd
     volumes:
       - db-volume:/var/lib/postgresql/data
     networks:
       - gvary-network
-
+  mailpit:
+    image: axllent/mailpit
+    container_name: web-reader-mailpit
+    restart: unless-stopped
+    ports:
+      - '8025:8025'
+      - '1025:1025'
 networks:
   gvary-network:
     driver: bridge

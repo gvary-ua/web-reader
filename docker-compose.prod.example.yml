@@ -1,0 +1,51 @@
+# This is an example for prod!
+
+services:
+  # nginx service
+  nginx:
+    image: s1ckret/gvary-web-reader-nginx:0.6.0
+    container_name: web-reader-nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - '80:80'
+    networks:
+      - gvary-public-network
+
+  # PHP Service
+  php:
+    image: s1ckret/gvary-web-reader-php:0.6.0
+    container_name: web-reader-php
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: ${PWD}/.env
+        target: /var/www/.env
+    networks:
+      - gvary-public-network
+      - gvary-private-network
+
+  # PostgreSQL Service
+  db:
+    image: postgres:16.4
+    container_name: web-reader-db
+    restart: unless-stopped
+    tty: true
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - db-volume:/var/lib/postgresql/data
+    networks:
+      - gvary-private-network
+
+networks:
+  gvary-public-network:
+    driver: bridge
+  gvary-private-network:
+    driver: bridge
+
+volumes:
+  db-volume:
+    driver: local
