@@ -260,6 +260,26 @@ php artisan migrate
 docker compose up -d
 ```
 
+Also once you need to generate readonly Typesense API key and paste it into `TYPESENSE_SEARCHONLY_API_KEY` env var.
+
+[API Ref](https://typesense.org/docs/27.1/api/api-keys.html#create-an-api-key)
+
+```shell
+export TYPESENSE_API_KEY=xyz
+
+curl 'http://localhost:8108/keys' \
+    -X POST \
+    -H "X-TYPESENSE-API-KEY: ${TYPESENSE_API_KEY}" \
+    -H 'Content-Type: application/json' \
+    -d '{"description":"Search-only cover key.","actions": ["documents:search"], "collections": ["cover_index"]}'
+```
+
+Then you can import all entries
+```shell
+php artisan scout:import
+docker exec -it web-reader-php /bin/bash
+```
+
 ## How to authenticate SPA
 
 There is a good [official documentation](https://laravel.com/docs/10.x/sanctum#spa-authentication) that describes the theory. In this section we will take a look a the practice.
