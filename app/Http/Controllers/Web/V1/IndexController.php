@@ -31,9 +31,12 @@ class IndexController extends Controller
             ->limit(10)
             ->get();
 
+        $coverCount = Cover::where('public', '=', true)->count();
+
         return view('index', [
             'top_covers' => $this->toDto($topCovers),
             'latest_covers' => $this->toDto($latestCovers),
+            'cover_count' => $coverCount,
         ]);
     }
 

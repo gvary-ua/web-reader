@@ -1,0 +1,23 @@
+.ais-SearchBox-input {
+  color: #8342ff !important;
+}
+
+.ais-SortBy-select {
+  height: 1.5rem !important;
+}
+
+.ais-Hits-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.ais-Hits-item {
+  padding: 1rem;
+  align-items: start !important;
+  box-shadow: none !important;
+}
+
+.ais-Pagination-list {
+  justify-content: end;
+}

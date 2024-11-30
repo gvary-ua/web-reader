@@ -75,4 +75,9 @@ Route::get('books/{book}', [BooksController::class, 'show'])->name('books.show')
 // Public Chapter APIs
 Route::get('books/{book}/chapters/{chapter}', [ChaptersController::class, 'show'])->name('chapters.show');
 
+// Explore API
+Route::get('explore', function (Request $request) {
+    return view('explore');
+})->name('explore');
+
 require __DIR__.'/auth.php';

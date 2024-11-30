@@ -67,4 +67,17 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(UserClickOnCover::class, 'user_id', 'user_id');
     }
+
+    public function displayName(): string
+    {
+        if ($this->pen_name != '') {
+            return $this->pen_name;
+        } elseif ($this->first_name != '' && $this->last_name != '') {
+            return $this->first_name.' '.$this->last_name;
+        } elseif ($this->first_name != '') {
+            return $this->first_name;
+        }
+
+        return $this->login;
+    }
 }

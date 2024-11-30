@@ -171,5 +171,9 @@
     "I like": "Мої вподобання",
     "Current password:": "Поточний пароль:",
     "New password:": "Новий пароль:",
-    "password-updated": "Пароль оновлено!"
+    "password-updated": "Пароль оновлено!",
+    "Filter": "Фільтр",
+    "Sort by": "Сортувати за",
+    "Discover :num Exclusive Titles You’ll Love!": "Відкрий для себе :num унікальних історій!",
+    "Explore": "Вперед"
 }

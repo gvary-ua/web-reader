@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
 
 class Cover extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
 
     protected $table = 'covers';
 
@@ -41,6 +42,46 @@ class Cover extends Model
         'public' => false,
         'chapter_ids' => '[]',
     ];
+
+    public function searchableAs()
+    {
+        return 'cover_index';
+    }
+
+    public function toSearchableArray(): array
+    {
+
+        $authorNames = $this->authors()->get()->map(function ($u) {
+            return $u->displayName();
+        })->toArray();
+
+        $genres = $this->genres()->get()->map(function ($g) {
+            return $g->label;
+        })->toArray();
+
+        return [
+            'id' => (string) $this->cover_id,
+            'title' => $this->title,
+            'description' => $this->description,
+            'authors' => $authorNames,
+            'language' => $this->language()->first()->label,
+            'genres' => $genres,
+            'cover_type' => $this->coverType()->first()->label,
+            // TODO: asset or what?
+            // 'image_url' => $this->img_key,
+            'unique_views' => $this->uniqueViews(),
+            'likes' => $this->likes(),
+            'created_at' => $this->created_at->timestamp,
+        ];
+    }
+
+    /**
+     * Determine if the model should be searchable.
+     */
+    public function shouldBeSearchable(): bool
+    {
+        return $this->public;
+    }
 
     public function coverType(): BelongsTo
     {
