@@ -24,10 +24,27 @@ services:
     ports:
       - '8025:8025'
       - '1025:1025'
+  typesense:
+    image: typesense/typesense:27.1
+    container_name: web-reader-typesense
+    restart: unless-stopped
+    ports:
+      - '8108:8108'
+    environment:
+      TYPESENSE_DATA_DIR: /data
+      TYPESENSE_API_KEY: xyz
+      TYPESENSE_ENABLE_CORS: true
+    volumes:
+      - typesense-volume:/data
+    networks:
+      - gvary-network
+
 networks:
   gvary-network:
     driver: bridge
 
 volumes:
   db-volume:
+    driver: local
+  typesense-volume:
     driver: local
