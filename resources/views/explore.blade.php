@@ -21,7 +21,7 @@
         <div id="searchbox"></div>
       </div>
     </div>
-    <div class="mt-8 px-4" x-data="{ showFilters: false }">
+    <div class="mt-8 px-2 sm:px-4" x-data="{ showFilters: false }">
       <div class="mx-auto md:max-w-[60rem]">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
@@ -33,7 +33,7 @@
           </div>
           <div class="flex items-center">
             <x-p class="mr-2 font-medium">{{ __('Sort by') }}</x-p>
-            <div id="sort-by"></div>
+            <div class="max-w-24 sm:max-w-fit" id="sort-by"></div>
           </div>
         </div>
         <div
@@ -42,19 +42,19 @@
           x-cloak
         >
           <div>
-            <x-h level="h5">Genres</x-h>
+            <x-h level="h5">{{ __('Genres') }}</x-h>
             <div id="genres-refinement-list"></div>
           </div>
           <div>
-            <x-h level="h5">Authors</x-h>
+            <x-h level="h5">{{ __('Authors') }}</x-h>
             <div id="authors-refinement-list"></div>
           </div>
           <div>
-            <x-h level="h5">Language</x-h>
+            <x-h level="h5">{{ __('Language') }}</x-h>
             <div id="language-refinement-list"></div>
           </div>
           <div>
-            <x-h level="h5">Type</x-h>
+            <x-h level="h5">{{ __('Type') }}</x-h>
             <div id="cover-type-refinement-list"></div>
           </div>
         </div>

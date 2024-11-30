@@ -9,12 +9,7 @@
 
   <x-h level="h3">{{ __("Let's travel through the pages together") }}</x-h>
   @guest
-    <x-button
-      href="{{route('register')}}"
-      variant="primary"
-      size="2xl"
-      class="mx-auto mt-16 hidden w-full sm:block sm:w-fit"
-    >
+    <x-button href="{{route('register')}}" variant="primary" size="2xl" class="mx-auto mt-16 w-full sm:block sm:w-fit">
       {{ __('Join') }}
     </x-button>
   @endguest
