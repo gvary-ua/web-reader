@@ -3,7 +3,13 @@
   @vite(['resources/css/search.css'])
   <script>
     window.onload = function () {
-      window.startSearch('{{ session('locale') }}');
+      const locale = '{{ session('locale') }}';
+      const apiKey = '{{ env('TYPESENSE_SEARCHONLY_API_KEY', 'xyz') }}';
+      const host = '{{ env('TYPESENSE_CLIENT_HOST', '127.0.0.1') }}';
+      const port = '{{ env('TYPESENSE_CLIENT_PORT', '8108') }}';
+      const protocol = '{{ env('TYPESENSE_CLIENT_PROTOCOL', 'http') }}';
+
+      window.startSearch(locale, apiKey, host, port, protocol);
     };
   </script>
 @endsection

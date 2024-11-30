@@ -128,7 +128,7 @@ const statsText = {
       `,
 };
 
-function startSearch(locale) {
+function startSearch(locale, apiKey, host, port, protocol) {
   const __ = localeMap[locale];
 
   const additionalSearchParameters = {
@@ -138,12 +138,12 @@ function startSearch(locale) {
   const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
     server: {
       connectionTimeoutSeconds: 10000,
-      apiKey: 'xyz', // Be sure to use an API key that only has search permissions, since this is exposed in the browser
+      apiKey: apiKey,
       nodes: [
         {
-          host: '127.0.0.1',
-          port: '8108',
-          protocol: 'http',
+          host: host,
+          port: port,
+          protocol: protocol,
         },
       ],
     },
@@ -227,6 +227,7 @@ function startSearch(locale) {
       container: '#hits',
       templates: {
         item(item) {
+          console.log(item);
           return `
   <div class='min-w-56 max-w-56'>
     <a href="/books/${item.id}">
@@ -244,10 +245,8 @@ function startSearch(locale) {
       </div>
       <p class="mt-2 font-medium hit-title p-2xl">${item._highlightResult.title.value}</p>
     </a>
-    <a href="{{ route('profile.show', ['user' => $userId]) }}">
-      <p class="text-on-background-2 hit-authors p-base">${item._highlightResult.authors[0].value}</p>
-    </a>
-    <p class="mt-2 hit-description line-clamp-2 p-base">${item._highlightResult.description.value}</p>
+    <p class="text-on-background-2 hit-authors p-base">${item._highlightResult.authors[0].value}</p>
+    <p class="mt-2 hit-description line-clamp-2 p-base">${item._highlightResult.description == null ? '' : item._highlightResult.description.value}</p>
   </div>
         `;
         },
