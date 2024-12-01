@@ -10,10 +10,9 @@
     <x-books.cover-card
       class="swiper-slide"
       :id="$cover['id']"
-      :userId="$cover['user_id']"
+      :user="$cover['user']"
       :title="$cover['title']"
       :type="$cover['type']"
-      :author="$cover['author']"
       :imgSrc="$cover['imgSrc']"
     />
   @endforeach

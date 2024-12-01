@@ -128,21 +128,14 @@ class ProfileController extends Controller
         $dtos = [];
         foreach ($covers as &$cover) {
 
-            $author = $cover->authors()->first(['users.user_id', 'first_name', 'last_name', 'login']);
-
-            // TODO: move this into `Author` table
-            $name = $author['first_name'].' '.$author['last_name'];
-            if (empty($author['first_name']) || empty($author['last_name'])) {
-                $name = '@'.$author['login'];
-            }
+            $author = $cover->authors()->first(['users.user_id', 'pen_name', 'first_name', 'last_name', 'login']);
 
             $type = $cover->coverType()->first(['label'])['label'];
 
             $dto = [
                 'id' => $cover['cover_id'],
-                'user_id' => $author['user_id'],
+                'user' => $author,
                 'title' => $cover['title'],
-                'author' => $name,
                 'type' => $type,
                 'imgSrc' => $cover['img_key'],
             ];

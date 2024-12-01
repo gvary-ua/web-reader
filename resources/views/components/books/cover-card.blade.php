@@ -1,9 +1,8 @@
 @props([
   'id',
-  'userId',
+  'user',
   'title',
   'type',
-  'author',
   'imgSrc' => asset('blank-224X320.webp'),
 ])
 
@@ -20,7 +19,7 @@
     </div>
     <x-p class="mt-2 font-medium" size="2xl">{{ $title }}</x-p>
   </a>
-  <a href="{{ route('profile.show', ['user' => $userId]) }}">
-    <x-p class="mt-2 text-on-background-2" size="base">{{ $author }}</x-p>
+  <a href="{{ route('profile.show', ['user' => $user->user_id]) }}">
+    <x-p class="mt-2 text-on-background-2" size="base">{{ $user->displayName() }}</x-p>
   </a>
 </div>
