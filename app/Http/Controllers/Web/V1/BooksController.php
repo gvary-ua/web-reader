@@ -59,10 +59,7 @@ class BooksController extends Controller
 
     private function createDto(Cover $cover)
     {
-        $author = $cover->authors()->first(['users.user_id', 'first_name', 'last_name', 'login']);
-
-        $login = $author['login'];
-        $name = $author['first_name'].' '.$author['last_name'];
+        $author = $cover->authors()->first(['users.user_id', 'pen_name', 'first_name', 'last_name', 'login']);
 
         $genres = array_map(function ($entry) {
             return $entry['label'];
@@ -80,12 +77,10 @@ class BooksController extends Controller
 
         $dto = [
             'id' => $cover['cover_id'],
-            'userId' => $author['user_id'],
             'typeId' => $cover['cover_type_id'],
-            'login' => $login,
             'title' => $cover['title'],
             'description' => $cover['description'],
-            'author' => $name,
+            'user' => $author,
             'type' => $type,
             'coverStatus' => $cover->coverStatus['label'],
             'language' => $cover->language['label'],

@@ -1,12 +1,9 @@
 @props([
   'id',
   'user',
-  'userId',
   'title',
   'type',
   'typeId',
-  'author',
-  'login',
   'genres',
   'description',
   'imgSrc' => asset('blank-224X320.webp'),
@@ -38,9 +35,8 @@
     <a href="{{ route('books.show', ['book' => $id]) }}">
       <x-h level="h5">{{ $title }}</x-h>
     </a>
-    <a href="{{ route('profile.show', ['user' => $userId]) }}">
-      <x-p class="mt-1 text-on-background-2" size="base">{{ $author }}</x-p>
-      <x-p class="mt-1 text-on-background-2" size="base">{{ '@' . $login }}</x-p>
+    <a href="{{ route('profile.show', ['user' => $user->user_id]) }}">
+      <x-p class="mt-1 text-on-background-2" size="base">{{ $user->displayName() }}</x-p>
     </a>
   </div>
   <div class="-ml-4 -mt-4 pl-4 [grid-area:genres] md:pl-0">

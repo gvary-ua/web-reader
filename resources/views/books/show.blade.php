@@ -1,12 +1,10 @@
 @props([
   'id',
-  'userId',
+  'user',
   'bookId',
   'typeId',
   'title',
   'type',
-  'author',
-  'login',
   'genres',
   'description',
   'imgSrc' => asset('blank-224X320.webp'),
@@ -46,9 +44,8 @@
       </div>
       <div class="text-center [grid-area:header] md:text-left">
         <x-h class="mt-3 md:mt-0" level="h5">{{ $title }}</x-h>
-        <a href="{{ route('profile.show', ['user' => $userId]) }}">
-          <x-p class="mt-2 text-on-background-2" size="base">{{ $author }}</x-p>
-          <x-p class="text-on-background-2" size="base">{{ '@' . $login }}</x-p>
+        <a href="{{ route('profile.show', ['user' => $user->user_id]) }}">
+          <x-p class="mt-2 text-on-background-2" size="base">{{ $user->displayName() }}</x-p>
         </a>
       </div>
 
@@ -95,10 +92,9 @@
     <div class="md:mx-auto md:flex md:max-w-[60rem] md:items-center md:justify-between">
       <div class="mx-auto text-center md:mx-0">
         <x-p size="base">{{ __('Author') }}:</x-p>
-        <a href="{{ route('profile.show', ['user' => $userId]) }}">
-          <img src="/icons/user.svg" alt="{{ $login }}" class="mx-auto mt-2 h-20 w-20 rounded-full" />
-          <x-p class="mt-2" size="base">{{ $author }}</x-p>
-          <x-p size="base">{{ '@' . $login }}</x-p>
+        <a href="{{ route('profile.show', ['user' => $user->user_id]) }}">
+          <img src="/icons/user.svg" alt="{{ $user->displayName() }}" class="mx-auto mt-2 h-20 w-20 rounded-full" />
+          <x-p class="mt-2" size="base">{{ $user->displayName() }}</x-p>
         </a>
       </div>
       <div class="my-8 h-[1px] w-full bg-surface-1 md:my-0 md:h-28 md:w-[1px]"></div>
