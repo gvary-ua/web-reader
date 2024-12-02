@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+    <!-- Upward arrow -->
+    <path
+    transform="rotate(180, 12, 12) translate(0, 5)"
+    d="M12 3c-.41 0-.75.34-.75.75v11.59l-3.72-3.72a.75.75 0 1 0-1.06 1.06l5 5a.75.75 0 0 0 1.06 0l5-5a.75.75 0 1 0-1.06-1.06l-3.72 3.72V3.75c0-.41-.34-.75-.75-.75z"
+    />
+    <!-- Base rectangle -->
+    <path
+    d="M3 19.5A1.5 1.5 0 0 0 4.5 21h15a1.5 1.5 0 0 0 1.5-1.5v-3a.75.75 0 0 0-1.5 0v3h-15v-3a.75.75 0 0 0-1.5 0v3z"
+    />
+</svg>
