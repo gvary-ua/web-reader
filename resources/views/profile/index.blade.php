@@ -22,11 +22,40 @@
 <x-app-layout>
   <section class="min-h-36 bg-secondary-1 md:min-h-52"></section>
   <section class="max-w-[50rem] px-4 sm:flex md:mx-auto">
-    <img
-      src="/icons/user.svg"
-      alt="{{ $user->login }}"
-      class="mx-auto -mt-28 h-44 w-44 rounded-full border-4 border-background sm:mx-0 sm:-mt-16"
-    />
+    <div class="relative mx-auto -mt-28 h-44 w-44 sm:mx-0 sm:-mt-16">
+      <!-- Image -->
+      <img
+        src="{{ asset($user->profile_img_key ? 'storage/public/' . $user->profile_img_key : '/icons/user.svg') }}"
+        alt="{{ $user->login }}"
+        class="h-full w-full rounded-full border-4 border-background"
+      />
+
+      <!-- Upload Icon -->
+      @if ($sameUser)
+        <div
+          class="absolute inset-0 flex cursor-pointer items-center justify-center rounded-full bg-[white] bg-opacity-0 opacity-0 transition-all hover:bg-opacity-80 hover:opacity-100"
+          onclick="document.getElementById('avatar-upload').click()"
+        >
+          <img class="h-10 w-10" src="/icons/upload.svg" alt="upload icon" />
+        </div>
+        <form
+          id="avatar-upload-form"
+          action="{{ route('profile.avatar.upload') }}"
+          method="POST"
+          enctype="multipart/form-data"
+        >
+          @csrf
+          <input
+            id="avatar-upload"
+            name="avatar"
+            type="file"
+            accept="image/*"
+            class="hidden"
+            onchange="document.getElementById('avatar-upload-form').submit()"
+          />
+        </form>
+      @endif
+    </div>
     <div class="mt-2 flex flex-grow justify-between sm:ml-4 sm:mt-4 md:ml-8">
       <span>
         <x-p size="2xl">{{ $user->displayName() }}</x-p>

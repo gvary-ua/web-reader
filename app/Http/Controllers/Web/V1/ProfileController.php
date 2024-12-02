@@ -12,7 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\Laravel\Facades\Image;
 
 class ProfileController extends Controller
 {
@@ -65,6 +68,45 @@ class ProfileController extends Controller
         Gate::authorize('update', $user);
 
         return view('settings.security', ['user' => $user]);
+    }
+
+    public function uploadAvatar(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // Max 5MB
+        ]);
+
+        $user = Auth::user();
+
+        // if user had previous image -> delete it
+        if ($user->profile_img_key) {
+            $result = Storage::delete('public/'.$user->profile_img_key);
+            if (! $result) {
+                error_log('Something went wrong while deleting profile photo! '.$user->user_id);
+            }
+        }
+
+        $image = $request->file('avatar');
+
+        // Resize, convert, and compress the image
+        $processedImage = Image::read($image)
+            ->resize(460, 460)
+            ->encode(new WebpEncoder(quality: 65));
+
+        // Create img key
+        $random_hash = strtr(base64_encode(random_bytes(6)), '+/=', '-_.');
+        $key = $user->user_id.'/profile-'.$random_hash.'.webp';
+
+        // Upload and save in db
+        $result = Storage::put('public/'.$key, $processedImage);
+        if (! $result) {
+            error_log('Something went wrong while uploading profile photo! '.$user->user_id);
+        }
+        $user->profile_img_key = $key;
+        $user->save();
+
+        return Redirect::route('profile.show', ['user' => $user])
+            ->with('status', 'Profile photo updated!');
     }
 
     public function updateProfile(ProfileUpdateRequest $request, User $user): RedirectResponse

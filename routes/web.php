@@ -55,6 +55,7 @@ Route::get('profile/{user}/books', [BooksController::class, 'indexForUser'])->na
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::post('profile/avatar', [ProfileController::class, 'uploadAvatar'])->name('profile.avatar.upload');
     Route::get('profile/{user}/settings/profile', [ProfileController::class, 'editProfile'])->name('settings.profile');
     Route::get('profile/{user}/settings/account', [ProfileController::class, 'editAccount'])->name('settings.account');
     Route::get('profile/{user}/settings/security', [ProfileController::class, 'editSecurity'])->name('settings.security');
