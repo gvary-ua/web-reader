@@ -10,6 +10,7 @@ export default defineConfig({
         'resources/js/app.js',
         'resources/js/slider.js',
         'resources/js/search.js',
+        'resources/js/cropper.js',
       ],
       refresh: true,
     }),
