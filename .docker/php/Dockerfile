@@ -9,8 +9,11 @@ RUN apt-get update && apt-get install -y \
     libzip-dev \
     libonig-dev \
     libpng-dev \
-    libjpeg62-turbo-dev \
+    libjpeg-dev \
     libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libgd-dev \
+    libwebp-dev \
     locales \
     zip \
     jpegoptim optipng pngquant gifsicle \
@@ -24,9 +27,8 @@ RUN apt-get update && apt-get install -y \
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
-RUN docker-php-ext-install mbstring opcache pdo pdo_pgsql
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg
-RUN docker-php-ext-install -j$(nproc) gd
+RUN docker-php-ext-configure gd --enable-gd --with-jpeg --with-webp
+RUN docker-php-ext-install mbstring opcache pdo pdo_pgsql gd
 
 
 # Set working directory
