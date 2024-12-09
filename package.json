@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@babel/runtime": "^7.25.6",
+        "cropperjs": "^1.6.2",
         "instantsearch.css": "^8.5.1",
         "instantsearch.js": "^4.74.2",
         "swiper": "^11.1.8",
