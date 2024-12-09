@@ -10,6 +10,8 @@ const avatarCropperConfig = {
   viewMode: 1, //restrict the crop box not to exceed the size of the canvas
   dragMode: 'move',
   aspectRatio: 1,
+  minContainerWidth: 288,
+  minContainerHeight: 288,
 };
 
 const coverCropperConfig = {
@@ -41,7 +43,6 @@ function openCropper(event, type) {
 
       // Display cropper. Send an event
       cropperSection.dispatchEvent(new Event('show-cropper'));
-      console.log('sent event');
     };
     reader.readAsDataURL(files[0]);
   }
