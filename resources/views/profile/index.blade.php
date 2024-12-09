@@ -6,6 +6,13 @@
 
 @section('scripts')
   @vite(['resources/js/slider.js'])
+  @vite(['resources/js/cropper.js'])
+  <style>
+    .cropper-view-box,
+    .cropper-face {
+      border-radius: 50%;
+    }
+  </style>
 @endsection
 
 @php
@@ -20,6 +27,38 @@
 @endphp
 
 <x-app-layout>
+  {{-- Image cropper --}}
+  <section
+    id="cropper-section"
+    class="fixed left-0 top-0 z-40 h-full w-full bg-primary-1/30"
+    x-data="{ cropperVisible: false }"
+    x-show="cropperVisible"
+    x-on:show-cropper="cropperVisible = true"
+    x-cloak
+  >
+    <div
+      class="absolute left-0 top-0 z-50 h-full w-full bg-background px-4 pb-4 pt-8 sm:relative sm:top-1/2 sm:mx-auto sm:h-fit sm:w-fit sm:-translate-y-1/2 sm:rounded-10"
+    >
+      <div class="mb-4 flex w-full items-center justify-between">
+        <x-p size="2xl" weight="med" class="text-center sm:text-left">Crop your image</x-p>
+        {{-- Some minus margin to align with right border --}}
+        <img
+          class="mr-[-6px]"
+          src="/icons/close.svg"
+          alt="Close icon"
+          class="cursor-pointer"
+          x-on:click="cropperVisible = !cropperVisible"
+        />
+      </div>
+      {{-- Content of a popup --}}
+      <div class="mx-auto h-72 w-72">
+        <img src="/icons/user.svg" id="cropper-image" alt="Image to Crop" class="max-w-full" />
+      </div>
+      <x-button class="mx-auto mt-4" onclick="cropAndSubmit('avatar-upload-form', 'avatar-upload')">
+        Crop Image
+      </x-button>
+    </div>
+  </section>
   <section class="min-h-36 bg-secondary-1 md:min-h-52"></section>
   <section class="max-w-[50rem] px-4 sm:flex md:mx-auto">
     <div class="relative mx-auto -mt-28 h-44 w-44 sm:mx-0 sm:-mt-16">
@@ -51,7 +90,7 @@
             type="file"
             accept="image/*"
             class="hidden"
-            onchange="document.getElementById('avatar-upload-form').submit()"
+            onchange="openCropper(event, 'avatar')"
           />
         </form>
       @endif

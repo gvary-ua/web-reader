@@ -52,8 +52,12 @@
         </div>
         <x-lang-selector />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
-          <img src="/icons/user.svg" alt="User" class="h-full w-6 pr-1" />
-          <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->login }}</span>
+          <img
+            src="{{ asset(Auth::user()->profile_img_key ? 'storage/public/' . Auth::user()->profile_img_key : '/icons/user.svg') }}"
+            alt="User"
+            class="mr-1 h-full w-6 rounded-full"
+          />
+          <span class="font-robotoFlex text-sm font-medium leading-4">{{ Auth::user()->displayName() }}</span>
         </div>
         <!-- Dropdown menu -->
         <div
