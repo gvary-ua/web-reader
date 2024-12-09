@@ -40,7 +40,7 @@
       class="absolute left-0 top-0 z-50 h-full w-full bg-background px-4 pb-4 pt-8 sm:relative sm:top-1/2 sm:mx-auto sm:h-fit sm:w-fit sm:-translate-y-1/2 sm:rounded-10"
     >
       <div class="mb-4 flex w-full items-center justify-between">
-        <x-p size="2xl" weight="med" class="text-center sm:text-left">Crop your image</x-p>
+        <x-p size="2xl" weight="med" class="text-center sm:text-left">{{ __('Profile photo') }}</x-p>
         {{-- Some minus margin to align with right border --}}
         <img
           class="mr-[-6px]"
@@ -54,8 +54,8 @@
       <div class="mx-auto h-72 w-72">
         <img src="/icons/user.svg" id="cropper-image" alt="Image to Crop" class="max-w-full" />
       </div>
-      <x-button class="mx-auto mt-4" onclick="cropAndSubmit('avatar-upload-form', 'avatar-upload')">
-        Crop Image
+      <x-button class="mx-auto mt-4 cursor-pointer" onclick="cropAndSubmit('avatar-upload-form', 'avatar-upload')">
+        {{ __('Save') }}
       </x-button>
     </div>
   </section>
@@ -90,6 +90,7 @@
             type="file"
             accept="image/*"
             class="hidden"
+            onclick="this.value = null"
             onchange="openCropper(event, 'avatar')"
           />
         </form>
