@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
         // Resize, convert, and compress the image
         $processedImage = Image::read($image)
-            ->resize(460, 460)
+            ->resize(288, 288)
             ->encode(new WebpEncoder(quality: 65));
 
         // Create img key
