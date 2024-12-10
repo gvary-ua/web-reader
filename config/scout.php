@@ -186,7 +186,7 @@ return [
                         ['name' => 'language', 'type' => 'string', 'facet' => true],
                         ['name' => 'genres', 'type' => 'string[]', 'facet' => true],
                         ['name' => 'cover_type', 'type' => 'string', 'facet' => true],
-                        // ['name' => 'image_url', 'type' => 'string'],
+                        ['name' => 'img_key', 'type' => 'string'],
                         ['name' => 'unique_views', 'type' => 'int64'],
                         ['name' => 'likes', 'type' => 'int64'],
                         ['name' => 'created_at', 'type' => 'int64'],
