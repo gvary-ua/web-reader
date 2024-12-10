@@ -6,16 +6,61 @@
   'genres',
   'languages',
   'chapters',
-  'type' => 'cover.types.book',
-  'imgSrc' => asset('blank-224X320.webp'),
+  'type',
+  'imgSrc',
 ])
 
+@section('scripts')
+  @vite(['resources/js/cropper.js'])
+@endsection
+
 <x-app-layout>
+  {{-- Image cropper --}}
+  <section
+    id="cropper-section"
+    class="fixed left-0 top-0 z-40 h-full w-full bg-primary-1/30"
+    x-data="{ cropperVisible: false }"
+    x-show="cropperVisible"
+    x-on:show-cropper="cropperVisible = true"
+    x-on:close-cropper="cropperVisible = false"
+    x-cloak
+  >
+    <div
+      class="absolute left-0 top-0 z-50 h-full w-full bg-background px-4 pb-4 pt-8 sm:relative sm:top-1/2 sm:mx-auto sm:h-fit sm:w-fit sm:-translate-y-1/2 sm:rounded-10"
+    >
+      <div class="mb-4 flex w-full items-center justify-between">
+        <x-p size="2xl" weight="med" class="text-center sm:text-left">{{ __('Profile photo') }}</x-p>
+        {{-- Some minus margin to align with right border --}}
+        <img
+          class="mr-[-6px]"
+          src="/icons/close.svg"
+          alt="Close icon"
+          class="cursor-pointer"
+          x-on:click="cropperVisible = !cropperVisible"
+        />
+      </div>
+      {{-- Content of a popup --}}
+      <div class="mx-auto h-[432px] w-72">
+        <img src="/icons/user.svg" id="cropper-image" alt="Image to Crop" class="max-w-full" />
+      </div>
+      <x-button class="mx-auto mt-4 cursor-pointer" onclick="cropAndSet('cover-image', 'cover-image-upload')">
+        {{ __('Save') }}
+      </x-button>
+    </div>
+  </section>
   <section class="px-4 pt-8 md:px-20 md:pt-14">
     <div class="mx-auto md:max-w-[60rem]">
-      <form method="POST" action="{{ route('books.update', ['book' => $cover_id]) }}">
+      <form method="POST" action="{{ route('books.update', ['book' => $cover_id]) }}" enctype="multipart/form-data">
         @csrf
-        @method('PUT')
+        <input
+          id="cover-image-upload"
+          name="cover_image"
+          type="file"
+          accept="image/*"
+          class="hidden"
+          onclick="this.value = null"
+          onchange="openCropper(event, 'cover')"
+        />
         <div class="md:flex">
           <div
             class="relative mx-auto max-h-64 min-h-64 min-w-48 max-w-48 md:ml-0 md:mr-8 md:max-h-96 md:min-h-96 md:min-w-72 md:max-w-72"
@@ -24,11 +69,18 @@
               width="100%"
               height="100%"
               class="max-h-64 min-h-64 min-w-48 max-w-48 rounded-lg object-cover md:max-h-96 md:min-h-96 md:min-w-72 md:max-w-72"
-              src="{{ $imgSrc }}"
+              src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
+              id="cover-image"
             />
             <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">
               {{ __($type) }}
             </x-badge>
+            <div
+              class="absolute inset-0 flex cursor-pointer items-center justify-center bg-[white] bg-opacity-0 opacity-0 transition-all hover:bg-opacity-80 hover:opacity-100"
+              onclick="document.getElementById('cover-image-upload').click()"
+            >
+              <img class="h-10 w-10" src="/icons/upload.svg" alt="upload icon" />
+            </div>
           </div>
           <div class="mt-2 w-full md:mt-0">
             <x-input id="title" name="title" label="{{__('Title')}}:" value="{{$title}}" />
