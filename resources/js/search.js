@@ -235,13 +235,15 @@ function startSearch(locale, apiKey, host, port, protocol) {
           return `
 <div class='max-w-[192px]'>
   <div class="relative max-h-[288px] max-w-[192px]">
-    <img width="100%" height="100%"
-      class="w-full rounded-lg object-cover max-h-[288px] max-w-[192px] min-h-[288px] min-w-[192px]"
-      src="${src}" />
-
-    <div class="inline-block rounded-[4px] px-[8px] py-[6px] absolute bottom-2 left-2 bg-surface-1">
-      <p class="p-base">${__[item.cover_type]}</p>
-    </div>
+    <a href="/books/${item.id}">
+      <img width="100%" height="100%"
+        class="w-full rounded-lg object-cover max-h-[288px] max-w-[192px] min-h-[288px] min-w-[192px]"
+        src="${src}" />
+        
+      <div class="inline-block rounded-[4px] px-[8px] py-[6px] absolute bottom-2 left-2 bg-surface-1">
+        <p class="p-base">${__[item.cover_type]}</p>
+      </div>
+    </a>
   </div>
   <a href="/books/${item.id}">
     <p class="mt-2 font-medium hit-title p-2xl">${item._highlightResult.title.value}</p>
