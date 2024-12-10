@@ -67,8 +67,7 @@ class Cover extends Model
             'language' => $this->language()->first()->label,
             'genres' => $genres,
             'cover_type' => $this->coverType()->first()->label,
-            // TODO: asset or what?
-            // 'image_url' => $this->img_key,
+            'img_key' => $this->img_key,
             'unique_views' => $this->uniqueViews(),
             'likes' => $this->likes(),
             'created_at' => $this->created_at->timestamp,

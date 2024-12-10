@@ -227,13 +227,17 @@ function startSearch(locale, apiKey, host, port, protocol) {
       container: '#hits',
       templates: {
         item(item) {
-          console.log(item);
+          let src = '/blank-224X320.webp';
+
+          if (item.img_key) {
+            src = 'storage/public/' + item.img_key;
+          }
           return `
 <div class='max-w-[192px]'>
   <div class="relative max-h-[288px] max-w-[192px]">
     <img width="100%" height="100%"
       class="w-full rounded-lg object-cover max-h-[288px] max-w-[192px] min-h-[288px] min-w-[192px]"
-      src="/blank-224X320.webp" />
+      src="${src}" />
 
     <div class="inline-block rounded-[4px] px-[8px] py-[6px] absolute bottom-2 left-2 bg-surface-1">
       <p class="p-base">${__[item.cover_type]}</p>
