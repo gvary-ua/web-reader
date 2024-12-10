@@ -23,7 +23,7 @@
           </div>
           <div class="mt-14 px-4 py-8">
             @yield('header.mobile-dropdown-menu.before')
-            <x-links.about-us class="border-b border-b-surface-1 py-4" />
+            <x-links.discover class="border-b border-b-surface-1 py-4" />
             <x-links.my-profile class="border-b border-b-surface-1 py-4" />
             <x-links.my-books class="border-b border-b-surface-1 py-4" />
             <x-links.write-book class="border-b border-b-surface-1 py-4" />
@@ -35,7 +35,7 @@
       </div>
       <!-- For desktop -->
       <div class="relative hidden items-center space-x-4 md:flex lg:space-x-12">
-        <x-links.about-us />
+        <x-links.discover />
         <x-links.my-books />
         <div class="relative">
           <x-p class="cursor-pointer" x-on:click="write = !write">{{ __('Compose') }}</x-p>
@@ -74,6 +74,7 @@
 
     @guest
       <div class="relative flex items-center space-x-4 lg:space-x-12">
+        <x-links.discover />
         <x-lang-selector />
         <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">
           {{ __('Sign in') }}
