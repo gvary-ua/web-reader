@@ -6,13 +6,15 @@
   'imgSrc',
 ])
 
-<div {{ $attributes->merge(['class' => implode(' ', ['min-w-48 max-w-48 md:min-w-80 md:max-w-80'])]) }}>
+<div
+  {{ $attributes->merge(['class' => implode(' ', ['max-w-[128px] md:max-w-[192px] lg:max-w-[288px]'])]) }}
+>
   <a href="{{ route('books.show', ['book' => $id]) }}">
     <div class="relative">
       <img
         width="100%"
         height="100%"
-        class="max-h-72 min-h-72 min-w-48 max-w-48 rounded-lg object-cover md:max-h-96 md:min-h-96 md:min-w-80 md:max-w-80"
+        class="max-h-[192px] max-w-[128px] rounded-lg object-cover md:max-h-[288px] md:max-w-[192px] lg:max-h-[432px] lg:max-w-[288px]"
         src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
       />
       <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>

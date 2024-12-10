@@ -17,12 +17,12 @@
 <x-app-layout>
   <section class="ais-InstantSearch">
     <div class="bg-secondary-1 px-4 pb-6 pt-8 md:pt-16">
-      <div class="mx-auto md:max-w-[60rem]">
+      <div class="mx-auto md:max-w-3xl lg:max-w-5xl">
         <div id="searchbox"></div>
       </div>
     </div>
-    <div class="mt-8 px-2 sm:px-4" x-data="{ showFilters: false }">
-      <div class="mx-auto md:max-w-[60rem]">
+    <div class="mt-8 px-4 sm:px-4" x-data="{ showFilters: false }">
+      <div class="mx-auto md:max-w-3xl lg:max-w-5xl">
         <div class="flex items-center justify-between">
           <div class="flex items-center">
             <div class="flex cursor-pointer items-center" @click="showFilters = !showFilters">
@@ -61,7 +61,7 @@
         <div class="mt-6" id="pagination"></div>
       </div>
     </div>
-    <div class="mb-8 px-4 sm:px-20">
+    <div class="mx-auto mb-8 px-4 md:max-w-3xl lg:max-w-5xl">
       <div id="hits"></div>
     </div>
   </section>
