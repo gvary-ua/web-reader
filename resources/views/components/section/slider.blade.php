@@ -28,7 +28,7 @@
       />
     </div>
   </div>
-  <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+  <hr class="mx-auto mb-12 mt-4 h-[1px] w-full text-surface-1" />
   <div class="{{ $sliderId }} relative mt-8 pb-12 md:mt-14 md:pb-0">
     <div class="swiper-wrapper">
       {{ $slot }}

@@ -17,7 +17,7 @@
     <x-h level="h4" class="text-center md:hidden">{{ $headerTitle }}</x-h>
 
     @foreach ($books as $book)
-      <hr class="mx-auto my-12 h-[1px] w-full text-surface-1" />
+      <hr class="mx-auto mb-12 mt-4 h-[1px] w-full text-surface-1" />
       <x-books.card
         :id="$book['id']"
         :user="$user"
