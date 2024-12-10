@@ -66,7 +66,7 @@
             <img
               width="100%"
               height="100%"
-              class="max-h-[288px] max-w-[192px] rounded-lg object-cover md:max-h-[432px] md:max-w-[288px]"
+              class="max-h-[288px] min-h-[288px] min-w-[192px] max-w-[192px] rounded-lg object-cover md:max-h-[432px] md:min-h-[432px] md:min-w-[288px] md:max-w-[288px]"
               src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
               id="cover-image"
             />

@@ -14,7 +14,7 @@
       <img
         width="100%"
         height="100%"
-        class="max-h-[192px] max-w-[128px] rounded-lg object-cover md:max-h-[288px] md:max-w-[192px] lg:max-h-[432px] lg:max-w-[288px]"
+        class="max-h-[192px] min-h-[192px] min-w-[128px] max-w-[128px] rounded-lg object-cover md:max-h-[288px] md:min-h-[288px] md:min-w-[192px] md:max-w-[192px] lg:max-h-[432px] lg:min-h-[432px] lg:min-w-[288px] lg:max-w-[288px]"
         src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
       />
       <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>
