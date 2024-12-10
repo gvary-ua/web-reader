@@ -14,10 +14,14 @@ use App\Models\UserClickOnCover;
 use App\Models\UserLikeCover;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Encoders\WebpEncoder;
+use Intervention\Image\Laravel\Facades\Image;
 
 class BooksController extends Controller
 {
@@ -59,7 +63,7 @@ class BooksController extends Controller
 
     private function createDto(Cover $cover)
     {
-        $author = $cover->authors()->first(['users.user_id', 'pen_name', 'first_name', 'last_name', 'login']);
+        $author = $cover->authors()->first(['users.user_id', 'pen_name', 'first_name', 'last_name', 'login', 'profile_img_key']);
 
         $genres = array_map(function ($entry) {
             return $entry['label'];
@@ -208,6 +212,33 @@ class BooksController extends Controller
     public function update(Request $request, Cover $book)
     {
         Gate::authorize('update', $book);
+
+        if ($request->hasFile('cover_image')) {
+            $image = $request->file('cover_image');
+            // if user had previous image -> delete it
+            if ($book->img_key) {
+                $result = Storage::delete('public/'.$book->img_key);
+                if (! $result) {
+                    error_log('Something went wrong while deleting profile photo! '.$book->cover_id);
+                }
+            }
+
+            // Resize, convert, and compress the image
+            $processedImage = Image::read($image)
+                ->resize(288, 432)
+                ->encode(new WebpEncoder(quality: 65));
+
+            // Create img key
+            $random_hash = strtr(base64_encode(random_bytes(6)), '+/=', '-_.');
+            $key = Auth::user()->user_id.'/cover-'.$book->cover_id.'-'.$random_hash.'.webp';
+
+            // Upload and save in db
+            $result = Storage::put('public/'.$key, $processedImage);
+            if (! $result) {
+                error_log('Something went wrong while uploading profile photo! '.$book->cover_id);
+            }
+            $book->img_key = $key;
+        }
 
         if ($request['title'] != null) {
             $book['title'] = $request['title'];

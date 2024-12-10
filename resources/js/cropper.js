@@ -17,7 +17,9 @@ const avatarCropperConfig = {
 const coverCropperConfig = {
   viewMode: 1, //restrict the crop box not to exceed the size of the canvas
   dragMode: 'move',
-  //   aspectRatio: 1 / 1,
+  minContainerWidth: 288,
+  minContainerHeight: 432,
+  aspectRatio: 288 / 432,
 };
 
 function openCropper(event, type) {
@@ -67,5 +69,27 @@ function cropAndSubmit(formId, inputId) {
   }
 }
 
+// This function places cropped image into input, and into image
+function cropAndSet(imgId, inputId) {
+  if (cropper) {
+    cropper.getCroppedCanvas().toBlob((blob) => {
+      const imgElement = document.getElementById(imgId);
+      const url = URL.createObjectURL(blob);
+      imgElement.src = url;
+
+      const fileInput = document.getElementById(inputId);
+      const dataTransfer = new DataTransfer(); // Create a new DataTransfer object
+      const croppedFile = new File([blob], 'cropped-avatar.png', { type: 'image/png' });
+      dataTransfer.items.add(croppedFile);
+
+      fileInput.files = dataTransfer.files; // Assign the new files to the input
+
+      // Close cropper. Send an event
+      cropperSection.dispatchEvent(new Event('close-cropper'));
+    }, 'image/png');
+  }
+}
+
 window.openCropper = openCropper;
 window.cropAndSubmit = cropAndSubmit;
+window.cropAndSet = cropAndSet;

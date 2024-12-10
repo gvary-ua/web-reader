@@ -6,7 +6,7 @@
   'typeId',
   'genres',
   'description',
-  'imgSrc' => asset('blank-224X320.webp'),
+  'imgSrc',
   'chaptersTotal',
   'chaptersPublished',
   'firstChapterId',
@@ -26,7 +26,7 @@
         width="100%"
         height="100%"
         class="max-h-32 min-h-32 min-w-24 max-w-24 rounded-lg object-cover md:max-h-80 md:min-h-80 md:min-w-56 md:max-w-56"
-        src="{{ $imgSrc }}"
+        src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
       />
       <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>
     </a>

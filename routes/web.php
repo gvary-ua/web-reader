@@ -67,7 +67,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('books/{book}/like', [BooksController::class, 'like'])->name('books.like');
 
     Route::get('books/{book}/edit', [BooksController::class, 'edit'])->name('books.edit');
-    Route::put('books/{book}', [BooksController::class, 'update'])->name('books.update');
+    // I have to use post, because I am uploading a file
+    Route::post('books/{book}', [BooksController::class, 'update'])->name('books.update');
     Route::delete('books/{book}', [BooksController::class, 'destroy'])->name('books.destroy');
 });
 // Public Book APIs
