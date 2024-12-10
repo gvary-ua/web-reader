@@ -37,7 +37,7 @@
         <img
           width="100%"
           height="100%"
-          class="max-h-64 min-h-64 min-w-48 max-w-48 rounded-lg object-cover md:max-h-96 md:min-h-96 md:min-w-72 md:max-w-72"
+          class="max-h-[288px] max-w-[192px] rounded-lg object-cover lg:max-h-[432px] lg:max-w-[288px]"
           src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
         />
         <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>

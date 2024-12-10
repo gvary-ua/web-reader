@@ -229,25 +229,24 @@ function startSearch(locale, apiKey, host, port, protocol) {
         item(item) {
           console.log(item);
           return `
-  <div class='min-w-56 max-w-56'>
-    <a href="/books/${item.id}">
-      <div class="relative">
-        <img
-          width="100%"
-          height="100%"
-          class="rounded-lg object-cover"
-          src="/blank-224X320.webp"
-        />
-  
-        <div class="inline-block rounded-[4px] px-[8px] py-[6px] absolute bottom-2 left-2 bg-surface-1">
-          <p class="p-base">${__[item.cover_type]}</p>
-        </div>
-      </div>
-      <p class="mt-2 font-medium hit-title p-2xl">${item._highlightResult.title.value}</p>
-    </a>
-    <p class="text-on-background-2 hit-authors p-base">${item._highlightResult.authors[0].value}</p>
-    <p class="mt-2 hit-description line-clamp-2 p-base">${item._highlightResult.description == null ? '' : item._highlightResult.description.value}</p>
+<div class='max-w-[192px]'>
+  <div class="relative max-h-[288px] max-w-[192px]">
+    <img width="100%" height="100%"
+      class="w-full rounded-lg object-cover max-h-[288px] max-w-[192px] min-h-[288px] min-w-[192px]"
+      src="/blank-224X320.webp" />
+
+    <div class="inline-block rounded-[4px] px-[8px] py-[6px] absolute bottom-2 left-2 bg-surface-1">
+      <p class="p-base">${__[item.cover_type]}</p>
+    </div>
   </div>
+  <a href="/books/${item.id}">
+    <p class="mt-2 font-medium hit-title p-2xl">${item._highlightResult.title.value}</p>
+  </a>
+  <p class="text-on-background-2 hit-authors p-base">${item._highlightResult.authors[0].value}</p>
+  <p class="mt-2 hit-description line-clamp-2 p-base">${
+    item._highlightResult.description == null ? '' : item._highlightResult.description.value
+  }</p>
+</div>
         `;
         },
       },

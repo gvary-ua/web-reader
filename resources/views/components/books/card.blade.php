@@ -20,12 +20,13 @@
 @endphp
 
 <div class="{{ $desktopGrid }} {{ $mobileGrid }} mt-4 grid items-start">
-  <div class="relative [grid-area:image] md:max-h-80 md:pr-10">
+  <div class="relative [grid-area:image] md:pr-10">
     <a href="{{ route('books.show', ['book' => $id]) }}">
+      {{-- Cover image is 1:1.5 aspect ratio --}}
       <img
         width="100%"
         height="100%"
-        class="max-h-32 min-h-32 min-w-24 max-w-24 rounded-lg object-cover md:max-h-80 md:min-h-80 md:min-w-56 md:max-w-56"
+        class="max-h-[192px] max-w-[128px] rounded-lg object-cover md:max-h-[288px] md:max-w-[192px] lg:max-h-[432px] lg:max-w-[288px]"
         src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
       />
       <x-badge size="sm" class="absolute bottom-2 left-2 bg-surface-1" type="square">{{ __($type) }}</x-badge>
@@ -44,7 +45,7 @@
       <x-badge size="base" class="ml-4 mt-4 bg-surface-info">{{ __($genre) }}</x-badge>
     @endforeach
   </div>
-  <x-p class="pt-4 [grid-area:description]">
+  <x-p class="line-clamp-4 pt-4 [grid-area:description] lg:line-clamp-6">
     {{ $description }}
   </x-p>
   @if ($typeId == 1)

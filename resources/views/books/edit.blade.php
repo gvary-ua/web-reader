@@ -62,13 +62,11 @@
           onchange="openCropper(event, 'cover')"
         />
         <div class="md:flex">
-          <div
-            class="relative mx-auto max-h-64 min-h-64 min-w-48 max-w-48 md:ml-0 md:mr-8 md:max-h-96 md:min-h-96 md:min-w-72 md:max-w-72"
-          >
+          <div class="relative mx-auto max-h-[288px] w-full max-w-[192px] md:max-h-[432px] md:max-w-[288px]">
             <img
               width="100%"
               height="100%"
-              class="max-h-64 min-h-64 min-w-48 max-w-48 rounded-lg object-cover md:max-h-96 md:min-h-96 md:min-w-72 md:max-w-72"
+              class="max-h-[288px] max-w-[192px] rounded-lg object-cover md:max-h-[432px] md:max-w-[288px]"
               src="{{ asset($imgSrc ? 'storage/public/' . $imgSrc : 'blank-224X320.webp') }}"
               id="cover-image"
             />
@@ -82,7 +80,7 @@
               <img class="h-10 w-10" src="/icons/upload.svg" alt="upload icon" />
             </div>
           </div>
-          <div class="mt-2 w-full md:mt-0">
+          <div class="mt-2 w-full md:ml-4 md:mt-0">
             <x-input id="title" name="title" label="{{__('Title')}}:" value="{{$title}}" />
             <x-checkbox-holder
               name="genres[]"
