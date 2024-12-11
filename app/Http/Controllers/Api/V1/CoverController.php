@@ -40,7 +40,7 @@ class CoverController extends Controller
     {
         $cover = Cover::where('cover_id', $request->cover_id)->first();
 
-        $cover->update($request->only('title'));
+        $cover->update($request->only('title', 'chapter_ids'));
 
         return new CoverResource($cover);
     }
