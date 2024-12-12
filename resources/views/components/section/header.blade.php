@@ -1,14 +1,16 @@
 <header
   class="flex h-14 w-full items-center justify-between bg-secondary-1 px-4 py-4 sm:px-10 md:h-[4.25rem] md:px-14 lg:px-16"
 >
-  <a class="h-full" href="{{ url('/') }}"><x-logo class="h-full" withText /></a>
+  <div class="relative flex h-full items-center space-x-4 lg:space-x-12">
+    <a class="h-full" href="{{ url('/') }}"><x-logo class="h-full" withText /></a>
+    <x-lang-selector />
+  </div>
 
   <div x-data="{ open: false, write: false }">
     @auth
       <!-- For mobile -->
       <div class="md:hidden">
         <div class="relative flex items-center space-x-4 lg:space-x-12">
-          <x-lang-selector />
           <img src="/icons/burger.svg" alt="Burger menu" class="h-full cursor-pointer" x-on:click="open = !open" />
         </div>
         <!-- Dropdown menu -->
@@ -50,7 +52,6 @@
             <x-links.write-verse class="px-2 py-1" />
           </div>
         </div>
-        <x-lang-selector />
         <div class="flex cursor-pointer flex-row items-center px-4 py-2" x-on:click="open = !open">
           <img
             src="{{ asset(Auth::user()->profile_img_key ? 'storage/public/' . Auth::user()->profile_img_key : '/icons/user.svg') }}"
@@ -75,7 +76,6 @@
     @guest
       <div class="relative flex items-center space-x-4 lg:space-x-12">
         <x-links.discover />
-        <x-lang-selector />
         <x-button class="sm:hidden" href="{{ route('login') }}" variant="primary" size="sm">
           {{ __('Sign in') }}
         </x-button>
